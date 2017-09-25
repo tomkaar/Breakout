@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Cnvas Atari</title>
+    <style>
+      *{ margin: 0; padding: 0; }
+      html, body{ overflow: hidden;}
+      #canvas{ background-color: black; }
+      #gamestop{
+      z-index: 3;
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      pointer-events: none;
+      }
+      #gamestop p{
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        color: white;
+        font-size: 40px;
+        text-align: center;
+        transform: translateY(-50%);
+      }
+      #gamestop.active{
+      display: block;
+      pointer-events: auto;
+      }
+      #gamestop span{
+        font-size: 20px;
+      }
+
+      #gamebar{
+      z-index: 2;
+      position: fixed;
+      top: 0px;
+      right: 0px;
+      padding: 0 20px;
+      width: 150px;
+      height: 50px;
+      box-sizing: border-box;
+      }
+      #gamebar p{
+        width: 100%;
+        color: white;
+        font-size: 20px;
+        line-height: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+    <div id="gamestop"><p>Game over!<br><span>Your Score: <span id="gamestop-score">0</span></span></p></div>
+    <div id="gamebar"><p>Score: <span id="gamebar-score">0</span></p></div>
+    <script src="canvas.js"></script>
+  </body>
+</html>
