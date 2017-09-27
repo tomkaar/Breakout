@@ -13,8 +13,93 @@ var dx = -2;
 var dy = -2;
 var padHeight = 20;
 var padWidth = 100;
+var brickRad = 6;
+var brickKol = 4;
+var brickWidth = 80;
+var brickHeight = 40;
 
 
+//Create brick objects. 
+var brick = [];
+for(var rad = 0; rad < brickRad; rad++) {
+        brick[rad] = [];
+    for (var kol = 0; kol < brickKol; kol++) {
+        brick[rad][kol] = {
+            x: 0, y: 0, status: 1
+        }
+    }
+}
+
+
+//Fill each brick object with a graphic
+function drawBrick() {
+    for(var rad = 0; rad < brickRad; rad++) {
+        for (var kol = 0; kol < brickKol; kol++) {
+            var b = brick[rad][kol];
+            
+            if (b.status == 1) {
+                var bx = (rad * (brickWidth + (window.innerWidth / 6))) + 20;
+                var by = (kol * (brickHeight + 10)) + 20;
+                b.x = bx;
+                b.y = by;
+                c.beginPath();
+                c.rect(bx, by, brickWidth, brickHeight);
+                c.fillStyle = "#ff0000";
+                c.fill();
+                c.closePath();
+            }
+        }
+    }
+}
+
+//Collission med bricks
+function collisionDetect() {
+    for(var rad = 0; rad < brickRad; rad++) {
+        for (var kol = 0; kol < brickKol; kol++) {
+            var b = brick[rad][kol];
+            
+            if (b.status == 1) {    
+
+                if (x >= b.x && x <= b.x+brickWidth && y >= b.y && y <= b.y + brickHeight) {
+                    
+                    //FÖLJANDE ÄR VAD SOM ARBETAS MED!
+                    //JAG FÖRSÖKER FÅ BOLLEN ATT VÄNDA ÅT RÄTT HÅLL
+                    //VID COLLISION!!!!
+                    if (x + ballRadius <= b.x + brickWidth/2) {
+                        dy = -dy;
+                    b.status = 0;
+                    }
+                    else if (y + ballRadius <= b.y + brickHeight/2) {
+                        dx = -dx;
+                    b.status = 0;
+                    }
+                }
+            }
+                
+                /*
+                var distX = Math.abs(x - b.x-brickWidth/2);
+                var distY = Math.abs(y - b.y-brickHeight/2);
+
+                if (distX > (b.x/2 + ballRadius)) { return false; }
+                if (distY > (b.y/2 + ballRadius)) { return false; }
+
+                if (distX <= (b.x + brickWidth/2)) {
+                     dy = -dy;
+                     addScore(10);
+                    console.log(b);
+                     b.status = 0;
+                }
+
+                if (distY <= (b.y + brickHeight/2)) {
+                     dx = -dx;
+                     addScore(10);
+                        console.log(b);
+                     b.status = 0;
+                }
+                */
+        }
+    }
+}
 
 // Resize
 function resize(){
@@ -82,8 +167,10 @@ function drawPad() {
 
 function animate() {
     c.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    drawBrick();
     drawBall();
     drawPad();
+    collisionDetect();
     x += dx;
     y += dy;
 
