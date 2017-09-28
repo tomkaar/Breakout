@@ -13,18 +13,18 @@ var dx = -2;
 var dy = -2;
 var padHeight = 20;
 var padWidth = 100;
-var brickRad = 6;
-var brickKol = 4;
+var brickRow = 15;
+var brickCol = 4;
 var brickWidth = 80;
 var brickHeight = 40;
 
 
 //Create brick objects. 
 var brick = [];
-for(var rad = 0; rad < brickRad; rad++) {
-        brick[rad] = [];
-    for (var kol = 0; kol < brickKol; kol++) {
-        brick[rad][kol] = {
+for(var row = 0; row < brickRow; row++) {
+        brick[row] = [];
+    for (var col = 0; col < brickCol; col++) {
+        brick[row][col] = {
             x: 0, y: 0, status: 1
         }
     }
@@ -33,13 +33,13 @@ for(var rad = 0; rad < brickRad; rad++) {
 
 //Fill each brick object with a graphic
 function drawBrick() {
-    for(var rad = 0; rad < brickRad; rad++) {
-        for (var kol = 0; kol < brickKol; kol++) {
-            var b = brick[rad][kol];
+    for(var row = 0; row < brickRow; row++) {
+        for (var col = 0; col < brickCol; col++) {
+            var b = brick[row][col];
             
             if (b.status == 1) {
-                var bx = (rad * (brickWidth + (window.innerWidth / 6))) + 20;
-                var by = (kol * (brickHeight + 10)) + 20;
+                var bx = (row * (brickWidth + 20)) + 20;
+                var by = (col * (brickHeight + 10)) + 20;
                 b.x = bx;
                 b.y = by;
                 c.beginPath();
@@ -54,49 +54,26 @@ function drawBrick() {
 
 //Collission med bricks
 function collisionDetect() {
-    for(var rad = 0; rad < brickRad; rad++) {
-        for (var kol = 0; kol < brickKol; kol++) {
-            var b = brick[rad][kol];
+    for(var row = 0; row < brickRow; row++) {
+        for (var col = 0; col < brickCol; col++) {
+            var b = brick[row][col];
             
             if (b.status == 1) {    
 
+                //Prevents all bricks in Y axis from being destroyed
                 if (x >= b.x && x <= b.x+brickWidth && y >= b.y && y <= b.y + brickHeight) {
                     
-                    //FÖLJANDE ÄR VAD SOM ARBETAS MED!
-                    //JAG FÖRSÖKER FÅ BOLLEN ATT VÄNDA ÅT RÄTT HÅLL
-                    //VID COLLISION!!!!
-                    if (x + ballRadius <= b.x + brickWidth/2) {
-                        dy = -dy;
-                    b.status = 0;
-                    }
-                    else if (y + ballRadius <= b.y + brickHeight/2) {
+                    //Collision
+                    if (x <= b.x + brickWidth/2) {
                         dx = -dx;
-                    b.status = 0;
+                        b.status = 0;
+                    }
+                    if (y <= b.y + brickHeight) {
+                        dy = -dy;
+                        b.status = 0;
                     }
                 }
             }
-                
-                /*
-                var distX = Math.abs(x - b.x-brickWidth/2);
-                var distY = Math.abs(y - b.y-brickHeight/2);
-
-                if (distX > (b.x/2 + ballRadius)) { return false; }
-                if (distY > (b.y/2 + ballRadius)) { return false; }
-
-                if (distX <= (b.x + brickWidth/2)) {
-                     dy = -dy;
-                     addScore(10);
-                    console.log(b);
-                     b.status = 0;
-                }
-
-                if (distY <= (b.y + brickHeight/2)) {
-                     dx = -dx;
-                     addScore(10);
-                        console.log(b);
-                     b.status = 0;
-                }
-                */
         }
     }
 }
