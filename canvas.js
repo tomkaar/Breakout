@@ -85,7 +85,7 @@ function animate() {
   movingBlockTest.draw();
 }
 
-
+//Canvas, Gamefield & basic collisions
 function Basics(){
     c.clearRect(0, 0, canvasWidth, canvasHeight);
     drawBall();
