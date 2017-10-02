@@ -10,6 +10,7 @@ var c = canvas.getContext("2d");
 
   // Game related
     var totalScore = 0;
+    var life = 3;
 
   // Pad
     var padHeight = 20;
@@ -94,6 +95,7 @@ function Basics(){
     drawBall();
     drawPad();
     drawScore();
+    drawLife();
 
     x += dx;
     y += dy;
@@ -131,7 +133,8 @@ function Basics(){
     }
     // If the ball misses the pad
     if(y + dy > canvasHeight - ballRadius - 15) {
-            gameOver();
+      removeLife(1);
+      dy = -dy;
     }
 }
 
@@ -173,6 +176,23 @@ function addScore(newScore){
 }
 function removeScore(newScore){
   totalScore -= newScore;
+}
+
+// Lives
+function drawLife(){
+  c.font = "16px Arial";
+  c.fillStyle = "gold";
+  c.fillText("Lives: "+ life, 150, canvasHeight-10);
+
+  if(life <= 0){
+    gameOver();
+  }
+}
+function addLife(newLife){
+  life += newLife;
+}
+function removeLife(newLife){
+  life -= newLife;
 }
 
 
