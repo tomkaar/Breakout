@@ -20,18 +20,17 @@ var c = canvas.getContext("2d");
   // Ball
     var ballRadius = 15;
     var acceleration = 0.5; // add speed /(pixels per frame)
-    var x = canvasWidth/2; // Ball spawn x-axes
-    var y = canvasHeight - ballRadius - padHeight - padBottom; // Ball spawn y-axes
-    var dx = -2; // Velocity, x-axes
-  var dy = -2; // Velocity, y-axes
+    var x = canvasWidth/2; // Ball spawn x-axis
+    var y = canvasHeight - ballRadius - padHeight - padBottom; // Ball spawn y-axis
+    var dx = -2; // Velocity, x-axis
+    var dy = -2; // Velocity, y-axis
+    var holdBall = true; // Start game by holding the ball
 
   // Brick Wall
-    var brickRow = 7;
-    var brickCol = 3;
-    var brickWidth = 120;
+    var brickRow = 11;
+    var brickCol = 4;
+    var brickWidth = 110;
     var brickHeight = 25;
-
-
 
 // Init Elements
 
@@ -96,11 +95,17 @@ function Basics(){
     drawPad();
     drawScore();
     drawLife();
-
-    x += dx;
-    y += dy;
-
+    ballMove();
+    
+    //Click to start the game.
+    canvas.addEventListener("click", function() {
+            holdBall = false;
+    });
+    
+    
+    ////////////////////////
     // COLLISSION!!
+    ////////////////////////
     // When the ball hit the top
     if(y - ballRadius < 0){
       dy = -dy;
@@ -139,7 +144,17 @@ function Basics(){
 }
 
 
-
+//Holds the ball at the start of the game. Clicking makes it start moving.
+function ballMove() {
+    if (holdBall) {
+        x = mouse.x;
+        y = canvasHeight - ballRadius - padHeight - padBottom;
+    }
+    else {
+        x += dx;
+        y += dy;
+    }
+}
 
 
 // Draw Ball
