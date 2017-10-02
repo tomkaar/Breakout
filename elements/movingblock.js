@@ -31,20 +31,25 @@ function MovingBlock(top, left, width, height, color, movementX, movementY){
   	  if(this.y < 0 || this.y > canvasHeight - this.height - padHeight - padBottom){
   	  	this.movementY = -this.movementY;
   	  }
-
-
-      // Collision Detection
-      var distX = Math.abs(x - this.x-this.width/2);
-      var distY = Math.abs(y - this.y-this.height/2);
-
-      if (distX > (this.width/2 + ballRadius)) { return false; }
-      if (distY > (this.height/2 + ballRadius)) { return false; }
-
-      if (distX <= (this.width/2)) { 
-        dy = -dy;
-      } 
-      if (distY <= (this.height/2)) { 
-        dx = -dx;
-      }
-  }
+      
+       //Prevents all bricks in Y axis from being destroyed
+        if (x > this.x - ballRadius && x < this.x + this.width + ballRadius && y > this.y - ballRadius && y < this.y + this.height + ballRadius) {
+            
+            //Collision from right to left
+            if (dx < 0 && x >= (this.x + this.width - 20) && x <= this.x + this.width) {
+                dx = -dx;
+            }
+            
+            //Collision from left to right
+            else if (dx > 0 && x <= (this.x + this.width/4)) {
+                dx = -dx;
+            }
+            
+            //Middle of the brick
+            else {
+                dy = -dy;
+            }
+        }
+    }
 }
+

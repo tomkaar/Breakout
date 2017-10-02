@@ -10,6 +10,7 @@ var c = canvas.getContext("2d");
 
   // Game related
     var totalScore = 0;
+    var life = 3;
 
   // Pad
     var padHeight = 20;
@@ -48,19 +49,22 @@ var c = canvas.getContext("2d");
   // Create single objects
     // Each Object needs to be stored in it's own variable.
     // To render the objects you need to call the draw function
-    // from inside the animate function below.
+    // from inside the animate function below.  
 
     // Brick(x, y, width, height, color, score);
+
     var brickTest = new Brick(100, 250, 100, 25, 'rgb(255,0,170)', 10);
     var brickTest2 = new Brick(100, 300, 100, 25, '#00AAFF', -15);
     var brickTest3 = new Brick(650, 350, 100, 25, 'rgba(255,170,0,1)', 10);
     var brickTest4 = new Brick(250, 250, 400, 400, 'blue', 30);
 
     // Block(x, y, width, height, color);
+
     var blockTest = new Block(200, 350, 25, 100, 'grey');
     var blockTest2 = new Block(600, 200, 100, 25, 'grey');
 
     // MovingBlock(x, y, width, height, color, speed x-axes, speed y-axes);
+
     var movingBlockTest = new MovingBlock(0, 500, 100, 25, 'grey', 1, 0);
 
 
@@ -74,10 +78,10 @@ function animate() {
     
   // This is where you call the draw functions
   // Without this the objects won't render
-  brickTest.draw();
-  brickTest2.draw();
-  brickTest3.draw();
-  brickTest4.draw();
+  //brickTest.draw();
+ // brickTest2.draw();
+  //brickTest3.draw();
+  //brickTest4.draw();
 
   blockTest.draw();
   blockTest2.draw();
@@ -91,10 +95,12 @@ function Basics(){
     drawBall();
     drawPad();
     drawScore();
+    drawLife();
 
     x += dx;
     y += dy;
 
+    // COLLISSION!!
     // When the ball hit the top
     if(y - ballRadius < 0){
       dy = -dy;
@@ -104,18 +110,31 @@ function Basics(){
     if(x + ballRadius > canvasWidth|| x - ballRadius < 0){
       dx = -dx;
     }
-    // When the ball hit the bottom
-    else if(y + dy > canvasHeight - ballRadius - 50) {
+    // if ball Y equals pad Y
+    if(y + dy > canvasHeight - ballRadius - 50) {
+        
         // If the ball hit the pad
         if(x > mouse.x - padWidth/2 - ballRadius && x < mouse.x + padWidth/2 + ballRadius) {
-          dx += acceleration;
-          dy += acceleration;
-          dy = -dy;
+            //If ball comes from LEFT and hits LEFT side of pad
+            if (dx > 0 && x > mouse.x - padWidth/2 - ballRadius && x < mouse.x - padWidth/3) {
+                dx = -dx;
+                dy = -dy;
+            }
+            //If ball comes from RIGHT and hits RIGHT side of pad
+            else if (dx < 0 && x > mouse.x + padWidth/4 && x < mouse.x + padWidth/2 + ballRadius) {
+                dx = -dx;
+                dy = -dy;
+            }
+            //If ball hits in the middle of pad. Slows X and reverses Y
+            else {
+                dy = -dy;
+            }
         }
-        // If the ball misses the pad
-        else {
-            gameOver();
-        }
+    }
+    // If the ball misses the pad
+    if(y + dy > canvasHeight - ballRadius - 15) {
+      removeLife(1);
+      dy = -dy;
     }
 }
 
@@ -157,6 +176,23 @@ function addScore(newScore){
 }
 function removeScore(newScore){
   totalScore -= newScore;
+}
+
+// Lives
+function drawLife(){
+  c.font = "16px Arial";
+  c.fillStyle = "gold";
+  c.fillText("Lives: "+ life, 150, canvasHeight-10);
+
+  if(life <= 0){
+    gameOver();
+  }
+}
+function addLife(newLife){
+  life += newLife;
+}
+function removeLife(newLife){
+  life -= newLife;
 }
 
 
