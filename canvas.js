@@ -51,18 +51,21 @@ var c = canvas.getContext("2d");
     // from inside the animate function below.
 
     // Brick(x, y, width, height, color, score);
+/*
     var brickTest = new Brick(100, 250, 100, 25, 'rgb(255,0,170)', 10);
     var brickTest2 = new Brick(100, 300, 100, 25, '#00AAFF', -15);
     var brickTest3 = new Brick(650, 350, 100, 25, 'rgba(255,170,0,1)', 10);
     var brickTest4 = new Brick(250, 250, 400, 400, 'blue', 30);
-
+*/
     // Block(x, y, width, height, color);
+/*
     var blockTest = new Block(200, 350, 25, 100, 'grey');
     var blockTest2 = new Block(600, 200, 100, 25, 'grey');
-
+*/
     // MovingBlock(x, y, width, height, color, speed x-axes, speed y-axes);
+/*
     var movingBlockTest = new MovingBlock(0, 500, 100, 25, 'grey', 1, 0);
-
+*/
 
 
 function animate() {
@@ -105,18 +108,35 @@ function Basics(){
       dx = -dx;
     }
     // When the ball hit the bottom
-    else if(y + dy > canvasHeight - ballRadius - 50) {
+    if(y + dy > canvasHeight - ballRadius - 50) {
+        
         // If the ball hit the pad
         if(x > mouse.x - padWidth/2 - ballRadius && x < mouse.x + padWidth/2 + ballRadius) {
-          dx += acceleration;
-          dy += acceleration;
-          dy = -dy;
-        }
-        // If the ball misses the pad
-        else {
-            gameOver();
+            //If ball comes from LEFT and hits LEFT side of pad
+            if (dx > 0 && x > mouse.x - padWidth/2 - ballRadius && x < mouse.x - padWidth/4) {
+                dx += acceleration;
+                dy += acceleration;
+                dx = -dx;
+                dy = -dy;
+            }
+            //If ball comes from RIGHT and hits RIGHT side of pad
+            else if (dx < 0 && x > mouse.x + padWidth/4 && x < mouse.x + padWidth/2 + ballRadius) {
+                dx += acceleration;
+                dy += acceleration;
+                dx = -dx;
+                dy = -dy;
+            }
+            //If ball hits in the middle of pad. Slows X and reverses Y
+            else {
+                dx -= acceleration;
+                dy = -dy;
+            }
         }
     }
+    // If the ball misses the pad
+    if(y + dy > canvasHeight - ballRadius) {
+            gameOver();
+        }
 }
 
 
