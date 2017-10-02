@@ -23,7 +23,7 @@ var c = canvas.getContext("2d");
     var x = canvasWidth/2; // Ball spawn x-axes
     var y = canvasHeight - ballRadius - padHeight - padBottom; // Ball spawn y-axes
     var dx = -2; // Velocity, x-axes
-  var dy = -2; // Velocity, y-axes
+    var dy = -2; // Velocity, y-axes
 
   // Brick Wall
     var brickRow = 7;
