@@ -27,24 +27,24 @@ function collisionDetect() {
             
             if (b.status == 1) {    
 
-                //TESTORINO!
                 //Prevents all bricks in Y axis from being destroyed
-                if (x > b.x && x < b.x+brickWidth && y > b.y && y < b.y + brickHeight) {
+                if (x > b.x - ballRadius && x < b.x + brickWidth + ballRadius && y > b.y - ballRadius && y < b.y + brickHeight + ballRadius) {
                     
-                    //Collision
+                    //Collision from right to left
                     if (dx < 0 && x >= (b.x + brickWidth - 20) && x <= b.x + brickWidth) {
                         dx = -dx;
                         b.status = 0;
                         addScore(10);
                     }
+                    //Collision from left to right
                     else if (dx > 0 && x <= (b.x + brickWidth/4)) {
                         dx = -dx;
                         b.status = 0;
                         addScore(10);
                     }
                     
-                    
-                    if (y <= b.y + brickHeight) {
+                    //Middle of the brick
+                    else {
                         dy = -dy;
                         b.status = 0;
                         addScore(10);
