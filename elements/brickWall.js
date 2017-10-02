@@ -29,14 +29,21 @@ function collisionDetect() {
 
                 //TESTORINO!
                 //Prevents all bricks in Y axis from being destroyed
-                if (x >= b.x && x <= b.x+brickWidth && y >= b.y && y <= b.y + brickHeight) {
+                if (x > b.x && x < b.x+brickWidth && y > b.y && y < b.y + brickHeight) {
                     
                     //Collision
-                    if (x <= b.x + brickWidth/2) {
+                    if (dx < 0 && x >= (b.x + brickWidth - 20) && x <= b.x + brickWidth) {
                         dx = -dx;
                         b.status = 0;
                         addScore(10);
                     }
+                    else if (dx > 0 && x <= (b.x + brickWidth/4)) {
+                        dx = -dx;
+                        b.status = 0;
+                        addScore(10);
+                    }
+                    
+                    
                     if (y <= b.y + brickHeight) {
                         dy = -dy;
                         b.status = 0;
