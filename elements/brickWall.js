@@ -27,6 +27,7 @@ function collisionDetect() {
             
             if (b.status == 1) {    
 
+                //TESTORINO!
                 //Prevents all bricks in Y axis from being destroyed
                 if (x >= b.x && x <= b.x+brickWidth && y >= b.y && y <= b.y + brickHeight) {
                     
