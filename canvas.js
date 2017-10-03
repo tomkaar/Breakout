@@ -138,6 +138,7 @@ function Basics(){
     }
     // If the ball misses the pad
     if(y + dy > canvasHeight - ballRadius - 15) {
+      screenshake();
       removeLife(1);
       dy = -dy;
     }
@@ -174,9 +175,6 @@ function drawPad() {
   c.fill();
   c.closePath();
 }
-
-
-
 
 
 // Score
@@ -231,8 +229,46 @@ function restartGame(){
 }
 
 
-
-
+// Screen shaker
+function screenshake() {
+    
+    // Create an array of "Pixels" that the body will move to.
+    var arr = [20, -17, 14, -11, 8, -5, 2, -1, 0];
+    
+    // Starts the shake.
+    for(var one = 0; one < arr[0]; one++) {
+            setTimeout(function() { 
+                //window.moveBy(one, 0);
+                canvas.style.transform = "translate("+one + "px, 0)";
+            }, 200);
+    }
+    
+    // Algorithm for the rest of the screen shake
+    for(var i = 1; i < arr.length; i++) {
+        if (arr[i] > arr[i+1] && arr[i+1] != null) {
+            for (var w = arr[i]; w > arr[i+1]; w--) {
+                console.log("w: " + w);
+                setTimeout(function() { 
+                    //window.moveBy(w, 0);
+                    canvas.style.transform = "translate(" + w + "px, 0)";
+                }, 200);
+            }
+        }
+        else if (arr[i] < arr[i+1] && arr[i+1] != null) {
+            for (var q = arr[i]; q < arr[i+1]; q++) {
+                console.log("q: " + q);
+                setTimeout(function() { 
+                    //window.moveBy(q, 0);
+                    canvas.style.transform = "translate(" + q + "px, 0)";
+                }, 200);
+            }
+        }
+        else {
+            //window.moveBy(0,0);
+            canvas.style.transform = "translate(0px, 0)";
+        }
+    }
+}
 
 // Resize
 function resize(){

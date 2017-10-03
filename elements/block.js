@@ -25,7 +25,7 @@ function Block(top, left, width, height, color){
         if (x > this.x - ballRadius && x < this.x + this.width + ballRadius && y > this.y - ballRadius && y < this.y + this.height + ballRadius) {
             
             //Collision from right to left
-            if (dx < 0 && x >= (this.x + this.width - 20) && x <= this.x + this.width) {
+            if (dx < 0 && x >= (this.x + this.width) && x <= this.x + this.width) {
                 dx = -dx;
             }
             
