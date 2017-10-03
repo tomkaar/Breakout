@@ -10,8 +10,8 @@ html, body{
 
 #canvas{ 
     position: relative;
-    transition: 0s all ease;
-  background-color: rgba(255, 0, 0, 0); 
+    transition: 0.01s all linear;
+    background-color: rgba(255, 0, 0, 0); 
 }
 
 #screenRed {
