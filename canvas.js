@@ -58,7 +58,6 @@ var c = canvas.getContext("2d");
     var brickTest = new Brick(100, 250, 100, 25, 'rgb(255,0,170)', 10);
     var brickTest2 = new Brick(100, 300, 100, 25, '#00AAFF', -15);
     var brickTest3 = new Brick(650, 350, 100, 25, 'rgba(255,170,0,1)', 10);
-    var brickTest4 = new Brick(250, 250, 400, 400, 'blue', 30);
 
     // Block(x, y, width, height, color);
 
@@ -67,7 +66,7 @@ var c = canvas.getContext("2d");
 
     // MovingBlock(x, y, width, height, color, speed x-axes, speed y-axes);
 
-    var movingBlockTest = new MovingBlock(0, 500, 100, 25, 'grey', 1, 0);
+    var movingBlockTest = new MovingBlock(50, 500, 100, 25, 'grey', 1, 0);
 
 
 
@@ -80,10 +79,9 @@ function animate() {
     
   // This is where you call the draw functions
   // Without this the objects won't render
-  //brickTest.draw();
- // brickTest2.draw();
-  //brickTest3.draw();
-  //brickTest4.draw();
+  brickTest.draw();
+  brickTest2.draw();
+  brickTest3.draw();
 
   blockTest.draw();
   blockTest2.draw();
@@ -112,7 +110,6 @@ function Basics(){
     // When the ball hit the top
     if(y - ballRadius < 0){
       dy = -dy;
-      addScore(10);
     }
     // When the ball hit the sides
     if(x + ballRadius > canvasWidth|| x - ballRadius < 0){
@@ -234,7 +231,7 @@ function restartGame(){
 
 
 // Screen shaker
-function screenshake() {
+/*function screenshake() {
     
     // Create an array of "Pixels" that the body will move to.
     var arr = [200, -170, 140, -110, 80, -50, 20, -10, 0];
@@ -266,7 +263,27 @@ function screenshake() {
             canvas.style.transform = "translate(0px, 0)";
         }
     }
+}*/
+
+
+
+// Screen Shake
+  // Just make sure the last number in the array is 0
+  // so when the shake is over the screen will be back at 0
+function screenshake() {
+  var arrX = [1, -1, -2, 2, 1, -1, -2, 2, -1, 1, 1, 0];
+  var arrY = [1, -2, 0, 2, -1, 2, 1, 1, -1, 2, -2, 0];
+
+  for (var i = 0; i < arrX.length + 1; i++){
+   (function(i) {
+      setTimeout(function(){
+        canvas.style.transform = "translate(" + arrX[i] + "px, " + arrY[i] + "px)";
+      }, 50 * i);
+    })(i);
+  }
 }
+
+
 
 // Red screen effect when losing a life
 function screenRed() {

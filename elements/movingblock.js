@@ -25,7 +25,7 @@ function MovingBlock(top, left, width, height, color, movementX, movementY){
   	  this.x += this.movementX;
   	  this.y += this.movementY;
 
-  	  if(this.x < 0 || this.x > canvasWidth - this.width){
+  	  if(this.x < 0 + ballRadius*2 || this.x > canvasWidth - this.width - ballRadius*2){
   	  	this.movementX = -this.movementX;
   	  }
   	  if(this.y < 0 || this.y > canvasHeight - this.height - padHeight - padBottom){
