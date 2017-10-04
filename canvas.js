@@ -178,11 +178,9 @@ function drawPad() {
 }
 
 
-<<<<<<< HEAD
-=======
 // Score
 function drawScore(){
-  c.font = "16px Arial";
+  c.font = "16px 'Press Start 2P'";
   c.fillStyle = "gold";
   c.fillText("Score: "+ totalScore, 10, canvasHeight-10);
   document.getElementById('gameover-score').innerHTML = totalScore;
@@ -196,7 +194,7 @@ function removeScore(newScore){
 
 // Lives
 function drawLife(){
-  c.font = "16px Arial";
+  c.font = "16px 'Press Start 2P'";
   c.fillStyle = "gold";
   c.fillText("Lives: "+ life, 150, canvasHeight-10);
 
@@ -281,7 +279,6 @@ function screenRed() {
         }
     }, 10);
 }
->>>>>>> 530b289b03f737c5eb3a264204a43eaae53f8172
 
 // Resize
 function resize(){
@@ -300,9 +297,6 @@ var mouse = {
 canvas.addEventListener('mousemove', function(event){
   mouse.x = event.x;
 })
-
-
-
 
 
 setInterval(animate, intervall);
