@@ -249,14 +249,14 @@ function screenshake() {
     // Algorithm for the rest of the screen shake
     for(var i = 1; i < arr.length; i++) {
         if (arr[i] > arr[i+1] && arr[i+1] != null) {
-            for (var w = arr[i]; w > arr[i+1]; w--) {
+            for (var w = arr[i]; w > arr[i+1]; w++) {
                 setTimeout(function() { 
                     canvas.style.transform = "translate(" + w + "px, 0)";
                 }, 100);
             }
         }
         else if (arr[i] < arr[i+1] && arr[i+1] != null) {
-            for (var q = arr[i]; q < arr[i+1]; q++) {
+            for (var q = arr[i]; q < arr[i+1]; q--) {
                 setTimeout(function() { 
                     canvas.style.transform = "translate(" + q + "px, 0)";
                 }, 100);
