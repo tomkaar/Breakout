@@ -33,14 +33,14 @@ function collisionDetect() {
                     //Collision from right to left
                     if (dx < 0 && x >= (b.x + brickWidth - 20) && x <= b.x + brickWidth) {
                         dx = -dx;
-                        screenshake();
+                        shake.small();
                         b.status = 0;
                         addScore(10);
                     }
                     //Collision from left to right
                     else if (dx > 0 && x <= (b.x + brickWidth/4)) {
                         dx = -dx;
-                        screenshake();
+                        shake.small();
                         b.status = 0;
                         addScore(10);
                     }
@@ -48,7 +48,7 @@ function collisionDetect() {
                     //Middle of the brick
                     else {
                         dy = -dy;
-                        screenshake();
+                        shake.small();
                         b.status = 0;
                         addScore(10);
                     }

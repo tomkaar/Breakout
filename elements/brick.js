@@ -27,21 +27,21 @@ function Brick(top, left, width, height, color, score){
             //Collision from right to left
             if (dx < 0 && x >= (this.x + this.width - 20) && x <= this.x + this.width) {
                 dx = -dx;
-                screenshake();
+                shake.small();
                 this.status = false;
             }
             
             //Collision from left to right
             else if (dx > 0 && x <= (this.x + this.width/4)) {
                 dx = -dx;
-                screenshake();
+                shake.small();
                 this.status = false;
             }
             
             //Middle of the brick
             else {
                 dy = -dy;
-                screenshake();
+                shake.small();
                 this.status = false;
             }
         }

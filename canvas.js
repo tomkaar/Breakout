@@ -1,3 +1,5 @@
+
+
 // Canvas Basics
 var canvas = document.getElementById("canvas");
 var c = canvas.getContext("2d");
@@ -68,27 +70,7 @@ var c = canvas.getContext("2d");
 
     var movingBlockTest = new MovingBlock(50, 500, 100, 25, 'grey', 1, 0);
 
-
-
-function animate() {
-  Basics(); // Do not remove
-
-  // Draw Brick Wall
-  drawBrick();
-  collisionDetect();
-    
-  // This is where you call the draw functions
-  // Without this the objects won't render
-  brickTest.draw();
-  brickTest2.draw();
-  brickTest3.draw();
-
-  blockTest.draw();
-  blockTest2.draw();
-
-  movingBlockTest.draw();
-}
-
+    var shake = new screenshake();
 
 function Basics(){
     c.clearRect(0, 0, canvasWidth, canvasHeight);
@@ -105,7 +87,6 @@ function Basics(){
     
     
     // COLLISSION!!
-    
     // When the ball hit the top
     if(y - ballRadius < 0){
       dy = -dy;
@@ -139,7 +120,7 @@ function Basics(){
     if(y + dy > canvasHeight - ballRadius - 15) {
         holdBall = true;
         screenRed();
-        screenshake();
+        shake.big();
         removeLife(1);
         dy = -dy;
     }
@@ -177,109 +158,6 @@ function drawPad() {
   c.closePath();
 }
 
-
-// Score
-function drawScore(){
-  c.font = "16px 'Press Start 2P'";
-  c.fillStyle = "gold";
-  c.fillText("Score: "+ totalScore, 10, canvasHeight-10);
-  document.getElementById('gameover-score').innerHTML = totalScore;
-}
-function addScore(newScore){
-  totalScore += newScore;
-}
-function removeScore(newScore){
-  totalScore -= newScore;
-}
-
-// Lives
-function drawLife(){
-  c.font = "16px 'Press Start 2P'";
-  c.fillStyle = "gold";
-  c.fillText("Lives: "+ life, 150, canvasHeight-10);
-
-  if(life <= 0){
-    gameOver();
-  }
-}
-function addLife(newLife){
-  life += newLife;
-}
-function removeLife(newLife){
-  life -= newLife;
-}
-
-
-
-
-
-// Game Over
-function gameOver(){
-  document.getElementById("gameover").classList.add('active');
-  ballRadius = 15;
-  x = canvasWidth/2;
-  y = canvasHeight - ballRadius - padHeight - padBottom;
-  dx = 0;
-  dy = 0;
-  mouse.x = canvasWidth/2;
-}
-
-// Restart game by reloading window
-function restartGame(){
-  location.reload();
-}
-
-
-// Screen Shake
-  // Just make sure the last number in the array is 0
-  // so when the shake is over the screen will be back at 0
-function screenshake() {
-  var arrX = [1, -1, -2, 2, 1, -1, -2, 2, -1, 1, 1, 0];
-  var arrY = [1, -2, 0, 2, -1, 2, 1, 1, -1, 2, -2, 0];
-
-    
-    /*
-    //Metod 1
-  for (var i = 0; i < arrX.length + 1; i++){
-   (function(i) {
-      setTimeout(function(){
-        canvas.style.transform = "translate(" + arrX[i] + "px, " + arrY[i] + "px)";
-      }, 50 * i);
-    })(i);
-  }*/
-    
-    //Metod 2
-    var i = 0;
-    
-    var shaker = setInterval(function() {
-        canvas.style.transform = "translate(" + arrX[i] + "px, " + arrY[i] + "px)";
-        i++;
-        
-        if (i >= arrX.length) {
-            clearInterval(shaker);
-        }
-    }, 30);
-}
-
-
-
-// Red screen effect when losing a life
-function screenRed() {
-    
-    //Reset opacity to 80%
-    var opac = 0.8;
-    
-    //create & run an interval loop with 10ms intervals. 
-    var SR = setInterval(function() {
-        redScreen.style.background = "rgba(255, 0, 0, " + opac + ")";
-        opac -= 0.01;
-    
-        if (opac <= 0) {
-            clearInterval(SR);
-        }
-    }, 10);
-}
-
 // Resize
 function resize(){
   canvas.width = canvasWidth;
@@ -298,5 +176,26 @@ canvas.addEventListener('mousemove', function(event){
   mouse.x = event.x;
 })
 
+window.setTimeout(gameloop, intervall);
 
-setInterval(animate, intervall);
+function gameloop() {
+    
+        Basics(); // Do not remove
+        // Draw Brick Wall
+        drawBrick();
+        collisionDetect();
+        
+        // This is where you call the draw functions
+        // Without this the objects won't render
+        brickTest.draw();
+        brickTest2.draw();
+        brickTest3.draw();
+        blockTest.draw();
+        blockTest2.draw();
+        movingBlockTest.draw();
+    
+    setTimeout(gameloop, intervall);
+}
+
+
+//var gameloop = setInterval(animate, intervall);
