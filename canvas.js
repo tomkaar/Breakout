@@ -138,6 +138,7 @@ function Basics(){
     }
     // If the ball misses the pad
     if(y + dy > canvasHeight - ballRadius - 15) {
+        holdBall = true;
         screenRed();
         screenshake();
         removeLife(1);
