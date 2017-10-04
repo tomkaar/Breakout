@@ -25,8 +25,8 @@ var c = canvas.getContext("2d");
     var acceleration = 0.5; // add speed /(pixels per frame)
     var x = canvasWidth/2; // Ball spawn x-axis
     var y = canvasHeight - ballRadius - padHeight - padBottom; // Ball spawn y-axis
-    var dx = -2; // Velocity, x-axis
-    var dy = -2; // Velocity, y-axis
+    var dx = -4; // Velocity, x-axis
+    var dy = -4; // Velocity, y-axis
     var holdBall = true; // Start game by holding the ball
 
   // Brick Wall
@@ -104,9 +104,8 @@ function Basics(){
     });
     
     
-    ////////////////////////
     // COLLISSION!!
-    ////////////////////////
+    
     // When the ball hit the top
     if(y - ballRadius < 0){
       dy = -dy;
@@ -138,6 +137,7 @@ function Basics(){
     }
     // If the ball misses the pad
     if(y + dy > canvasHeight - ballRadius - 15) {
+        holdBall = true;
         screenRed();
         screenshake();
         removeLife(1);
@@ -178,6 +178,8 @@ function drawPad() {
 }
 
 
+<<<<<<< HEAD
+=======
 // Score
 function drawScore(){
   c.font = "16px Arial";
@@ -230,43 +232,6 @@ function restartGame(){
 }
 
 
-// Screen shaker
-/*function screenshake() {
-    
-    // Create an array of "Pixels" that the body will move to.
-    var arr = [200, -170, 140, -110, 80, -50, 20, -10, 0];
-    
-    // Starts the shake
-    for(var one = 0; one < arr[0]; one++) {
-            setTimeout(function() { 
-                canvas.style.transform = "translate("+one + "px, 0)";
-            }, 100);
-    }
-    
-    // Algorithm for the rest of the screen shake
-    for(var i = 1; i < arr.length; i++) {
-        if (arr[i] > arr[i+1] && arr[i+1] != null) {
-            for (var w = arr[i]; w > arr[i+1]; w--) {
-                setTimeout(function() { 
-                    canvas.style.transform = "translate(" + w + "px, 0)";
-                }, 100);
-            }
-        }
-        else if (arr[i] < arr[i+1] && arr[i+1] != null) {
-            for (var q = arr[i]; q < arr[i+1]; q++) {
-                setTimeout(function() { 
-                    canvas.style.transform = "translate(" + q + "px, 0)";
-                }, 100);
-            }
-        }
-        else {
-            canvas.style.transform = "translate(0px, 0)";
-        }
-    }
-}*/
-
-
-
 // Screen Shake
   // Just make sure the last number in the array is 0
   // so when the shake is over the screen will be back at 0
@@ -274,13 +239,28 @@ function screenshake() {
   var arrX = [1, -1, -2, 2, 1, -1, -2, 2, -1, 1, 1, 0];
   var arrY = [1, -2, 0, 2, -1, 2, 1, 1, -1, 2, -2, 0];
 
+    
+    /*
+    //Metod 1
   for (var i = 0; i < arrX.length + 1; i++){
    (function(i) {
       setTimeout(function(){
         canvas.style.transform = "translate(" + arrX[i] + "px, " + arrY[i] + "px)";
       }, 50 * i);
     })(i);
-  }
+  }*/
+    
+    //Metod 2
+    var i = 0;
+    
+    var shaker = setInterval(function() {
+        canvas.style.transform = "translate(" + arrX[i] + "px, " + arrY[i] + "px)";
+        i++;
+        
+        if (i >= arrX.length) {
+            clearInterval(shaker);
+        }
+    }, 30);
 }
 
 
@@ -301,6 +281,7 @@ function screenRed() {
         }
     }, 10);
 }
+>>>>>>> 530b289b03f737c5eb3a264204a43eaae53f8172
 
 // Resize
 function resize(){

@@ -30,7 +30,7 @@ function Block(top, left, width, height, color){
             }
             
             //Collision from left to right
-            else if (dx > 0 && x <= (this.x + this.width/4)) {
+            else if (dx > 0 && x <= (this.x + this.width)) {
                 dx = -dx;
             }
             
