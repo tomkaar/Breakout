@@ -140,7 +140,7 @@ function drawInfoText(){
   c.font = "12px 'Press Start 2P'";
   c.textAlign="right"; 
   c.fillStyle = "gold";
-  c.fillText("P = Pause", canvasWidth-40, canvasHeight-10);
+  c.fillText("Space/ ctrl = Slowmotion \t P = Pause", canvasWidth-40, canvasHeight-10);
 }
 
 
@@ -216,7 +216,7 @@ function gameloop() {
         brickTest3.draw();
         blockTest.draw();
         blockTest2.draw();
-        movingBlockTest.draw();
+        //movingBlockTest.draw();
     
     //setTimeout(gameloop, intervall);
     window.requestAnimationFrame(gameloop);
