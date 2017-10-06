@@ -4,61 +4,80 @@ window.addEventListener("keyup", keysup, false);
 
 var smt = slowMoTime;
 var cooldown = 10;
+var slowLoop;
+var rechargeMeter = 100;
 
 // On button press = drain slowmotion meter from 3 to 0. if 0 = start 10s cooldown
 function keys(e) {
-    var keyCode = e.keyCode;
-    if (keyCode == 32 || keyCode == 17) {
-        if (cooldown >= 10) {
-            t -= 0.1;
-            smt -= 0.1;
-            
-            if (t <= 0.1) {
-                t = 0.1;
-            }
-            
-            if (smt <= 0) {
-                cooldownFunc();
-            }
-        }
+  var keyCode = e.keyCode;
+  
+  if (keyCode == 32 || keyCode == 17) {
+    if (cooldown >= 10) {
+      t = 0.1;
+      
+      setTimeout(function() {
+        smt -= 1;
+      }, 1000);
+      
+      if (smt <= 0) {
+        cooldownFunc();
+      }
+      
+      console.log("smt: " + smt);
     }
+  }
 }
 
 
 // On button release = recharge smt back to 3
 function keysup(e) {
-    var keyCode = e.keyCode;
-    if (keyCode == 32 || keyCode == 17) {
-        t = 1;
-        
-        let cdLoop = setInterval(function() {
-            if (smt < slowMoTime) {
-                smt++;
-            }
-            else if (smt >= slowMoTime) {
-                clearInterval(cdLoop);
-            }
-        }, 1000);
-    }
+  var keyCode = e.keyCode;
+  if (keyCode == 32 || keyCode == 17) {
+    t = 1;
+    
+    let cdLoop = setInterval(function() {
+      if (smt < slowMoTime) {
+        smt++;
+      }
+      else if (smt >= slowMoTime) {
+        clearInterval(cdLoop);
+      }
+    }, 1000);
+  }
 }
 
 // Cooldown function. Lasts 10 seconds. Replenishes cooldown and smt.
 function cooldownFunc() {
-    t = 1;
-    cooldown = 0;
-    
-    let cdLoop = setInterval(function() {
-        if (cooldown < 10) {
-            cooldown++;
-            smt++;
-            if (smt => slowMoTime) {
-                smt = slowMoTime;
-            }
-        }
-        else if (cooldown >= 10) {
-            clearInterval(cdLoop);
-        }
-    }, 1000);
+  clearInterval(slowLoop);
+  t = 1;
+  cooldown = 0;
+  
+  let cdLoop = setInterval(function() {
+    console.log("cooldown: " + cooldown);
+    if (cooldown < 10) {
+      cooldown++;
+      smt++;
+      if (smt => slowMoTime) {
+        smt = slowMoTime;
+      }
+    }
+    else if (cooldown >= 10) {
+      clearInterval(cdLoop);
+    }
+  }, 1000);
+}
+
+function drawMeter() {
+  c.font = "12px 'Press Start 2P'";
+  c.textAlign="left"; 
+  c.fillStyle = "gold";
+  c.fillText("Bullet-time: ", 300, canvasHeight-10);
+  
+  c.beginPath();
+  c.rect(500, canvasHeight-10, rechargeMeter, 30);
+  c.fillStyle = 'white';
+  c.fill();
+  c.closePath();
 }
 
 // expl.
