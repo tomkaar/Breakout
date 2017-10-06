@@ -16,8 +16,6 @@ function keys(e) {
       if (smt <= 0) {
         cooldownFunc();
       }
-      
-      console.log("smt: " + smt);
     }
   }
 }
@@ -32,7 +30,6 @@ function keysup(e) {
       if (smt < slowMoTime) {
         let cdLoop = setInterval(function() {
           smt += 0.1;
-          console.log("smt cooldown: " + smt);
           
           if (smt >= slowMoTime) {
             smt = slowMoTime;
@@ -79,6 +76,14 @@ function drawSlomo() {
     c.fillStyle = 'white';
   }
   c.fill();
+  
+  
+  c.beginPath();
+  c.lineWidth = "2";
+  c.strokeStyle = "white";
+  c.rect(450, canvasHeight-22, 121, 11);
+  c.stroke();
+  
   c.closePath();
 }
 
