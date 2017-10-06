@@ -82,6 +82,7 @@ function Basics(){
     drawPad();
     drawScore();
     drawLife();
+    drawSlomo();
     ballMove();
     drawInfoText();
     

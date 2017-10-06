@@ -5,7 +5,7 @@ window.addEventListener("keyup", keysup, false);
 var smt = slowMoTime;
 var cooldown = 10;
 var slowLoop;
-var rechargeMeter = 100;
+var rechargeMeter = 125;
 
 // On button press = drain slowmotion meter from 3 to 0. if 0 = start 10s cooldown
 function keys(e) {
@@ -14,6 +14,7 @@ function keys(e) {
   if (keyCode == 32 || keyCode == 17) {
     if (cooldown >= 10) {
       t = 0.1;
+      rechargeMeter -= slowMoTime;
       
       setTimeout(function() {
         smt -= 1;
@@ -39,7 +40,7 @@ function keysup(e) {
       if (smt < slowMoTime) {
         smt++;
       }
-      else if (smt >= slowMoTime) {
+      if (smt >= slowMoTime) {
         clearInterval(cdLoop);
       }
     }, 1000);
@@ -51,9 +52,29 @@ function cooldownFunc() {
   clearInterval(slowLoop);
   t = 1;
   cooldown = 0;
+  rechargeMeter = 0;
   
+  let cdLoop2 = setInterval(function() {
+    rechargeMeter++; 
+    //console.log("recharge: " + (rechargeMeter % 10+1));
+    if(rechargeMeter%12 == 11) {
+      cooldown++;
+      console.log("cooldown: " + cooldown);
+      
+      if (cooldown >= 10) {
+        cooldown == 10;
+      }
+    }
+    if (rechargeMeter >= 125) {
+        rechargeMeter == 125;
+        smt = slowMoTime;
+        clearInterval(cdLoop2);
+    }
+  }, 100);
+  /*
   let cdLoop = setInterval(function() {
     console.log("cooldown: " + cooldown);
+    
     if (cooldown < 10) {
       cooldown++;
       smt++;
@@ -64,18 +85,23 @@ function cooldownFunc() {
     else if (cooldown >= 10) {
       clearInterval(cdLoop);
     }
-  }, 1000);
+  }, 1000);*/
 }
 
-function drawMeter() {
+function drawSlomo() {
   c.font = "12px 'Press Start 2P'";
   c.textAlign="left"; 
   c.fillStyle = "gold";
   c.fillText("Bullet-time: ", 300, canvasHeight-10);
   
   c.beginPath();
-  c.rect(500, canvasHeight-10, rechargeMeter, 30);
-  c.fillStyle = 'white';
+  c.rect(450, canvasHeight-22, rechargeMeter, 10);
+  if (rechargeMeter == 125) {
+    c.fillStyle = 'green';
+  }
+  else {
+    c.fillStyle = 'white';
+  }
   c.fill();
   c.closePath();
 }
