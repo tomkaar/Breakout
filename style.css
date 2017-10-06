@@ -31,6 +31,7 @@ html, body{
   pointer-events: none;
 }
 
+
 #gameover{
   z-index: 3;
   display: none;
@@ -58,15 +59,72 @@ html, body{
     font-size: 15px;
     line-height: 35px;
   }
+  #gameover.active .gameover-logo{
+    font-size: 40px;
+    line-height: 30px;
+    text-align: center;
+    text-transform: uppercase;
+    animation: 5s turnred ease-in-out 1s; 
+    animation-fill-mode: forwards;
+  }
   .restartGame{
     color: white;
     font-size: 20px !important;
     cursor: pointer;
+    animation: 1s glowingText ease-in-out infinite; 
   }
 #gameover.active{
   display: block;
   pointer-events: auto;
 }
+
+
+
+#splashscreen{
+  z-index: 3;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  pointer-events: none;
+}
+  #splashscreen p{
+    position: relative;
+    top: 50%;
+    width: 100%;
+    color: white;
+    font-size: 12px;
+    line-height: 40px;
+    text-align: center;
+    text-transform: uppercase;
+    transform: translateY(-50%);
+  }
+  #splashscreen span{
+    color: lightgrey;
+  }
+  .logo{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -120px) rotate(-5deg);
+    font-size: 80px !important;
+    line-height: 130px !important;
+  }
+  .startGame{
+    cursor: pointer;
+    font-size: 17px;
+    line-height: 35px !important;
+    animation: 1s glowingText ease-in-out infinite;
+  }
+#splashscreen.active{
+  display: block;
+  pointer-events: auto;
+}
+
+
+
 
 #gamebar{
   z-index: 2;
@@ -85,3 +143,23 @@ html, body{
     line-height: 50px;
     font-family: sans-serif;
   }
+
+
+
+
+@keyframes glowingText{
+  0%, 100%{
+    color: white;
+    opacity: 1;
+  }
+  50%{
+    color: lightgrey;
+    opacity: 0.5;
+  }
+}
+
+@keyframes turnred{
+  0%{ color: lightgrey; }
+  100%{ color: red; }
+}
+

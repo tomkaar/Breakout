@@ -7,6 +7,7 @@ function gameOver(){
   dx = 0;
   dy = 0;
   mouse.x = canvasWidth/2;
+  holdBall = false;
 }
 
 // Restart game by reloading window

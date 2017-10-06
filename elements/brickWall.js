@@ -5,8 +5,8 @@ function drawBrick() {
             var b = brick[row][col];
             
             if (b.status == 1) {
-                var bx = (row * (brickWidth + 20)) + 20;
-                var by = (col * (brickHeight + 10)) + 20;
+                var bx = (row * (brickWidth + brickPaddingX)) + 20;
+                var by = (col * (brickHeight + brickPaddingY)) + 20;
                 b.x = bx;
                 b.y = by;
                 c.beginPath();
