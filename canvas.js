@@ -19,6 +19,7 @@ var c = canvas.getContext("2d");
     var life = 3;
     var t = 1; // time, change the speed of objetcs
     var slowMoTime = 3; // for how long slowMoTime is going to last
+    var shake = new screenshake();
 
   // Pad
     var padHeight = 20;
@@ -75,18 +76,6 @@ var c = canvas.getContext("2d");
 
     var movingBlockTest = new MovingBlock(50, 500, 100, 25, 'grey', 1, 0);
 
-    var shake = new screenshake();
-
-    function startGame(){
-      document.querySelector(".active").classList.remove("active");
-      start = '0';
-    }
-    if(start = '0'){
-      canvas.addEventListener("click", function() {
-              holdBall = false;
-      });
-    }
-
 function Basics(){
     c.clearRect(0, 0, canvasWidth, canvasHeight);
     drawBall();
@@ -94,6 +83,7 @@ function Basics(){
     drawScore();
     drawLife();
     ballMove();
+    drawInfoText();
     
     // COLLISSION!!
     // When the ball hit the top
@@ -135,13 +125,31 @@ function Basics(){
     }
 }
 
+// Start Screen
+function startGame(){
+      document.querySelector(".active").classList.remove("active");
+      start = '0';
+    }
+    if(start = '0'){
+      canvas.addEventListener("click", function() {
+              holdBall = false;
+      });
+    }
+
+function drawInfoText(){
+  c.font = "12px 'Press Start 2P'";
+  c.textAlign="right"; 
+  c.fillStyle = "gold";
+  c.fillText("P = Pause", canvasWidth-40, canvasHeight-10);
+}
+
 
 //Holds the ball at the start of the game. Clicking makes it start moving.
 function ballMove() {
     if (holdBall) {
         x = mouse.x;
         y = canvasHeight - ballRadius - padHeight - padBottom;
-        // Clcik when ready message when holding the ball
+        // "Click when ready message" when holding the ball, show/ hidden
         if(start = '0'){
           c.font = "16px 'Press Start 2P'";
           c.fillStyle = "white";
