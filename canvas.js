@@ -176,7 +176,7 @@ canvas.addEventListener('mousemove', function(event){
   mouse.x = event.x;
 })
 
-window.setTimeout(gameloop, intervall);
+///window.setTimeout(gameloop, intervall);
 
 function gameloop() {
     
@@ -194,8 +194,8 @@ function gameloop() {
         blockTest2.draw();
         movingBlockTest.draw();
     
-    setTimeout(gameloop, intervall);
+    //setTimeout(gameloop, intervall);
+    window.requestAnimationFrame(gameloop);
 }
 
-
-//var gameloop = setInterval(animate, intervall);
+window.requestAnimationFrame(gameloop);
