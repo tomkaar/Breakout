@@ -1,115 +1,64 @@
-/*
-// Add event listeners
-window.addEventListener("keydown", keys, true);
-window.addEventListener("keyup", keysy, true);
-
-
-var dxPlaceholder = dx;
-var dyPlaceholder = dy;
-
-// Slow down game while holding CTRL
-function keys(e) {
-    var keyCode = e.keyCode;
-    if (keyCode == 17) {
-        
-        if (dx < 0 && dy < 0) {
-            dx += 0.2;
-            dy += 0.2;
-            if (dx >= -0.5) { //Max threshold
-                dx = -0.5;
-            }
-            if (dy >= -0.5) { //Max threshold
-                dy = -0.5;
-            }
-        }
-        
-        if (dx > 0 && dy > 0) {
-            dx -= 0.2;
-            dy -= 0.2;
-            if (dx <= 0.5) { //Max threshold
-                dx = 0.5;
-            }
-            if (dy <= 0.5) { //Max threshold
-                dy = 0.5;
-            }
-        }
-        
-        if (dx < 0 && dy > 0) {
-            dx += 0.2;
-            dy -= 0.2;
-            if (dx >= -0.5) { //Max threshold
-                dx = 0.5;
-            }
-            if (dy <= 0.5) { //Max threshold
-                dy = 0.5;
-            }
-        }   
-        
-        if (dx > 0 && dy < 0) {
-            dx -= 0.2;
-            dy += 0.2;
-            if (dx <= 0.5) { //Max threshold
-                dx = 0.5;
-            }
-            if (dy >= -0.5) { //Max threshold
-                dy = -0.5;
-            }
-        }
-    }
-}
-
-
-// Speed up when releasing CTRL
-function keysy(e) {
-    var KeyCode = e.keyCode;
-    if (KeyCode == 17) {
-        speedup();
-    }
-}
-
-// Need this function for setTimeout else the ball will shoot like a bullet
-function speedup() {
-    while (dx < dxPlaceholder) {
-        dx++;
-    }
-    while (dy < dyPlaceholder) {
-        dy++;
-    }
-    while (dx > dxPlaceholder) {
-        dx--;
-    }
-    while (dy > dyPlaceholder) {
-        dy--;
-    }
-}
-*/
-
 // Add Eventlister
 window.addEventListener("keydown", keys, true);
+window.addEventListener("keyup", keysup, false);
 
 var smt = slowMoTime;
+var cooldown = 10;
 
+// On button press = drain slowmotion meter from 3 to 0. if 0 = start 10s cooldown
 function keys(e) {
     var keyCode = e.keyCode;
-    if (keyCode == 32) {
-        if (t > 0.1) {
-            t = 0.1;
-            var sCD = setInterval(function() {
-                smt--;
-                console.log(smt);
-                if(smt <= 0) {
-                    t = 1;
-                    clearInterval(sCD);
-                }
-            }, 1000);
-            smt = slowMoTime;
+    if (keyCode == 32 || keyCode == 17) {
+        if (cooldown >= 10) {
+            t -= 0.1;
+            smt -= 0.1;
+            
+            if (t <= 0.1) {
+                t = 0.1;
+            }
+            
+            if (smt <= 0) {
+                cooldownFunc();
+            }
         }
-        else {
-            t = 1;
-            smt = slowMoTime;
-        }
-        
     }
+}
+
+
+// On button release = recharge smt back to 3
+function keysup(e) {
+    var keyCode = e.keyCode;
+    if (keyCode == 32 || keyCode == 17) {
+        t = 1;
+        
+        let cdLoop = setInterval(function() {
+            if (smt < slowMoTime) {
+                smt++;
+            }
+            else if (smt >= slowMoTime) {
+                clearInterval(cdLoop);
+            }
+        }, 1000);
+    }
+}
+
+// Cooldown function. Lasts 10 seconds. Replenishes cooldown and smt.
+function cooldownFunc() {
+    t = 1;
+    cooldown = 0;
+    
+    let cdLoop = setInterval(function() {
+        if (cooldown < 10) {
+            cooldown++;
+            smt++;
+            if (smt => slowMoTime) {
+                smt = slowMoTime;
+            }
+        }
+        else if (cooldown >= 10) {
+            clearInterval(cdLoop);
+        }
+    }, 1000);
 }
 
 // expl.
