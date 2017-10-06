@@ -12,10 +12,13 @@ var c = canvas.getContext("2d");
 
   // Screen effects
     var redScreen = document.getElementById("screenRed");
+    var start = '0';
 
   // Game related
     var totalScore = 0;
     var life = 3;
+    var t = 1; // time, change the speed of objetcs
+    var slowMoTime = 3; // for how long slowMoTime is going to last
 
   // Pad
     var padHeight = 20;
@@ -34,7 +37,9 @@ var c = canvas.getContext("2d");
   // Brick Wall
     var brickRow = 11;
     var brickCol = 4;
-    var brickWidth = 110;
+    var brickPaddingX = 20;
+    var brickPaddingY = 10;
+    var brickWidth = (canvasWidth/brickRow) - brickPaddingX - 20/brickRow;
     var brickHeight = 25;
 
 // Init Elements
@@ -72,6 +77,16 @@ var c = canvas.getContext("2d");
 
     var shake = new screenshake();
 
+    function startGame(){
+      document.querySelector(".active").classList.remove("active");
+      start = '0';
+    }
+    if(start = '0'){
+      canvas.addEventListener("click", function() {
+              holdBall = false;
+      });
+    }
+
 function Basics(){
     c.clearRect(0, 0, canvasWidth, canvasHeight);
     drawBall();
@@ -79,12 +94,6 @@ function Basics(){
     drawScore();
     drawLife();
     ballMove();
-    
-    //Click to start the game.
-    canvas.addEventListener("click", function() {
-            holdBall = false;
-    });
-    
     
     // COLLISSION!!
     // When the ball hit the top
@@ -132,10 +141,17 @@ function ballMove() {
     if (holdBall) {
         x = mouse.x;
         y = canvasHeight - ballRadius - padHeight - padBottom;
+        // Clcik when ready message when holding the ball
+        if(start = '0'){
+          c.font = "16px 'Press Start 2P'";
+          c.fillStyle = "white";
+          c.textAlign="center"; 
+          c.fillText("Click when ready!",canvasWidth/2,canvasHeight - ballRadius - padHeight - padBottom - 100);
+        }
     }
     else {
-        x += dx;
-        y += dy;
+        x += (t*dx);
+        y += (t*dy);
     }
 }
 

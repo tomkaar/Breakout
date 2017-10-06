@@ -1,6 +1,7 @@
 // Lives
 function drawLife(){
-  c.font = "16px Arial";
+  c.font = "12px 'Press Start 2P'";
+  c.textAlign="left"; 
   c.fillStyle = "gold";
   c.fillText("Lives: "+ life, 150, canvasHeight-10);
 
