@@ -32,55 +32,10 @@ html, body{
 }
 
 
-#gameover{
-  z-index: 3;
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.8);
-  pointer-events: none;
-}
-  #gameover p{
-    position: absolute;
-    top: 50%;
-    width: 100%;
-    color: white;
-    font-size: 40px;
-    line-height: 30px;
-    text-align: center;
-    text-transform: uppercase;
-    transform: translateY(-50%);
-  }
-  #gameover span{
-    color: lightgrey;
-    font-size: 15px;
-    line-height: 35px;
-  }
-  #gameover.active .gameover-logo{
-    font-size: 40px;
-    line-height: 30px;
-    text-align: center;
-    text-transform: uppercase;
-    animation: 5s turnred ease-in-out 1s; 
-    animation-fill-mode: forwards;
-  }
-  .restartGame{
-    color: white;
-    font-size: 20px !important;
-    cursor: pointer;
-    animation: 1s glowingText ease-in-out infinite; 
-  }
-#gameover.active{
-  display: block;
-  pointer-events: auto;
-}
-
-
-
-#splashscreen{
+#startscreen,
+#winscreen,
+#gameoverscreen,
+#pausscreen{
   z-index: 3;
   display: none;
   position: fixed;
@@ -91,7 +46,64 @@ html, body{
   background: rgba(0, 0, 0, 0.85);
   pointer-events: none;
 }
-  #splashscreen p{
+#pausscreen{
+  background: rgba(0, 0, 0, 1);
+}
+
+  #winscreen.active,
+  #startscreen.active,
+  #gameoverscreen.active{
+    display: block;
+    pointer-events: auto;
+  }
+  
+  .startscreen-wrapper,
+  .gameoverscreen-wrapper,
+  .pausscreen-wrapper,
+  .winscreen-wrapper{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    transform: translate(-50%, -50%);
+  }
+
+
+
+/* Start Screen */
+    .logo{
+      position: absolute;
+      left: 50%;
+      color: white;
+      animation: 5s bigshake ease-in-out 1s; 
+      animation-fill-mode: forwards;
+      transform: translate(-50%, -140px) rotate(-5deg);
+      font-size: 80px !important;
+      line-height: 130px !important;
+    }
+    .startGame{
+      position: relative;
+      padding-top: 30px;
+      cursor: pointer;
+      text-align: center;
+      font-size: 17px;
+      line-height: 45px !important;
+      animation: 1s glowingText ease-in-out infinite;
+    }
+    .start-copyright{
+      position: relative;
+      padding-top: 30px;
+      color: lightgrey;
+      text-align: center;
+      font-size: 12px;
+      line-height: 20px;
+      text-transform: uppercase;
+    }
+
+
+
+/* Game Over Screen */
+  #gameoverscreen p{
     position: relative;
     top: 50%;
     width: 100%;
@@ -102,47 +114,28 @@ html, body{
     text-transform: uppercase;
     transform: translateY(-50%);
   }
-  #splashscreen span{
+  #gameoverscreen span{
     color: lightgrey;
   }
-  .logo{
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%, -120px) rotate(-5deg);
+  #gameoverscreen .gameover-logo{
+    color: lightgrey;
+    animation: 5s turnred ease-in-out 1s; 
+    animation-fill-mode: forwards;
     font-size: 80px !important;
-    line-height: 130px !important;
+    line-height: 80px !important;
   }
-  .startGame{
+  .restartGame{
     cursor: pointer;
     font-size: 17px;
     line-height: 35px !important;
     animation: 1s glowingText ease-in-out infinite;
   }
-#splashscreen.active{
-  display: block;
-  pointer-events: auto;
-}
 
 
 
-#pausscreen{
-  z-index: 99;
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 1);
-}
+/* Paus Screen */
   #pausscreen.active{
     display: block;
-  }
-  .pausscreen-wrapper{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
   }
     .pausscreen-wrapper p{
       position: relative;
@@ -163,27 +156,44 @@ html, body{
 
 
 
-#gamebar{
-  z-index: 2;
-  position: fixed;
-  top: 0px;
-  right: 0px;
-  padding: 0 20px;
-  width: 150px;
-  height: 50px;
-  box-sizing: border-box;
-}
-  #gamebar p{
+/* Win Screen */
+  #winscreen p{
+    position: relative;
+    top: 50%;
     width: 100%;
     color: white;
-    font-size: 20px;
-    line-height: 50px;
-    font-family: sans-serif;
+    font-size: 12px;
+    line-height: 40px;
+    text-align: center;
+    text-transform: uppercase;
+    transform: translateY(-50%);
+  }
+  #winscreen span{
+    color: lightgrey;
+  }
+  #winscreen .win-logo{
+    color: lightgrey;
+    font-size: 80px !important;
+    line-height: 80px !important;
+  }
+  .startGame{
+    cursor: pointer;
+    font-size: 17px;
+    line-height: 35px !important;
+    animation: 1s glowingText ease-in-out infinite;
+  }
+
+  #winscreen.active .win-logo{
+    animation: 5s turngreen ease-in-out 1s; 
+    animation-fill-mode: forwards;
   }
 
 
 
 
+
+
+/* Keyframes */
 @keyframes glowingText{
   0%, 100%{
     color: white;
@@ -199,4 +209,7 @@ html, body{
   0%{ color: lightgrey; }
   100%{ color: red; }
 }
-
+@keyframes turngreen{
+  0%{ color: lightgrey; }
+  100%{ color: green; }
+}

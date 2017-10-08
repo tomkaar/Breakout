@@ -1,5 +1,3 @@
-
-
 // Canvas Basics
 var canvas = document.getElementById("canvas");
 var c = canvas.getContext("2d");
@@ -17,9 +15,8 @@ var c = canvas.getContext("2d");
   // Game related
     var totalScore = 0;
     var life = 3;
-    var t = 1; // time, change the speed of objetcs
+    var t = 1; // time, change the speed of objects
     var slowMoTime = 3; // for how long slowMoTime is going to last
-    var shake = new screenshake();
 
   // Pad
     var padHeight = 20;
@@ -217,7 +214,7 @@ function gameloop() {
         brickTest3.draw();
         blockTest.draw();
         blockTest2.draw();
-        //movingBlockTest.draw();
+        movingBlockTest.draw();
     
     //setTimeout(gameloop, intervall);
     window.requestAnimationFrame(gameloop);

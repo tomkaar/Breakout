@@ -10,20 +10,45 @@
     <canvas id="canvas">
     </canvas>
       <div id="screenRed"></div>
-    <div id="gameover">
-      <p><span onclick="restartGame()" class="gameover-logo">Game over!</span><br>
-      <span>Your Score: <span id="gameover-score">0</span></span><br>
-      <span onclick="restartGame()" class="restartGame">Restart Game</span></p>
-    </div>
-    <div id="splashscreen" class="active">
+
+    <!-- Start Screen -->
+    <!--<div id="splashscreen" class="active"> 
       <p> <span class="logo">Breakout!</span><br>
         <span onclick="startGame()" class="startGame">Click here to start</span><br><br>
-        <span>copyright @ 2017 tomkaar & leolainen.<br>All right Reserved</span></p>
+        <span>copyright © 2017 tomkaar & leolainen.<br>All right Reserved</span></p>
+    </div>-->
+
+    <div id="startscreen" class="active">
+      <div class="startscreen-wrapper">
+        <p class="logo">Breakout!</p>
+        <p class="startGame" onclick="startGame()">Click here to start</p>
+        <p class="start-copyright">copyright © 2017 tomkaar & leolainen.<br>All right Reserved</p>
+      </div>
     </div>
+
+    <!-- Game Over Screen -->
+    <div id="gameoverscreen">
+      <div class="gameoverscreen-wrapper">
+        <p class="gameover-logo" onclick="restartGame()">Game over!</p>
+        <p>Your Score: <span id="gameover-score">0</span></p>
+        <p class="restartGame" onclick="restartGame()">Play Again</p>
+      </div>
+    </div>
+
+    <!-- Paus Screen -->
     <div id="pausscreen">
       <div class="pausscreen-wrapper">
         <p>Paused!</p>
         <p onclick="Paus()" class="paused-resume">Continue Playing</p>
+      </div>
+    </div>
+
+    <!-- Win Screen -->
+    <div id="winscreen">
+      <div class="winscreen-wrapper">
+        <p class="win-logo">You win!</p>
+        <p>Your Score: <span id="gamewin-score">0</span></p>
+        <p onclick="restartGame()" class="paused-resume">Play Again</p>
       </div>
     </div>
 
@@ -38,6 +63,7 @@
     <script src="features/screenred.js"></script>
     <script src="features/screenshake.js"></script>
     <script src="features/paus.js"></script>
+    <script src="features/win.js"></script>
     
     <script src="levels/level1.js"></script>
     

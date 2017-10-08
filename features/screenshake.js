@@ -1,6 +1,9 @@
 // Screen Shake
   // Just make sure the last number in the array is 0
   // so when the shake is over the screen will be back at 0
+
+var shake = new screenshake();
+
 function screenshake() {
     
 // for big shakes. ;)    

@@ -1,6 +1,6 @@
 // Game Over
 function gameOver(){
-  document.getElementById("gameover").classList.add('active');
+  document.getElementById("gameoverscreen").classList.add('active');
   ballRadius = 15;
   x = canvasWidth/2;
   y = canvasHeight - ballRadius - padHeight - padBottom;
