@@ -72,6 +72,9 @@ function drawSlomo() {
   if (smt*40 == slowMoTime * 40) {
     c.fillStyle = 'green';
   }
+  else if (cooldown) {
+    c.fillStyle = 'red';
+  }
   else {
     c.fillStyle = 'white';
   }

@@ -18,7 +18,7 @@ function drawBrick() {
 
                   // Add to the total Object Count
                   if(BrickWallCount){
-                    addToObjectCount(brickCol*brickRow);
+                    TotalObjectCount(brickCol*brickRow);
                     BrickWallCount = false;
                   }
             }
@@ -43,7 +43,7 @@ function collisionDetect() {
                         shake.small();
                         b.status = 0;
                         addScore(10);
-                        addToCurrentObjectCounter(1);
+                        CurrentObjectCount(1);
                     }
                     //Collision from left to right
                     else if (dx > 0 && x <= (b.x + brickWidth/4)) {
@@ -51,7 +51,7 @@ function collisionDetect() {
                         shake.small();
                         b.status = 0;
                         addScore(10);
-                        addToCurrentObjectCounter(1);
+                        CurrentObjectCount(1);
                     }
                     
                     //Middle of the brick
@@ -60,7 +60,7 @@ function collisionDetect() {
                         shake.small();
                         b.status = 0;
                         addScore(10);
-                        addToCurrentObjectCounter(1);
+                        CurrentObjectCount(1);
                     }
                 }
             }

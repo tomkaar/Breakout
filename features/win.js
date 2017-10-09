@@ -9,19 +9,13 @@
 var tc = 0; // init Total Count
 var cc = 0; // init Current Blocks Hit Count
 
-function addToObjectCount(c){
-	TotalObjectCount(c);
-}
+
 // How many bricks was drawn on the canvas from the beginning
 function TotalObjectCount(count){
 	tc += count;
 }
 
 // Everytimes you hit a brick
-function addToCurrentObjectCounter(c){
-	CurrentObjectCount(c);
-}
-
 // How many bricks you've hit (total)
 function CurrentObjectCount(count){
 	cc += count;

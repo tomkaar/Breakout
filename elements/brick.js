@@ -20,7 +20,7 @@ function Brick(top, left, width, height, color, score){
 
       // Add to the total Object Count
       if(this.count){
-        addToObjectCount(1);
+        TotalObjectCount(1);
         this.count = false;
       }
 
@@ -37,7 +37,7 @@ function Brick(top, left, width, height, color, score){
                 dx = -dx;
                 shake.small();
                 this.status = false;
-                addToCurrentObjectCounter(1);
+                CurrentObjectCount(1);
             }
             
             //Collision from left to right
@@ -45,7 +45,7 @@ function Brick(top, left, width, height, color, score){
                 dx = -dx;
                 shake.small();
                 this.status = false;
-                addToCurrentObjectCounter(1);
+                CurrentObjectCount(1);
             }
             
             //Middle of the brick
@@ -53,7 +53,7 @@ function Brick(top, left, width, height, color, score){
                 dy = -dy;
                 shake.small();
                 this.status = false;
-                addToCurrentObjectCounter(1);
+                CurrentObjectCount(1);
             }
         }
   }

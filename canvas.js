@@ -63,10 +63,11 @@ var c = canvas.getContext("2d");
     var brickTest = new Brick(100, 250, 100, 25, 'rgb(255,0,170)', 10);
     var brickTest2 = new Brick(100, 300, 100, 25, '#00AAFF', -15);
     var brickTest3 = new Brick(650, 350, 100, 25, 'rgba(255,170,0,1)', 10);
+    var brickTest4 = new Brick(tile.row(2), tile.column(10), brickWidth, brickHeight, 'blue');
 
     // Block(x, y, width, height, color);
 
-    var blockTest = new Block(200, 350, 25, 100, 'grey');
+    var blockTest = new Block(tile.row(5), tile.column(6), brickWidth, brickHeight, 'grey');
     var blockTest2 = new Block(600, 200, 100, 25, 'grey');
 
     // MovingBlock(x, y, width, height, color, speed x-axes, speed y-axes);
@@ -125,14 +126,14 @@ function Basics(){
 
 // Start Screen
 function startGame(){
-      document.querySelector(".active").classList.remove("active");
-      start = '0';
-    }
-    if(start = '0'){
-      canvas.addEventListener("click", function() {
-              holdBall = false;
-      });
-    }
+  document.querySelector(".active").classList.remove("active");
+  start = '0';
+}
+if(start = '0'){
+  canvas.addEventListener("click", function() {
+    holdBall = false;
+  });
+}
 
 function drawInfoText(){
   c.font = "12px 'Press Start 2P'";
@@ -144,21 +145,21 @@ function drawInfoText(){
 
 //Holds the ball at the start of the game. Clicking makes it start moving.
 function ballMove() {
-    if (holdBall) {
-        x = mouse.x;
-        y = canvasHeight - ballRadius - padHeight - padBottom;
-        // "Click when ready message" when holding the ball, show/ hidden
-        if(start = '0'){
-          c.font = "16px 'Press Start 2P'";
-          c.fillStyle = "white";
-          c.textAlign="center"; 
-          c.fillText("Click when ready!",canvasWidth/2,canvasHeight - ballRadius - padHeight - padBottom - 100);
-        }
+  if (holdBall) {
+    x = mouse.x;
+    y = canvasHeight - ballRadius - padHeight - padBottom;
+    // "Click when ready message" when holding the ball, show/ hidden
+    if(start = '0'){
+      c.font = "16px 'Press Start 2P'";
+      c.fillStyle = "white";
+      c.textAlign="center"; 
+      c.fillText("Click when ready!",canvasWidth/2,canvasHeight - ballRadius - padHeight - padBottom - 100);
     }
-    else {
-        x += (t*dx);
-        y += (t*dy);
-    }
+  }
+  else {
+    x += (t*dx);
+    y += (t*dy);
+  }
 }
 
 
@@ -194,6 +195,7 @@ window.addEventListener( 'resize', function(){
 var mouse = {
   x: canvasWidth/2
 }
+
 canvas.addEventListener('mousemove', function(event){
   mouse.x = event.x;
 })
@@ -201,23 +203,25 @@ canvas.addEventListener('mousemove', function(event){
 ///window.setTimeout(gameloop, intervall);
 
 function gameloop() {
-    
-        Basics(); // Do not remove
-        // Draw Brick Wall
-        drawBrick();
-        collisionDetect();
-        
-        // This is where you call the draw functions
-        // Without this the objects won't render
-        brickTest.draw();
-        brickTest2.draw();
-        brickTest3.draw();
-        blockTest.draw();
-        blockTest2.draw();
-        movingBlockTest.draw();
-    
-    //setTimeout(gameloop, intervall);
-    window.requestAnimationFrame(gameloop);
+  
+  Basics(); // Do not remove
+  
+  // Draw Brick Wall
+  drawBrick();
+  collisionDetect();
+  
+  // This is where you call the draw functions
+  // Without this the objects won't render
+  brickTest.draw();
+  brickTest2.draw();
+  brickTest3.draw();
+  brickTest4.draw();
+  blockTest.draw();
+  blockTest2.draw();
+  movingBlockTest.draw();
+  
+  //setTimeout(gameloop, intervall);
+  window.requestAnimationFrame(gameloop);
 }
 
 window.requestAnimationFrame(gameloop);
