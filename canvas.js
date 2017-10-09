@@ -207,11 +207,12 @@ function gameloop() {
   Basics(); // Do not remove
   
   // Draw Brick Wall
-  drawBrick();
-  collisionDetect();
+  //drawBrick();
+  //collisionDetect();
   
   // This is where you call the draw functions
   // Without this the objects won't render
+  /*
   brickTest.draw();
   brickTest2.draw();
   brickTest3.draw();
@@ -219,6 +220,9 @@ function gameloop() {
   blockTest.draw();
   blockTest2.draw();
   movingBlockTest.draw();
+  */
+  
+  levelSelect[levels].draw();
   
   //setTimeout(gameloop, intervall);
   window.requestAnimationFrame(gameloop);

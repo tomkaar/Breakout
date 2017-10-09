@@ -10,6 +10,8 @@ var tc = 0; // init Total Count
 var cc = 0; // init Current Blocks Hit Count
 
 
+var levels = 0;
+
 // How many bricks was drawn on the canvas from the beginning
 function TotalObjectCount(count){
 	tc += count;
@@ -21,8 +23,12 @@ function CurrentObjectCount(count){
 	cc += count;
 	// If the current hit count is equal or more then the amount of drawn bricks. (total count)
 	if(cc >= tc){
-		win();
-	}
+      levels++;
+      holdBall = true;
+      if (levels > levelSelect.length) {
+        win();
+      }
+    }
 }
 
 // When the win(); function is called

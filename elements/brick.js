@@ -36,6 +36,7 @@ function Brick(top, left, width, height, color, score){
             if (dx < 0 && x >= (this.x + this.width - 20) && x <= this.x + this.width) {
                 dx = -dx;
                 shake.small();
+                addScore(this.score);
                 this.status = false;
                 CurrentObjectCount(1);
             }
@@ -44,6 +45,7 @@ function Brick(top, left, width, height, color, score){
             else if (dx > 0 && x <= (this.x + this.width/4)) {
                 dx = -dx;
                 shake.small();
+                addScore(this.score);
                 this.status = false;
                 CurrentObjectCount(1);
             }
@@ -52,6 +54,7 @@ function Brick(top, left, width, height, color, score){
             else {
                 dy = -dy;
                 shake.small();
+                addScore(this.score);
                 this.status = false;
                 CurrentObjectCount(1);
             }
