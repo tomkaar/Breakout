@@ -27,7 +27,7 @@ function keysup(e) {
     if (keyCode == 32 || keyCode == 17) {
       t = 1;
       
-      if (smt < slowMoTime) {
+      if (smt < slowMoTime && !cooldown) {
         let cdLoop = setInterval(function() {
           smt += 0.1;
           
