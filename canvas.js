@@ -105,20 +105,24 @@ function Basics() {
     }
   
     // Collision between Ball and Paddle. 
-    // Sidecollision was written to prevent ball from clipping through paddle.
+    // cx is just a temporary placeholder. This code makes ball bounce depending
+    // on where it hits the paddle
     if (collision(padX, padY, padWidth, padHeight)) {
-      if (dx > 0 && x <= padX + 20) {
-        dx = -dx;
-        x = padX - ballRadius;
-        y = padY - 5;
-      }
-      if (dx < 0 && x >= padX + padWidth-20) {
-        dx = -dx;
-        x = padX + padWidth + ballRadius;
-        y = padY - 5;
-      }
-        dy = -4;
-    }
+        let cx = (x - mouse.x) / 6;
+        dx = cx;          // give new speed to dx.
+        dy = dy+cx * -1;  // trying to add some speed to y.
+      
+        if (dy > 0) {     // Make sure ball goes upwards
+          dy = -dy;
+          if (dy < -6) {  // set max speed for y
+            dy = -6;
+          }
+          if (dy => -3) { // set min speed for y
+            dy = -4;
+          }
+        }
+      
+    } // END collision
   
     
     // If the ball misses the pad
