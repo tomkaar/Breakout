@@ -1,4 +1,4 @@
-window.addEventListener("keydown", keysP, true);
+window.addEventListener("keydown", keysP, false);
 var pausStatus = true;
 
 function keysP(e) {

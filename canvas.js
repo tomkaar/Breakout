@@ -23,6 +23,7 @@ var c = canvas.getContext("2d");
     var padWidth = 100;
     var padBottom = 30; // How far from the bottom of the canvas the pad is located 
 
+
   // Ball
     var ballRadius = 15;
     var acceleration = 0.5; // add speed /(pixels per frame)
@@ -74,7 +75,7 @@ var c = canvas.getContext("2d");
 
     var movingBlockTest = new MovingBlock(50, 500, 100, 25, 'grey', 1, 0);
 
-function Basics(){
+function Basics() {
     c.clearRect(0, 0, canvasWidth, canvasHeight);
     drawBall();
     drawPad();
@@ -83,37 +84,43 @@ function Basics(){
     drawSlomo();
     ballMove();
     drawInfoText();
+  
+  // These NEED to be declared here.
+    var padX = mouse.x-padWidth/2;
+    var padY = canvasHeight - padHeight - padBottom;
     
     // COLLISSION!!
     // When the ball hit the top
-    if(y - ballRadius < 0){
+    if(y - ballRadius <= 0){
       dy = -dy;
     }
     // When the ball hit the sides
-    if(x + ballRadius > canvasWidth|| x - ballRadius < 0){
+    if(x + ballRadius >= canvasWidth){
+      dx = -dx; 
+      x = canvasWidth - ballRadius - 5; //Prevents ball from getting stuck in the wall
+    }
+    if (x - ballRadius <= 0) {
       dx = -dx;
+      x = ballRadius + 5; //Prevents ball from getting stuck in the wall
     }
-    // if ball Y equals pad Y
-    if(y + dy > canvasHeight - ballRadius - 50) {
-        
-        // If the ball hit the pad
-        if(x > mouse.x - padWidth/2 - ballRadius && x < mouse.x + padWidth/2 + ballRadius) {
-            //If ball comes from LEFT and hits LEFT side of pad
-            if (dx > 0 && x > mouse.x - padWidth/2 - ballRadius && x < mouse.x - padWidth/3) {
-                dx = -dx;
-                dy = -dy;
-            }
-            //If ball comes from RIGHT and hits RIGHT side of pad
-            else if (dx < 0 && x > mouse.x + padWidth/4 && x < mouse.x + padWidth/2 + ballRadius) {
-                dx = -dx;
-                dy = -dy;
-            }
-            //If ball hits in the middle of pad. Slows X and reverses Y
-            else {
-                dy = -dy;
-            }
-        }
+  
+    // Collision between Ball and Paddle. 
+    // Sidecollision was written to prevent ball from clipping through paddle.
+    if (collision(padX, padY, padWidth, padHeight)) {
+      if (dx > 0 && x <= padX + 20) {
+        dx = -dx;
+        x = padX - ballRadius;
+        y = padY - 5;
+      }
+      if (dx < 0 && x >= padX + padWidth-20) {
+        dx = -dx;
+        x = padX + padWidth + ballRadius;
+        y = padY - 5;
+      }
+        dy = -4;
     }
+  
+    
     // If the ball misses the pad
     if(y + dy > canvasHeight - ballRadius - 15) {
         holdBall = true;

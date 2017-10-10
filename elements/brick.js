@@ -29,35 +29,14 @@ function Brick(top, left, width, height, color, score){
 
   this.update = function(){
       // Collision Detection
-      
-      if (x > this.x - ballRadius && x < this.x + this.width + ballRadius && y > this.y - ballRadius && y < this.y + this.height + ballRadius) {
-            
-            //Collision from right to left
-            if (dx < 0 && x >= (this.x + this.width - 20) && x <= this.x + this.width) {
-                dx = -dx;
-                shake.small();
-                addScore(this.score);
-                this.status = false;
-                CurrentObjectCount(1);
-            }
-            
-            //Collision from left to right
-            else if (dx > 0 && x <= (this.x + this.width/4)) {
-                dx = -dx;
-                shake.small();
-                addScore(this.score);
-                this.status = false;
-                CurrentObjectCount(1);
-            }
-            
-            //Middle of the brick
-            else {
-                dy = -dy;
-                shake.small();
-                addScore(this.score);
-                this.status = false;
-                CurrentObjectCount(1);
-            }
-        }
+    
+      if (collision(this.x, this.y, this.width, this.height)) {
+        sideCollision(this.x, this.y, this.width, this.height);
+        dy = -dy;
+        shake.small()
+        addScore(this.score);
+        this.status = false;
+        CurrentObjectCount(1);
+      }
   }
 }
