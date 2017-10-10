@@ -25,7 +25,7 @@ function CurrentObjectCount(count){
 	if(cc >= tc){
       levels++;
       holdBall = true;
-      if (levels > levelSelect.length) {
+      if (levels >= levelSelect.length) {
         win();
       }
     }
