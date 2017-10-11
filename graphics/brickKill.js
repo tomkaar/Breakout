@@ -1,32 +1,26 @@
+
 function brickKill(brickX, brickY, brickWidth, brickHeight, brickColor) {
-  let boop = brickY + (brickY/4);
-    
-    brickY++;
-    
-    console.log("brickY: " + brickY);
-    
-    c.beginPath();
-    c.rect(brickX, brickY, brickWidth, brickHeight);
-    c.fillStyle = 'blue';
-    c.fill();
-    c.closePath();
-    boop -= 10;
+  var grav = 1.1;
+  var gravTime = 7;
   
-  /*
-  let loop = setInterval(function() {
-    brickY++;
-    
-    console.log("brickY: " + brickY);
-    
-    c.beginPath();
-    c.rect(brickX, brickY, brickWidth, brickHeight);
-    c.fillStyle = 'blue';
-    c.fill();
-    c.closePath();
-    boop -= 10;
-    
-    if (brickY >= canvasHeight) {
-      clearInterval(loop);
-    }
-  }, 160);     */
+  this.draw = function() {
+    let loop = setInterval(function() {
+      
+      gravTime--;
+      
+      brickY = Math.floor(brickY + (gravTime * grav));
+      brickX--;
+      
+      c.beginPath();
+      c.rect(brickX, brickY, brickWidth, brickHeight);
+      c.fillStyle = brickColor;
+      c.fill();
+      c.closePath();
+      
+      if (brickY >= canvasHeight) {
+        clearInterval(loop);
+      }
+    }, 160); 
+  }
+      
 }

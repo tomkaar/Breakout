@@ -9,7 +9,7 @@ function Brick(top, left, width, height, color, score){
   this.status = true;
   this.count = true;
   
-  var looper;
+  var brickDies = new brickKill(this.x, this.y, this.width, this.height, this.color);
 
   this.draw = function(){
     if(this.status){
@@ -36,41 +36,9 @@ function Brick(top, left, width, height, color, score){
         
         shake.small();
         addScore(this.score);
-        CurrentObjectCount(1);
-        
-        while (this.y != canvasHeight) {
-          this.breakAnim();
-        }
-        
-        
+        CurrentObjectCount(1);    
+        brickDies.draw();
+        this.status = false;
       }
-  }
-  
-  this.breakAnim = function() {
-    
-    /*
-        for (i = 0; i < canvasHeight; i++) {
-          this.y += i;
-          c.rect(this.x, this.y, this.width, this.height);
-          c.fillStyle = this.color;
-          c.fill();
-          c.closePath();
-          
-          if (this.y >= canvasHeight) {
-            this.status = false; 
-          }
-          
-        }    */
-      
-          this.y++;
-          c.beginPath();
-          c.rect(this.x, this.y, this.width, this.height);
-          c.fillStyle = this.color;
-          c.fill();
-          c.closePath();
-          
-          if (this.y >= canvasHeight) {
-            this.status = false; 
-          }
   }
 }
