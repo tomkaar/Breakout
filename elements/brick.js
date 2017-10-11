@@ -8,6 +8,8 @@ function Brick(top, left, width, height, color, score){
   this.score = score;
   this.status = true;
   this.count = true;
+        var grav = 1.1;
+        var gravTime = 7;
   
   var brickDies = new brickKill(this.x, this.y, this.width, this.height, this.color);
 
@@ -34,11 +36,27 @@ function Brick(top, left, width, height, color, score){
       if (collision(this.x, this.y, this.width, this.height)) {
         sideCollision(this.x, this.y, this.width, this.height);
         
+        
         shake.small();
         addScore(this.score);
-        CurrentObjectCount(1);    
-        brickDies.draw();
-        this.status = false;
+        this.dieAnim();
       }
+  }
+  
+  this.dieAnim = function() {
+    let loop = setInterval(function() {
+      gravTime--;
+      
+      this.y = Math.floor(this.y - (gravTime * grav));
+      this.x--;
+      console.log("brickY: " + this.y);
+    
+      if (this.y >= canvasHeight) {
+        CurrentObjectCount(1);    
+        this.status = false;
+        clearInterval(loop);
+      }
+      }, 150);
+    
   }
 }
