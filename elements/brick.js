@@ -8,6 +8,8 @@ function Brick(top, left, width, height, color, score){
   this.score = score;
   this.status = true;
   this.count = true;
+  
+  var looper;
 
   this.draw = function(){
     if(this.status){
@@ -31,12 +33,44 @@ function Brick(top, left, width, height, color, score){
     
       if (collision(this.x, this.y, this.width, this.height)) {
         sideCollision(this.x, this.y, this.width, this.height);
-        dy = -dy;
-        shake.small()
-        brickKill(this.x, this.y, this.width, this.height, this.color);
+        
+        shake.small();
         addScore(this.score);
-        this.status = false;
         CurrentObjectCount(1);
+        
+        while (this.y != canvasHeight) {
+          this.breakAnim();
+        }
+        
+        
       }
+  }
+  
+  this.breakAnim = function() {
+    
+    /*
+        for (i = 0; i < canvasHeight; i++) {
+          this.y += i;
+          c.rect(this.x, this.y, this.width, this.height);
+          c.fillStyle = this.color;
+          c.fill();
+          c.closePath();
+          
+          if (this.y >= canvasHeight) {
+            this.status = false; 
+          }
+          
+        }    */
+      
+          this.y++;
+          c.beginPath();
+          c.rect(this.x, this.y, this.width, this.height);
+          c.fillStyle = this.color;
+          c.fill();
+          c.closePath();
+          
+          if (this.y >= canvasHeight) {
+            this.status = false; 
+          }
   }
 }

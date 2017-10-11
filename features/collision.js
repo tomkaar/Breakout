@@ -16,4 +16,7 @@ function sideCollision(hor, ver, width, height) {
   if (dx < 0 && x >= hor + width - 20) {
     dx = -dx;
   }
+  else {
+    dy = -dy;
+  }
 }

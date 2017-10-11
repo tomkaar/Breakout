@@ -211,31 +211,12 @@ canvas.addEventListener('mousemove', function(event){
   mouse.x = event.x;
 })
 
-///window.setTimeout(gameloop, intervall);
-
 function gameloop() {
   
   Basics(); // Do not remove
   
-  // Draw Brick Wall
-  //drawBrick();
-  //collisionDetect();
-  
-  // This is where you call the draw functions
-  // Without this the objects won't render
-  /*
-  brickTest.draw();
-  brickTest2.draw();
-  brickTest3.draw();
-  brickTest4.draw();
-  blockTest.draw();
-  blockTest2.draw();
-  movingBlockTest.draw();
-  */
-  
   levelSelect[levels].draw();
   
-  //setTimeout(gameloop, intervall);
   window.requestAnimationFrame(gameloop);
 }
 

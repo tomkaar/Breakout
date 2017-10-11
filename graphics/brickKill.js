@@ -1,21 +1,32 @@
 function brickKill(brickX, brickY, brickWidth, brickHeight, brickColor) {
   let boop = brickY + (brickY/4);
-  
-  let loop = setInterval(function() {
-    brickY += boop / brickY;
+    
+    brickY++;
     
     console.log("brickY: " + brickY);
     
     c.beginPath();
     c.rect(brickX, brickY, brickWidth, brickHeight);
-    c.fillStyle = brickColor;
+    c.fillStyle = 'blue';
     c.fill();
     c.closePath();
     boop -= 10;
-    c.clearRect(brickX, brickY, brickWidth, brickHeight);
+  
+  /*
+  let loop = setInterval(function() {
+    brickY++;
+    
+    console.log("brickY: " + brickY);
+    
+    c.beginPath();
+    c.rect(brickX, brickY, brickWidth, brickHeight);
+    c.fillStyle = 'blue';
+    c.fill();
+    c.closePath();
+    boop -= 10;
     
     if (brickY >= canvasHeight) {
       clearInterval(loop);
     }
-  }, 160);     
+  }, 160);     */
 }
