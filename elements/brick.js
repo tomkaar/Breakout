@@ -8,11 +8,11 @@ function Brick(top, left, width, height, color, score){
   this.score = score;
   this.status = true;
   this.count = true;
-        var grav = 1.1;
-        var gravTime = 7;
   
-  var brickDies = new brickKill(this.x, this.y, this.width, this.height, this.color);
-
+  var grav = 1.1;
+  var gravTime = 14;  // higher number = higher bounce when killed
+  var brickKilled = false;
+  
   this.draw = function(){
     if(this.status){
       c.beginPath();
@@ -21,6 +21,11 @@ function Brick(top, left, width, height, color, score){
       c.fill();
       c.closePath();
       this.update();
+      
+      // Play death animation if brick is killed
+      if (brickKilled) {
+        this.dieAnim();
+      }
 
       // Add to the total Object Count
       if(this.count){
@@ -33,30 +38,25 @@ function Brick(top, left, width, height, color, score){
   this.update = function(){
       // Collision Detection
     
-      if (collision(this.x, this.y, this.width, this.height)) {
+      if (collision(this.x, this.y, this.width, this.height) && brickKilled == false) {
         sideCollision(this.x, this.y, this.width, this.height);
         
-        
+        brickKilled = true;
         shake.small();
         addScore(this.score);
-        this.dieAnim();
+        CurrentObjectCount(1);    
       }
   }
   
   this.dieAnim = function() {
-    let loop = setInterval(function() {
-      gravTime--;
-      
-      this.y = Math.floor(this.y - (gravTime * grav));
-      this.x--;
-      console.log("brickY: " + this.y);
-    
-      if (this.y >= canvasHeight) {
-        CurrentObjectCount(1);    
-        this.status = false;
-        clearInterval(loop);
-      }
-      }, 150);
-    
+    if (this.y < canvasHeight) {
+      gravTime--; // gravity time. 
+      let brickshotX = dx; //placeholder variable
+      this.x += brickshotX; // shoots the brick towards the same way the ball was moving
+      this.y = Math.floor(this.y - (gravTime * grav)); // Algorithm that creates the arc
+    }
+    else {
+      this.status = false;
+    }
   }
 }
