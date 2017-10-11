@@ -22,6 +22,7 @@ var c = canvas.getContext("2d");
     var padHeight = 20;
     var padWidth = 100;
     var padBottom = 30; // How far from the bottom of the canvas the pad is located 
+    var mouseMovements = 0; // init Mouse Movement
 
 
   // Ball
@@ -186,7 +187,8 @@ function drawBall() {
 // Draw Pad
 function drawPad() {
   c.beginPath();
-  c.rect(mouse.x-padWidth/2, canvasHeight - padHeight - padBottom, padWidth, padHeight);
+  mouseMovements = mouse.x - padWidth/2;
+  c.rect(mouseMovements, canvasHeight - padHeight - padBottom, padWidth, padHeight);
   c.fillStyle = "white";
   c.fill();
   c.closePath();
