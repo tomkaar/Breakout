@@ -2,6 +2,8 @@ var level2 = new level2();
 
 function level2() {
   
+  tc = 0;
+  cc = 0;
   let levelBricks = [];
   let brickTemp;
   

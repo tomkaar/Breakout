@@ -23,7 +23,6 @@ function Brick(top, left, width, height, color, score){
         TotalObjectCount(1);
         this.count = false;
       }
-
     }
   }
 
