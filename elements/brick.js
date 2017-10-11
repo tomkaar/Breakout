@@ -33,6 +33,7 @@ function Brick(top, left, width, height, color, score){
         sideCollision(this.x, this.y, this.width, this.height);
         dy = -dy;
         shake.small()
+        brickKill(this.x, this.y, this.width, this.height, this.color);
         addScore(this.score);
         this.status = false;
         CurrentObjectCount(1);
