@@ -21,11 +21,8 @@ function sideCollision(hor, ver, width, height) {
       dy = -dy;
     }
   }  
-  else {
+  else if (brickPenetration > 0) {
     brickPenetration--;
     console.log("Penetration: " + brickPenetration);
-    if (brickPenetration <= 0) {
-      brickPenetration = 0;
-    }
   }
 }

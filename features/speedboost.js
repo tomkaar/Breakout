@@ -14,21 +14,15 @@ function speedBoost(e) {
   if (keycode == 16) {
     if (speedcooldown == false) {
       speedboost = 4;
-      brickPenetration = 2;
+      brickPenetration = 3; // change this to penetrate more bricks
     
       boostLoop = setInterval(function() {
-      console.log("speedboost: " + speedboost);
+        console.log("brick pen: " + brickPenetration);
         speedcooldown = true;
         speedCooldownTime -= 3;
         speedboost -= 0.1;
         
-        if (speedCooldownTime <= 69 && speedCooldownTime >= 40) {
-          brickPenetration--;
-          if (brickPenetration <= 0) {
-            brickPenetration = 0;
-          }
-        }
-        else {
+        if (speedCooldownTime < 40){
           brickPenetration = 0;
         }
         
