@@ -33,34 +33,45 @@ function pushBlock(top, left, width, height, color){
         sideCollision(this.x, this.y, this.width, this.height);
         placeholderX = this.x;
         placeholderY = this.y;
-        brickShotY = dy * 2;
-        brickShotX = dx * 2; 
+        brickShotY = dy;
+        brickShotX = dx; 
         pushActive = true;  
       }
   }
   
   this.blockPush = function() {
+    this.x -= brickShotX;
+    this.y -= brickShotY;
     
-      this.x -= brickShotX;
-      this.y -= brickShotY;
-    
-      if (brickShotY < 0) {
-        brickShotY++;
-      }
-      if (brickShotY > 0) {
-        brickShotY--;
-      }
-      if (brickShotX < 0) {
-        brickShotX++;
-      }
-      if (brickShotX > 0) {
-        brickShotX--;
-      }
-      
-      if (brickShotX == 0 ||  brickShotY == 0) {
-        brickShotX = 0;
+    if (brickShotY < 0) {
+      brickShotY++;
+      if (brickShotY >= 0) {
         brickShotY = 0;
-        pushActive = false;
       }
+    }
+    if (brickShotY > 0) {
+      brickShotY--;
+      if (brickShotY <= 0) {
+        brickShotY = 0;
+      }
+    }
+    if (brickShotX < 0) {
+      brickShotX++;
+      if (brickShotX >= 0) {
+        brickShotX = 0;
+      }
+    }
+    if (brickShotX > 0) {
+      brickShotX--;
+      if (brickShotX <= 0) {
+        brickShotX = 0;
+      }
+    }
+    
+    if (brickShotX == 0 || brickShotY == 0) {
+      brickShotX = 0;
+      brickShotY = 0;
+      pushActive = false;
+    }
   }
 }
