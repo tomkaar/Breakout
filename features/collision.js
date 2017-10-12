@@ -10,13 +10,22 @@ function collision(hor, ver, width, height) {
 }
 
 function sideCollision(hor, ver, width, height) {
-  if (dx > 0 && x <= hor + 20) {
-    dx = -dx;
-  }
-  if (dx < 0 && x >= hor + width - 20) {
-    dx = -dx;
-  }
+  if (brickPenetration == 0) {
+    if (dx > 0 && x <= hor + 20) {
+      dx = -dx;
+    }
+    if (dx < 0 && x >= hor + width - 20) {
+      dx = -dx;
+    }
+    else {
+      dy = -dy;
+    }
+  }  
   else {
-    dy = -dy;
+    brickPenetration--;
+    console.log("Penetration: " + brickPenetration);
+    if (brickPenetration <= 0) {
+      brickPenetration = 0;
+    }
   }
 }

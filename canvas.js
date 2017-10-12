@@ -17,6 +17,7 @@ var c = canvas.getContext("2d");
     var life = 3;
     var t = 1; // time, change the speed of objects
     var slowMoTime = 3; // for how long slowMoTime is going to last
+    var speedboost = 1; // Speed boost ability for ball
 
   // Pad
     var padHeight = 20;
@@ -83,6 +84,7 @@ function Basics() {
     drawScore();
     drawLife();
     drawSlomo();
+    drawSpeed();
     ballMove();
     drawInfoText();
   
@@ -168,9 +170,9 @@ function ballMove() {
       c.fillText("Click when ready!",canvasWidth/2,canvasHeight - ballRadius - padHeight - padBottom - 100);
     }
   }
-  else {
-    x += (t*dx);
-    y += (t*dy);
+  else { // Ball speed
+    x += (t*dx) * speedboost;
+    y += (t*dy) * speedboost;
   }
 }
 

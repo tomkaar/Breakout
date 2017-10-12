@@ -65,10 +65,10 @@ function drawSlomo() {
   c.font = "12px 'Press Start 2P'";
   c.textAlign="left"; 
   c.fillStyle = "gold";
-  c.fillText("Bullet-time: ", 300, canvasHeight-10);
+  c.fillText("Bullet-time: ", 270, canvasHeight-10);
   
   c.beginPath();
-  c.rect(450, canvasHeight-22, (smt * 40), 10);
+  c.rect(420, canvasHeight-22, (smt * 40), 10);
   if (smt*40 == slowMoTime * 40) {
     c.fillStyle = 'green';
   }
@@ -84,7 +84,7 @@ function drawSlomo() {
   c.beginPath();
   c.lineWidth = "2";
   c.strokeStyle = "white";
-  c.rect(450, canvasHeight-22, 121, 11);
+  c.rect(420, canvasHeight-22, 121, 11);
   c.stroke();
   
   c.closePath();
