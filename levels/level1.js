@@ -27,6 +27,10 @@ function level1() {
   brickTemp = new BrickLife(tile.row(5), tile.column(9), brickWidth, brickHeight, 'gold', 100, 3); 
   level1Bricks.push(brickTemp); 
   
+  brickTemp = new pushBlock(tile.row(7), tile.column(9), brickWidth, brickHeight, 'gray'); 
+  level1Bricks.push(brickTemp); 
+  
+  
   this.draw = function() {
     for (var u in level1Bricks) {
       level1Bricks[u].draw();

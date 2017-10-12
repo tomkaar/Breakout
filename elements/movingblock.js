@@ -28,6 +28,7 @@ function MovingBlock(top, left, width, height, color, movementX, movementY){
   	  if(this.x < 0 + ballRadius*2 || this.x > canvasWidth - this.width - ballRadius*2){
   	  	this.movementX = -this.movementX;
   	  }
+    
   	  if(this.y < 0 || this.y > canvasHeight - this.height - padHeight - padBottom){
   	  	this.movementY = -this.movementY;
   	  }
