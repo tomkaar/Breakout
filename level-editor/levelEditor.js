@@ -4,7 +4,7 @@
 var title = ""; // LevelName
 var textAreaOutput = ""; // Text that will appear in the textarea.
 
-var tableRows = 3;
+var tableRows = 6;
 var tableCol = 11;
 var table = document.getElementById("data2");
 var currentblock = " ";

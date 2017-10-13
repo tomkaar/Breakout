@@ -23,9 +23,7 @@ function Block(top, left, width, height, color){
       
       if (collision(this.x, this.y, this.width, this.height)) {
           sideCollision(this.x, this.y, this.width, this.height);
-        shake.small();
         sounds.hitlight();
-        CurrentObjectCount(1);   
       }
   }
 }
