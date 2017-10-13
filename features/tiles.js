@@ -7,12 +7,12 @@ function tiles() {
   
   
   this.row = function(sum) {
-    if (sum > 11 || sum < 0) sum = 11;
+    if (sum > brickRow || sum < 0) sum = brickRow;
     return (sum * (brickWidth + brickPaddingX)) + 20; 
   }
   
   this.column = function(sum) {
-    if (sum > 10 || sum < 0) sum = 10;
+    if (sum > brickCol || sum < 0) sum = brickCol;
     return (sum * (brickHeight + brickPaddingY)) + 20; 
   }
    

@@ -2,6 +2,7 @@ var levelSelect = [];
 levelSelect.push(level1);
 levelSelect.push(level2);
 levelSelect.push(Level3);
+levelSelect.push(level4);
 
 
 window.addEventListener("keydown", levelJump, false);

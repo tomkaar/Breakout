@@ -37,7 +37,7 @@ var c = canvas.getContext("2d");
 
   // Brick Wall
     var brickRow = 11;
-    var brickCol = 4;
+    var brickCol = 10;
     var brickPaddingX = 20;
     var brickPaddingY = 10;
     var brickWidth = (canvasWidth/brickRow) - brickPaddingX - 20/brickRow;
