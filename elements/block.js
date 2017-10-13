@@ -21,8 +21,11 @@ function Block(top, left, width, height, color){
   this.update = function(){
       // Collision Detection
       
-        if (collision(this.x, this.y, this.width, this.height)) {
+      if (collision(this.x, this.y, this.width, this.height)) {
           sideCollision(this.x, this.y, this.width, this.height);
-        }
+        shake.small();
+        sounds.hitlight();
+        CurrentObjectCount(1);   
+      }
   }
 }

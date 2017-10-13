@@ -62,20 +62,8 @@ var c = canvas.getContext("2d");
     // from inside the animate function below.  
 
     // Brick(x, y, width, height, color, score);
-
-    var brickTest = new Brick(100, 250, 100, 25, 'rgb(255,0,170)', 10);
-    var brickTest2 = new Brick(100, 300, 100, 25, '#00AAFF', -15);
-    var brickTest3 = new Brick(650, 350, 100, 25, 'rgba(255,170,0,1)', 10);
-    var brickTest4 = new Brick(tile.row(2), tile.column(10), brickWidth, brickHeight, 'blue');
-
     // Block(x, y, width, height, color);
-
-    var blockTest = new Block(tile.row(5), tile.column(6), brickWidth, brickHeight, 'grey');
-    var blockTest2 = new Block(600, 200, 100, 25, 'grey');
-
     // MovingBlock(x, y, width, height, color, speed x-axes, speed y-axes);
-
-    var movingBlockTest = new MovingBlock(50, 500, 100, 25, 'grey', 1, 0);
 
 function Basics() {
     c.clearRect(0, 0, canvasWidth, canvasHeight);
@@ -96,14 +84,17 @@ function Basics() {
     // When the ball hit the top
     if(y - ballRadius <= 0){
       dy = -dy;
+      sounds.hitheavy();
     }
     // When the ball hit the sides
     if(x + ballRadius >= canvasWidth){
       dx = -dx; 
+      sounds.hitheavy();
       x = canvasWidth - ballRadius - 5; //Prevents ball from getting stuck in the wall
     }
     if (x - ballRadius <= 0) {
       dx = -dx;
+      sounds.hitheavy();
       x = ballRadius + 5; //Prevents ball from getting stuck in the wall
     }
   
@@ -114,6 +105,7 @@ function Basics() {
         let cx = (x - mouse.x) / 6;
         dx = cx;          // give new speed to dx.
         dy = dy+cx * -1;  // trying to add some speed to y.
+        sounds.hitmedium();
       
         if (dy > 0) {     // Make sure ball goes upwards
           dy = -dy;
@@ -142,6 +134,7 @@ function Basics() {
 function startGame(){
   document.querySelector(".active").classList.remove("active");
   start = '0';
+  sounds.scifiJingle();
 }
 if(start = '0'){
   canvas.addEventListener("click", function() {

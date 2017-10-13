@@ -57,7 +57,7 @@ function drawSpeed() {
   c.font = "12px 'Press Start 2P'";
   c.textAlign="left"; 
   c.fillStyle = "gold";
-  c.fillText("speed-boost: ", 550, canvasHeight-10);
+  c.fillText("Speed-boost: ", 550, canvasHeight-10);
   
   c.beginPath();
   c.rect(690, canvasHeight-22, speedCooldownTime, 10);

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Level Editor</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+	<div class="buttons">
+		<input type="button" value="Empty" onclick="buttonEmpty()">
+		<input type="button" value="Block" onclick="buttonBlock()">
+		<input type="button" value="Brick" onclick="buttonBrick()">
+	</div>
+
+	<table id="data2"></table>
+
+	<!-- Hidden, do not remove, used to force update textArea-->
+	<!--<input onclick="UpdateTextArea();" type="submit" value="Load">-->
+
+	<form id="formform" onsubmit="return !! (download(this['name'].value, this['text'].value))">
+	  <input id="form-name" type="text" name="name" placeholder="LevelName">
+	  <textarea id="text-output" name="text" readonly placeholder="Level Code Output (Read Only)"></textarea>
+	  <input type="submit" value="Download">
+	</form>
+
+	<script src="levelEditor.js"></script>
+
+</body>
+</html>

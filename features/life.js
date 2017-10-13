@@ -14,4 +14,5 @@ function addLife(newLife){
 }
 function removeLife(newLife){
   life -= newLife;
+  sounds.explosionNoRinging();
 }

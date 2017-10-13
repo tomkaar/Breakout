@@ -1,4 +1,5 @@
 // Game Over
+var play = true;
 function gameOver(){
   document.getElementById("gameoverscreen").classList.add('active');
   ballRadius = 15;
@@ -8,6 +9,13 @@ function gameOver(){
   dy = 0;
   mouse.x = canvasWidth/2;
   holdBall = false;
+
+  
+  if(play == true){
+  	sounds.sadJingleBitcrush();
+  	play = false;
+  	console.log(this.play);
+  }
 }
 
 // Restart game by reloading window

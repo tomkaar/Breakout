@@ -43,6 +43,7 @@ function Brick(top, left, width, height, color, score){
         
         brickKilled = true;
         shake.small();
+        sounds.hitlight();
         addScore(this.score);
         CurrentObjectCount(1);    
       }

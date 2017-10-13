@@ -1,0 +1,47 @@
+*{ margin: 0; padding: 0; }
+html, body{
+	background: #252525;
+	padding-top: 50px;
+}
+
+form{
+	width: 100%;
+}
+form input{
+	width: 70%;
+	margin-left: 15%;
+	margin-bottom: 20px;
+}
+form textarea {
+	width: 70%;
+	margin-left: 15%;
+	margin-bottom: 20px;
+	min-height: 200px;
+	min-width: 70%;
+	max-width: 70%;
+}
+
+#data{
+	width: 70%;
+	margin-left: 15%;
+	color: white;
+	margin-bottom: 20px;
+}
+
+table{
+	width: 70%;
+	margin-left: 15%;
+	margin-bottom: 20px;
+	color: white;
+}
+	table tr td{
+		border: 1px solid white;
+		padding-top: 6%;
+		width: 40px;
+	}
+
+.buttons{
+	width: 75%;
+	margin-left: 15%;
+	margin-bottom: 20px;
+}
