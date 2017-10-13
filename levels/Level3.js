@@ -7,35 +7,29 @@ function Level3() {
   let levelBricks = [];
   let brickTemp;
 
-brickTemp = new Brick(tile.row(0), tile.column(0), brickWidth, brickHeight, "red", 10);
+brickTemp = new Brick(tile.row(3), tile.column(0), brickWidth, brickHeight, "gold", 10);
 levelBricks.push(brickTemp);
-brickTemp = new Brick(tile.row(1), tile.column(0), brickWidth, brickHeight, "red", 10);
+brickTemp = new Brick(tile.row(4), tile.column(0), brickWidth, brickHeight, "gold", 10);
 levelBricks.push(brickTemp);
-brickTemp = new Brick(tile.row(2), tile.column(0), brickWidth, brickHeight, "red", 10);
+brickTemp = new Brick(tile.row(5), tile.column(0), brickWidth, brickHeight, "gold", 10);
 levelBricks.push(brickTemp);
-brickTemp = new Brick(tile.row(4), tile.column(0), brickWidth, brickHeight, "red", 10);
+brickTemp = new Brick(tile.row(7), tile.column(0), brickWidth, brickHeight, "gold", 10);
 levelBricks.push(brickTemp);
-brickTemp = new Brick(tile.row(5), tile.column(0), brickWidth, brickHeight, "red", 10);
+brickTemp = new Brick(tile.row(8), tile.column(0), brickWidth, brickHeight, "gold", 10);
 levelBricks.push(brickTemp);
-brickTemp = new Brick(tile.row(6), tile.column(0), brickWidth, brickHeight, "red", 10);
+brickTemp = new Brick(tile.row(9), tile.column(0), brickWidth, brickHeight, "gold", 10);
 levelBricks.push(brickTemp);
-brickTemp = new Brick(tile.row(8), tile.column(0), brickWidth, brickHeight, "red", 10);
+brickTemp = new Brick(tile.row(1), tile.column(1), brickWidth, brickHeight, "orangered", 10000);
 levelBricks.push(brickTemp);
-brickTemp = new Brick(tile.row(9), tile.column(0), brickWidth, brickHeight, "red", 10);
+brickTemp = new MovingBlock(tile.row(1), tile.column(2), brickWidth, brickHeight, "grey", 1, 0, 0);
 levelBricks.push(brickTemp);
-brickTemp = new Brick(tile.row(10), tile.column(0), brickWidth, brickHeight, "red", 10);
+brickTemp = new MovingBlock(tile.row(9), tile.column(3), brickWidth, brickHeight, "grey", 1, 0, 0);
 levelBricks.push(brickTemp);
-brickTemp = new Block(tile.row(2), tile.column(2), brickWidth, brickHeight, "grey");
+brickTemp = new Block(tile.row(2), tile.column(4), brickWidth, brickHeight, "grey");
 levelBricks.push(brickTemp);
-brickTemp = new Block(tile.row(3), tile.column(2), brickWidth, brickHeight, "grey");
+brickTemp = new Block(tile.row(3), tile.column(4), brickWidth, brickHeight, "grey");
 levelBricks.push(brickTemp);
-brickTemp = new Block(tile.row(4), tile.column(2), brickWidth, brickHeight, "grey");
-levelBricks.push(brickTemp);
-brickTemp = new Block(tile.row(6), tile.column(2), brickWidth, brickHeight, "grey");
-levelBricks.push(brickTemp);
-brickTemp = new Block(tile.row(7), tile.column(2), brickWidth, brickHeight, "grey");
-levelBricks.push(brickTemp);
-brickTemp = new Block(tile.row(8), tile.column(2), brickWidth, brickHeight, "grey");
+brickTemp = new Block(tile.row(8), tile.column(4), brickWidth, brickHeight, "grey");
 levelBricks.push(brickTemp);
 
 

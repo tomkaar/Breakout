@@ -1,47 +1,95 @@
 *{ margin: 0; padding: 0; }
 html, body{
-	background: #252525;
-	padding-top: 50px;
+  background: black;
+  padding-top: 50px;
 }
+
+.s1{
+	width: 70%;
+	float: left;
+}
+.s2{
+	width: 30%;
+	float: left;
+}
+
 
 form{
 	width: 100%;
 }
 form input{
-	width: 70%;
-	margin-left: 15%;
+	width: 90%;
+	margin-left: 5%;
 	margin-bottom: 20px;
 }
-form textarea {
-	width: 70%;
-	margin-left: 15%;
+form textarea{
+	width: 90%;
+	margin-left: 5%;
 	margin-bottom: 20px;
 	min-height: 200px;
-	min-width: 70%;
-	max-width: 70%;
+	min-width: 90%;
+	max-width: 90%;
 }
 
 #data{
-	width: 70%;
-	margin-left: 15%;
+	width: 90%;
+	margin-left: 5%;
 	color: white;
 	margin-bottom: 20px;
 }
 
 table{
-	width: 70%;
-	margin-left: 15%;
+	width: 90%;
+	margin-left: 5%;
 	margin-bottom: 20px;
 	color: white;
+	text-align: center;
 }
 	table tr td{
 		border: 1px solid white;
-		padding-top: 6%;
 		width: 40px;
+		height: 40px;
+		line-height: 40px;
 	}
 
 .buttons{
-	width: 75%;
-	margin-left: 15%;
+	width: 90%;
+	margin-left: 5%;
 	margin-bottom: 20px;
+}
+
+.input{
+	width: 90%;
+	margin-left: 5%;
+}
+	.input-wrap{
+		width: 50%;
+		float: left;
+		display: flex;
+	}
+	.input p{
+		color: white;
+		margin-right: 10px;
+		margin-bottom: 0;
+		float: left;
+	}
+	.input input{
+		flex: 1;
+		width: 50%;
+		margin-left: 0;
+		padding: 0;
+		box-sizing: border-box;
+		float: left;
+	}
+
+
+.title{
+	width: 100%;
+	margin-top: -60px;
+	margin-bottom: 30px;
+	float: left;
+	color: white;
+	font-size: 45px;
+	text-align: center;
+	font-family: sans-serif;
 }
