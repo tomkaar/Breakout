@@ -64,6 +64,7 @@ var c = canvas.getContext("2d");
     // Brick(x, y, width, height, color, score);
     // Block(x, y, width, height, color);
     // MovingBlock(x, y, width, height, color, speed x-axes, speed y-axes);
+var powerup = new bouncyBallSpawn(200, 200);
 
 function Basics() {
     c.clearRect(0, 0, canvasWidth, canvasHeight);
@@ -111,10 +112,14 @@ function Basics() {
           dy = -dy;
           if (dy < -6) {  // set max speed for y
             dy = -6;
-          }
+          }/*
           if (dy => -3) { // set min speed for y
             dy = -4;
-          }
+          }*/
+        }
+      
+        if (bouncyBallActive) {
+          gravTime = 8;
         }
       
     } // END collision
@@ -126,7 +131,9 @@ function Basics() {
         screenRed();
         shake.big();
         removeLife(1);
-        dy = -dy;
+        gravTime = 8;
+        dy = -4;
+        dx = -4;
     }
 }
 
@@ -164,8 +171,13 @@ function ballMove() {
     }
   }
   else { // Ball speed
+    if (bouncyBallActive) {
+      bouncyBall();
+    }
+    else {
     x += (t*dx) * speedboost;
     y += (t*dy) * speedboost;
+    }
   }
 }
 

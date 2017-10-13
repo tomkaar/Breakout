@@ -26,3 +26,14 @@ function sideCollision(hor, ver, width, height) {
     console.log("Penetration: " + brickPenetration);
   }
 }
+
+function paddleCollision(hor, ver, width, height) {
+  
+  
+  var padX = mouse.x-padWidth/2;
+  var padY = canvasHeight - padHeight - padBottom;
+  
+  if ((hor >= padX && hor+width <= padX + padWidth) && (ver + height >= padY)) {
+    return true;
+  } 
+}

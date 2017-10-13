@@ -13,6 +13,8 @@ function Brick(top, left, width, height, color, score){
   var gravTime = 14;  // higher number = higher bounce when killed
   var brickKilled = false;
   
+  let bouncyBall = new bouncyBallSpawn(this.x, this.y);
+  
   this.draw = function(){
     if(this.status){
       c.beginPath();
@@ -24,6 +26,7 @@ function Brick(top, left, width, height, color, score){
       
       // Play death animation if brick is killed
       if (brickKilled) {
+        bouncyBall.draw();
         this.dieAnim();
       }
 
@@ -41,6 +44,7 @@ function Brick(top, left, width, height, color, score){
       if (collision(this.x, this.y, this.width, this.height) && brickKilled == false) {
         sideCollision(this.x, this.y, this.width, this.height);
         
+        bouncyBall.draw();
         brickKilled = true;
         shake.small();
         sounds.hitlight();
@@ -57,7 +61,9 @@ function Brick(top, left, width, height, color, score){
       this.y = Math.floor(this.y - (gravTime * grav)); // Algorithm that creates the arc
     }
     else {
-      this.status = false;
+      if (!bouncyBall.bouncyStatus()) {
+        this.status = false;
+      }
     }
   }
 }
