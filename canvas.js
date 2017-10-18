@@ -64,7 +64,6 @@ var c = canvas.getContext("2d");
     // Brick(x, y, width, height, color, score);
     // Block(x, y, width, height, color);
     // MovingBlock(x, y, width, height, color, speed x-axes, speed y-axes);
-var powerup = new bouncyBallSpawn(200, 200);
 
 function Basics() {
     c.clearRect(0, 0, canvasWidth, canvasHeight);
@@ -103,6 +102,7 @@ function Basics() {
     // cx is just a temporary placeholder. This code makes ball bounce depending
     // on where it hits the paddle
     if (collision(padX, padY, padWidth, padHeight)) {
+      if (!holdBallPowerActive) {
         let cx = (x - mouse.x) / 6;
         dx = cx;          // give new speed to dx.
         dy = dy+cx * -1;  // trying to add some speed to y.
@@ -117,12 +117,12 @@ function Basics() {
             dy = -4;
           }*/
         }
+      if (powerActive) {
+        gravTime = 8; // only useful for bouncyball power.
+      }
+    }
       
-        if (bouncyBallActive) {
-          gravTime = 8;
-        }
-      
-    } // END collision
+  } // END collision
   
     
     // If the ball misses the pad
@@ -170,13 +170,12 @@ function ballMove() {
       c.fillText("Click when ready!",canvasWidth/2,canvasHeight - ballRadius - padHeight - padBottom - 100);
     }
   }
-  else { // Ball speed
-    if (bouncyBallActive) {
-      bouncyBall();
-    }
-    else {
-    x += (t*dx) * speedboost;
-    y += (t*dy) * speedboost;
+  else { // Ball speed. If powerActive is true it may be altered somehow.
+      x += (t*dx) * speedboost;
+      y += (t*dy) * speedboost;
+    
+    if (powerActive) {
+      powerUp();
     }
   }
 }
