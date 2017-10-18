@@ -1,6 +1,6 @@
 
 var powerActive = false;
-let gravTime = 3; // higher gravTime = higher bounce
+let gravTime = 3; // higher gravTime = higher bounce on bouncyballPower
 let powerTimer = 3000;
 var whichPower; // an integer to make sure which power will get activated
 var holdBallPowerActive = false;
@@ -70,53 +70,49 @@ function powerUp() {
 
 // HOLD BALL POWER
 function holdBallPower() {
-  //holdBallPowerActive = true;
   
   // these already exist in canvas.js but need to be declared inside this function
   var padX = mouse.x-padWidth/2;
   var padY = canvasHeight - padHeight - padBottom;
-  let hold;
   
   if (collision(padX, padY, padWidth, padHeight)) {
-      hold = true;
+      holdBallPowerActive = true;
   }
   
-  if (hold) {
+  if (holdBallPowerActive) {
       let cx = (x - mouse.x) / 6;
       x = mouse.x;
       y = padY - ballRadius;
+  }
       
-      canvas.addEventListener("click", function() {
-        hold = false;
-      });
+  canvas.addEventListener("click", function() {
+    if (holdBallPowerActive) {
+      holdBallPowerActive = false;
+      dy = -dy;  // trying to add some speed to y.
     }
-   else {
-      dx = -4;          // give new speed to dx.
-      dy = -4;  // trying to add some speed to y.
-      x += (t*dx) * speedboost;
-      y += (t*dy) * speedboost;
-   } 
+    else {
+      console.log("holdBallPowerActive is " + holdBallPowerActive);
+    }
+  });
 }
 
 // BOUNCY BALL POWER
 function bouncyBallPower() {  
   console.log("bouncyBallPower activated");
-  
-  if (powerActive) {
+
   // lower value in gravTime = higher gravity.
-    gravTime -= 0.1; 
+  gravTime -= 0.1; 
   
   //sets ballspeed to incorporate gravity.
-    x += (t*dx) * speedboost;
-    y += t*((dy) * speedboost)-(gravTime * 1);
+  x += (t*dx) * speedboost;
+  y += t*((dy) * speedboost)-(gravTime * 1);
   
   //max speed.
-    if (dy > 8) {
-      dy = 8;
-    }
-    if (dy < -8) {
-      dy = -8;
-    }
+  if (dy > 8) {
+    dy = 8;
+  }
+  if (dy < -8) {
+    dy = -8;
   }
 }
 
@@ -125,38 +121,35 @@ function bouncyBallPower() {
 function powerUpSpawn(spawnX, spawnY) {  
   let hori = spawnX;
   let vert = spawnY;
-  
-  let dropRoll = Math.floor(Math.random() * 10);
-  
   let drawStatus = false;
+
+  //Roll for which powerup will spawn
+  let spawnroll = diceroll(0, 9);
   
-  if (dropRoll > 0) { // if math.random rolls 0 - 10 powerup will spawn
+  if (spawnroll >= 4) { // 20% chance to spawn
+    whichPower = diceroll(0, 9); // Lets us know which power will be spawned
     drawStatus = true;
   }
- 
   
 this.draw = function() {
      
-  //Roll for which powerup will spawn
-  whichPower = dropRoll; // Lets us know which power will be spawned
-  
   let powerColor = 'black'; // if a power turns black we know something isn't working
   
   //test to make sure that the power and its colors will be randomized
-  powerColor = this.getColor(dropRoll);
+  powerColor = this.getColor(whichPower);
     
-    if (drawStatus) {
-      c.beginPath();
-      c.rect(hori, vert, 30, 30);
-      c.fillStyle = powerColor;
-      c.fill();
-      c.closePath();
-      this.update();
-    }
-    else {
-      return;
-    }
+  if (drawStatus) {
+    c.beginPath();
+    c.rect(hori, vert, 30, 30);
+    c.fillStyle = powerColor;
+    c.fill();
+    c.closePath();
+    this.update();
   }
+  else {
+    return;
+  }
+}
     
 this.update = function() { 
   vert += 2; // power up will slowly drop down
@@ -217,4 +210,4 @@ this.getColor = function(color) {
   return this.color;
 }  
 
-}
+} // End of powerUpSpawn

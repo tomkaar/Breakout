@@ -13,7 +13,7 @@ function Brick(top, left, width, height, color, score){
   var gravTime = 14;  // higher number = higher bounce when killed
   var brickKilled = false;
   
-  let powerUp = new powerUpSpawn(this.x, this.y);
+  let powerUp;
   
   this.draw = function(){
     if(this.status){
@@ -44,7 +44,9 @@ function Brick(top, left, width, height, color, score){
       if (collision(this.x, this.y, this.width, this.height) && brickKilled == false) {
         sideCollision(this.x, this.y, this.width, this.height);
         
-        powerUp.draw();
+        powerUp = new powerUpSpawn(this.x, this.y);
+        
+       // powerUp.draw();
         brickKilled = true;
         shake.small();
         sounds.explosionSmall();

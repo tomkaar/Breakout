@@ -82,17 +82,17 @@ function Basics() {
     
     // COLLISSION!!
     // When the ball hit the top
-    if(y - ballRadius <= 0){
+    if(y - ballRadius <= 1){
       dy = -dy;
       sounds.hitheavy();
     }
     // When the ball hit the sides
-    if(x + ballRadius >= canvasWidth){
+    if(x + ballRadius >= canvasWidth - 1){
       dx = -dx; 
       sounds.hitheavy();
       x = canvasWidth - ballRadius - 5; //Prevents ball from getting stuck in the wall
     }
-    if (x - ballRadius <= 0) {
+    if (x - ballRadius <= 1) {
       dx = -dx;
       sounds.hitheavy();
       x = ballRadius + 5; //Prevents ball from getting stuck in the wall
@@ -218,6 +218,12 @@ var mouse = {
 canvas.addEventListener('mousemove', function(event){
   mouse.x = event.x;
 })
+
+// A randomizer which can be called from wherever
+function diceroll(min, max) {
+  let roll = Math.floor(Math.random() * max-min) + min; // rolls from min to max
+  return roll;
+} 
 
 function gameloop() {
   
