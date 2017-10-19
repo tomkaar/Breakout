@@ -28,8 +28,6 @@ function sideCollision(hor, ver, width, height) {
 }
 
 function paddleCollision(hor, ver, width, height) {
-  
-  
   var padX = mouse.x-padWidth/2;
   var padY = canvasHeight - padHeight - padBottom;
   
