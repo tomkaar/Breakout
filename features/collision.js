@@ -37,3 +37,62 @@ function paddleCollision(hor, ver, width, height) {
     return true;
   } 
 }
+
+function playerCollision() {
+//  These NEED to be declared here.
+  var padX = mouse.x-padWidth/2;
+  var padY = canvasHeight - padHeight - padBottom;
+  
+  // When the ball hit the top
+  if(y - ballRadius <= 1){
+    dy = -dy;
+    sounds.hitheavy();
+  }
+  // When ball hits right side
+  if(x + ballRadius >= canvasWidth - 1){
+    dx = -dx; 
+    sounds.hitheavy();
+    x = canvasWidth - ballRadius - 5; //Prevents ball from getting stuck in the wall
+  }
+
+  // When ball hits left side
+  if (x - ballRadius <= 1) {
+    dx = -dx;
+    sounds.hitheavy();
+    x = ballRadius + 5; //Prevents ball from getting stuck in the wall
+  }
+
+  // Collision between Ball and Paddle. 
+  // cx is just a placeholder. This code makes ball bounce depending
+  // on where it hits the paddle
+  if (collision(padX, padY, padWidth, padHeight)) {
+    if (!holdBallPowerActive) {
+      let cx = (x - mouse.x) / 6;
+      dx = cx;          // give new speed to dx.
+      dy = dy+cx * -1;  // trying to add some speed to y.
+      sounds.hitmedium();
+    
+      if (dy > 0) {     // Make sure ball goes upwards
+        dy = -dy;
+        if (dy < -6) {  // set max speed for y
+          dy = -6;
+        }
+      }
+      if (powerActive) {
+        gravTime = 8; // only useful for bouncyball power.
+      }
+    }
+  }
+
+  // If the ball misses the pad
+  if(y + dy > canvasHeight - ballRadius - 15) {
+      holdBall = true;
+      screenRed();
+      shake.big();
+      removeLife(1);
+      gravTime = 8;
+      dy = -4;
+      dx = -4;
+  }
+
+}

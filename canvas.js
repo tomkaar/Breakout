@@ -19,23 +19,7 @@ var c = canvas.getContext("2d");
     var slowMoTime = 3; // for how long slowMoTime is going to last
     var speedboost = 1; // Speed boost ability for ball
 
-  // Pad
-    var padHeight = 20;
-    var padWidth = 100;
-    var padBottom = 30; // How far from the bottom of the canvas the pad is located 
-    var mouseMovements = 0; // init Mouse Movement
-
-
-  // Ball
-    var ballRadius = 15;
-    var acceleration = 0.5; // add speed /(pixels per frame)
-    var x = canvasWidth/2; // Ball spawn x-axis
-    var y = canvasHeight - ballRadius - padHeight - padBottom; // Ball spawn y-axis
-    var dx = -4; // Velocity, x-axis
-    var dy = -4; // Velocity, y-axis
-    var holdBall = true; // Start game by holding the ball
-
-  // Brick Wall
+  // Brick values
     var brickRow = 11;
     var brickCol = 10;
     var brickPaddingX = 20;
@@ -43,27 +27,8 @@ var c = canvas.getContext("2d");
     var brickWidth = (canvasWidth/brickRow) - brickPaddingX - 20/brickRow;
     var brickHeight = 25;
 
-// Init Elements
-
-  // Create brick objects. 
-  var brick = [];
-  for(var row = 0; row < brickRow; row++) {
-          brick[row] = [];
-      for (var col = 0; col < brickCol; col++) {
-          brick[row][col] = {
-              x: 0, y: 0, status: 1
-          }
-      }
-  }
-
-  // Create single objects
-    // Each Object needs to be stored in it's own variable.
-    // To render the objects you need to call the draw function
-    // from inside the animate function below.  
-
-    // Brick(x, y, width, height, color, score);
-    // Block(x, y, width, height, color);
-    // MovingBlock(x, y, width, height, color, speed x-axes, speed y-axes);
+  // Slowmotion values
+    var smt = slowMoTime;
 
 function Basics() {
     c.clearRect(0, 0, canvasWidth, canvasHeight);
@@ -75,67 +40,8 @@ function Basics() {
     drawSpeed();
     ballMove();
     drawInfoText();
-  
-  // These NEED to be declared here.
-    var padX = mouse.x-padWidth/2;
-    var padY = canvasHeight - padHeight - padBottom;
-    
-    // COLLISSION!!
-    // When the ball hit the top
-    if(y - ballRadius <= 1){
-      dy = -dy;
-      sounds.hitheavy();
-    }
-    // When the ball hit the sides
-    if(x + ballRadius >= canvasWidth - 1){
-      dx = -dx; 
-      sounds.hitheavy();
-      x = canvasWidth - ballRadius - 5; //Prevents ball from getting stuck in the wall
-    }
-    if (x - ballRadius <= 1) {
-      dx = -dx;
-      sounds.hitheavy();
-      x = ballRadius + 5; //Prevents ball from getting stuck in the wall
-    }
-  
-    // Collision between Ball and Paddle. 
-    // cx is just a temporary placeholder. This code makes ball bounce depending
-    // on where it hits the paddle
-    if (collision(padX, padY, padWidth, padHeight)) {
-      if (!holdBallPowerActive) {
-        let cx = (x - mouse.x) / 6;
-        dx = cx;          // give new speed to dx.
-        dy = dy+cx * -1;  // trying to add some speed to y.
-        sounds.hitmedium();
-      
-        if (dy > 0) {     // Make sure ball goes upwards
-          dy = -dy;
-          if (dy < -6) {  // set max speed for y
-            dy = -6;
-          }/*
-          if (dy => -3) { // set min speed for y
-            dy = -4;
-          }*/
-        }
-      if (powerActive) {
-        gravTime = 8; // only useful for bouncyball power.
-      }
-    }
-      
-  } // END collision
-  
-    
-    // If the ball misses the pad
-    if(y + dy > canvasHeight - ballRadius - 15) {
-        holdBall = true;
-        screenRed();
-        shake.big();
-        removeLife(1);
-        gravTime = 8;
-        dy = -4;
-        dx = -4;
-    }
-}
+    playerCollision();
+  } // END Basics
 
 // Start Screen
 function startGame(){
@@ -154,50 +60,6 @@ function drawInfoText(){
   c.textAlign="right"; 
   c.fillStyle = "gold";
   c.fillText("Space/ ctrl = Slowmotion \t P = Pause", canvasWidth-40, canvasHeight-10);
-}
-
-
-//Holds the ball at the start of the game. Clicking makes it start moving.
-function ballMove() {
-  if (holdBall) {
-    x = mouse.x;
-    y = canvasHeight - ballRadius - padHeight - padBottom;
-    // "Click when ready message" when holding the ball, show/ hidden
-    if(start = '0'){
-      c.font = "16px 'Press Start 2P'";
-      c.fillStyle = "white";
-      c.textAlign="center"; 
-      c.fillText("Click when ready!",canvasWidth/2,canvasHeight - ballRadius - padHeight - padBottom - 100);
-    }
-  }
-  else { // Ball speed. If powerActive is true it may be altered somehow.
-      x += (t*dx) * speedboost;
-      y += (t*dy) * speedboost;
-    
-    if (powerActive) {
-      powerUp();
-    }
-  }
-}
-
-
-// Draw Ball
-function drawBall() {
-  c.beginPath();
-  c.arc(x, y, ballRadius, 0, Math.PI*2);
-  c.fillStyle = "white";
-  c.fill();
-  c.closePath();
-}
-
-// Draw Pad
-function drawPad() {
-  c.beginPath();
-  mouseMovements = mouse.x - padWidth/2;
-  c.rect(mouseMovements, canvasHeight - padHeight - padBottom, padWidth, padHeight);
-  c.fillStyle = "white";
-  c.fill();
-  c.closePath();
 }
 
 // Resize

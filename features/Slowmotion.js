@@ -2,7 +2,6 @@
 window.addEventListener("keydown", keys, true);
 window.addEventListener("keyup", keysup, false);
 
-var smt = slowMoTime;
 var cooldown = false;
 
 // On button press = drain slowmotion meter from 3 to 0. if 0 = start 10s cooldown

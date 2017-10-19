@@ -132,7 +132,6 @@ function powerUpSpawn(spawnX, spawnY) {
   }
   
 this.draw = function() {
-     
   let powerColor = 'black'; // if a power turns black we know something isn't working
   
   //test to make sure that the power and its colors will be randomized
