@@ -1,4 +1,4 @@
-// Brick
+// BrickLife
 function BrickLife(top, left, width, height, color, score, life){
   this.x = top;
   this.y = left;
@@ -34,9 +34,10 @@ function BrickLife(top, left, width, height, color, score, life){
     
       if (collision(this.x, this.y, this.width, this.height)) {
         sideCollision(this.x, this.y, this.width, this.height);
-        dy = -dy;
+        //dy = -dy;
         shake.small()
         this.currentLife++;
+        console.log(this.currentLife);
         if(this.currentLife >= this.life){
           addScore(this.score);
           this.status = false;

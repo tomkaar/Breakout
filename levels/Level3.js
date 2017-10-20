@@ -21,9 +21,9 @@ brickTemp = new Brick(tile.row(9), tile.column(0), brickWidth, brickHeight, "gol
 levelBricks.push(brickTemp);
 brickTemp = new Brick(tile.row(1), tile.column(1), brickWidth, brickHeight, "orangered", 10000);
 levelBricks.push(brickTemp);
-brickTemp = new MovingBlock(tile.row(1), tile.column(2), brickWidth, brickHeight, "grey", 1, 0, 0);
+brickTemp = new MovingBlock(tile.row(0), tile.column(2), brickWidth, brickHeight, "grey", 1, 0, 0);
 levelBricks.push(brickTemp);
-brickTemp = new MovingBlock(tile.row(9), tile.column(3), brickWidth, brickHeight, "grey", 1, 0, 0);
+brickTemp = new MovingBlock(tile.row(10), tile.column(3), brickWidth, brickHeight, "grey", 1, 0, 0);
 levelBricks.push(brickTemp);
 brickTemp = new Block(tile.row(2), tile.column(4), brickWidth, brickHeight, "grey");
 levelBricks.push(brickTemp);

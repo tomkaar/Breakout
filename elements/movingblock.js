@@ -25,13 +25,14 @@ function MovingBlock(top, left, width, height, color, movementX, movementY){
   	  this.x += (t * this.movementX);
   	  this.y += (t * this.movementY);
 
-  	  if(this.x < 0 + ballRadius*2 || this.x > canvasWidth - this.width - ballRadius*2){
-  	  	this.movementX = -this.movementX;
-  	  }
-    
-  	  if(this.y < 0 || this.y > canvasHeight - this.height - padHeight - padBottom){
-  	  	this.movementY = -this.movementY;
-  	  }
+      if(this.x < 0 + ballRadius*2){
+        this.x = ballRadius*2;
+        this.movementX = -this.movementX;
+      }
+      if(this.x > canvasWidth - this.width - ballRadius*2){
+        this.x = canvasWidth - this.width - ballRadius*2;
+        this.movementX = -this.movementX;
+      }
       
        //Collision
         if (collision(this.x, this.y, this.width, this.height)) {

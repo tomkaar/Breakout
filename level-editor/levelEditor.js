@@ -105,6 +105,8 @@ function buttonBasic(){
 // onclick, set the current 
 // Load and output new text to TextOutput
 function dataAttributeChange(e) {
+
+  // set attribute on current block
   e.setAttribute("data-block", currentblock);
   e.setAttribute("data-color", currentColor);
   e.setAttribute("data-score", currentScore);
@@ -113,7 +115,7 @@ function dataAttributeChange(e) {
 
   allModifs = "";
 
-  // loop every td + print
+  // loop every td + print to textArea
   for (var i = 0, row; row = table.rows[i]; i++) {
      for (var j = 0, col; col = row.cells[j]; j++) {
         let thisAttribute = table.rows[i].cells[j].getAttribute('data-block');
@@ -124,30 +126,33 @@ function dataAttributeChange(e) {
         let thisX = table.rows[i].cells[j].getAttribute("data-speedx");
         let thisY = table.rows[i].cells[j].getAttribute("data-speedy");
         
-        if(thisAttribute != " "){
-          if(thisAttribute == "Block"){
+
+          if(thisAttribute == " "){
+            table.rows[i].cells[j].innerHTML = thisAttribute;
+            table.rows[i].cells[j].style.backgroundColor = "transparent";
+          }
+          else if(thisAttribute == "Block"){
             allModifs += "brickTemp = new " + table.rows[i].cells[j].getAttribute('data-block') + "(tile.row(" + thisCell + "), tile.column(" + thisRow + "), brickWidth, brickHeight, \"" + thisColor + "\");\n";
             allModifs += "levelBricks.push(brickTemp);\n";
-            let thisText = table.rows[i].cells[j].innerHTML = thisAttribute;
+            table.rows[i].cells[j].innerHTML = thisAttribute;
             table.rows[i].cells[j].style.backgroundColor = thisColor;
           }
-          if(thisAttribute == "Brick"){
+          else if(thisAttribute == "Brick"){
             allModifs += "brickTemp = new " + table.rows[i].cells[j].getAttribute('data-block') + "(tile.row(" + thisCell + "), tile.column(" + thisRow + "), brickWidth, brickHeight, \"" + thisColor + "\", " + thisScore + ");\n";
             allModifs += "levelBricks.push(brickTemp);\n";
-            let thisText = table.rows[i].cells[j].innerHTML = thisAttribute;
+            table.rows[i].cells[j].innerHTML = thisAttribute;
             table.rows[i].cells[j].style.backgroundColor = thisColor;
           }
-          if(thisAttribute == "MovingBlock"){
+          else if(thisAttribute == "MovingBlock"){
             allModifs += "brickTemp = new " + table.rows[i].cells[j].getAttribute('data-block') + "(tile.row(" + thisCell + "), tile.column(" + thisRow + "), brickWidth, brickHeight, \"" + thisColor + "\", " + thisScore + ", " + thisX +", " + thisY + ");\n";
             allModifs += "levelBricks.push(brickTemp);\n";
-            let thisText = table.rows[i].cells[j].innerHTML = thisAttribute;
+            lable.rows[i].cells[j].innerHTML = thisAttribute;
             table.rows[i].cells[j].style.backgroundColor = thisColor;
           }
-        }
-        else{
-          let thisText = table.rows[i].cells[j].innerHTML = thisAttribute;
-            table.rows[i].cells[j].style.backgroundColor = "transparent";
-        }
+          else{
+            table.rows[i].cells[j].innerHTML = thisAttribute;
+            //table.rows[i].cells[j].style.backgroundColor = "transparent";
+          }
      }  
   }
 

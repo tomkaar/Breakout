@@ -44,6 +44,7 @@ table{
 	margin-bottom: 20px;
 	color: white;
 	text-align: center;
+	border-collapse: collapse;
 }
 	table tr td{
 		border: 1px solid white;
