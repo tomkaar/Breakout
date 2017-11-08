@@ -29,6 +29,11 @@ function BaseBlock(width, height, x, y, color) {
 	this.status = true;
 	this.hitConfirm = false;
 
+	// Variables related to death animation
+	var grav = 1.1;
+  var gravTime = 14;  // higher number = higher bounce when killed
+  var brickKilled = false;
+
 	this.draw = function() {
       c.beginPath();
       c.rect(this.x, this.y, this.width, this.height);
@@ -48,6 +53,18 @@ function BaseBlock(width, height, x, y, color) {
       this.hitConfirm = true;   
     }
 	}
+
+	this.dieAnim = function() {
+    if (this.y < canvasHeight) {
+      gravTime--; // gravity time. 
+      let brickshotX = ball.dx; //placeholder variable
+      this.x += brickshotX; // shoots the brick towards the same way the ball was moving
+      this.y = Math.floor(this.y - (gravTime * grav)); // Algorithm that creates the arc
+    }
+    else {
+      this.status = false;
+    }
+  }
 }
 
 
@@ -65,13 +82,12 @@ function Brick(width, height, x, y, color, lives) {
 	this.draw = function() {
 		if(brick.status) {
 			brick.draw();
-			if (brick.hitConfirm) {
+			if (lives > 0 && brick.hitConfirm) {
 				lives--;
-				if (lives <= 0) {
-					brick.status = false;
-				}
+			}
+			else {
+				brick.dieAnim();
 			}
 		}	
 	}	
-
 }			
