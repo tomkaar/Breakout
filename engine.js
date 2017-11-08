@@ -8,6 +8,8 @@ function gameloop() {
 
   drawLife();
   drawScore();
+
+  brick1.draw();
   
   // Make gameloop run
   window.requestAnimationFrame(gameloop);
@@ -17,6 +19,7 @@ window.requestAnimationFrame(gameloop);
 
 
 
+ var brick1 = new Brick(200, 50, 300, 300, "red", 2);
 
 
 

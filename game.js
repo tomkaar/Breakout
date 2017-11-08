@@ -6,6 +6,8 @@
     var canvasHeight = window.innerHeight;
     var canvasWidth = window.innerWidth;
 
+
+
   // Game Basics
     var t = 1;
     var life = 3;

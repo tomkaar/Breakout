@@ -20,10 +20,58 @@
 
 // BaseBlock class
 	// Width, height, X, Y, Color
+function BaseBlock(width, height, x, y, color) {
+	this.width = width;
+	this.height = height;
+	this.x = x;
+	this.y = y;
+	this.color = color;
+	this.status = true;
+	this.hitConfirm = false;
 
+	this.draw = function() {
+      c.beginPath();
+      c.rect(this.x, this.y, this.width, this.height);
+      c.fillStyle = this.color;
+      c.fill();
+      c.closePath();
+      this.update();
+	}
+
+	this.update = function() {
+		this.hitConfirm = false;
+		if (collision(this.x, this.y, this.width, this.height)) {
+    	sideCollision(this.x, this.y, this.width, this.height);
+    
+      shake.small();  
+      sound.explosionSmall();
+      this.hitConfirm = true;   
+    }
+	}
+}
 
 
 	// Bricks and Blocks that inherit from the BaseBlock class
 		// Collision
 			// What is going to happen
 			// Draw & Update
+
+function Brick(width, height, x, y, color, lives) {
+	this.prototype = new BaseBlock(width, height, x, y, color);
+	this.lives = lives;
+
+	let brick = this.prototype;
+
+	this.draw = function() {
+		if(brick.status) {
+			brick.draw();
+			if (brick.hitConfirm) {
+				lives--;
+				if (lives <= 0) {
+					brick.status = false;
+				}
+			}
+		}	
+	}	
+
+}			
