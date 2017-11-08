@@ -10,7 +10,7 @@
 	    return (sum * (brickWidth + brickPaddingX)) + 20; 
 	  }
 	  
-	  this.column = function(sum) {
+	  this.col = function(sum) {
 	    if (sum > brickCol || sum < 0) sum = brickCol;
 	    return (sum * (brickHeight + brickPaddingY)) + 20; 
 	  }
@@ -19,8 +19,7 @@
 
 
 // BaseBlock class
-	// Width, height, X, Y, Color
-function BaseBlock(width, height, x, y, color) {
+function BaseBlock(x, y, width, height, color) {
 	this.width = width;
 	this.height = height;
 	this.x = x;
@@ -51,13 +50,11 @@ function BaseBlock(width, height, x, y, color) {
 }
 
 
-	// Bricks and Blocks that inherit from the BaseBlock class
-		// Collision
-			// What is going to happen
-			// Draw & Update
 
-function Brick(width, height, x, y, color, lives) {
-	this.prototype = new BaseBlock(width, height, x, y, color);
+
+
+function Brick(x, y, width, height, color, lives) {
+	this.prototype = new BaseBlock(x, y, width, height, color);
 	this.lives = lives;
 
 	let brick = this.prototype;
@@ -73,5 +70,5 @@ function Brick(width, height, x, y, color, lives) {
 			}
 		}	
 	}	
-
 }			
+
