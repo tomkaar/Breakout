@@ -1,0 +1,219 @@
+@import url('https://fonts.googleapis.com/css?family=Press+Start+2P');
+
+*{ 
+  font-family: 'Press Start 2P', cursive;
+  margin: 0; 
+  padding: 0; 
+}
+
+html, body{
+  font-family: 'Press Start 2P', cursive;
+  overflow: hidden; 
+    position: relative;
+    background: black;
+}
+
+#canvas{ 
+    position: relative;
+    transition: 0.01s all linear;
+    background-color: rgba(255, 0, 0, 0); 
+}
+
+#screenRed {
+  z-index: 5;
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 0, 0, 0);
+  pointer-events: none;
+}
+
+
+#startscreen,
+#winscreen,
+#gameoverscreen,
+#pausscreen{
+  z-index: 99;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  pointer-events: none;
+}
+#pausscreen{
+  background: rgba(0, 0, 0, 1);
+}
+
+  #winscreen.active,
+  #startscreen.active,
+  #gameoverscreen.active{
+    display: block;
+    pointer-events: auto;
+  }
+  #pausscreen.active{
+    background: rgba(0, 0, 0, 1);
+  }
+  
+  .startscreen-wrapper,
+  .gameoverscreen-wrapper,
+  .pausscreen-wrapper,
+  .winscreen-wrapper{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    transform: translate(-50%, -50%);
+  }
+
+
+
+/* Start Screen */
+    .logo{
+      position: absolute;
+      left: 50%;
+      color: white;
+      animation: 5s bigshake ease-in-out 1s; 
+      animation-fill-mode: forwards;
+      transform: translate(-50%, -140px) rotate(-5deg);
+      font-size: 80px !important;
+      line-height: 130px !important;
+    }
+    .startGame{
+      position: relative;
+      padding-top: 30px;
+      cursor: pointer;
+      text-align: center;
+      font-size: 17px;
+      line-height: 45px !important;
+      animation: 1s glowingText ease-in-out infinite;
+    }
+    .start-copyright{
+      position: relative;
+      padding-top: 30px;
+      color: lightgrey;
+      text-align: center;
+      font-size: 12px;
+      line-height: 20px;
+      text-transform: uppercase;
+    }
+
+
+
+/* Game Over Screen */
+  #gameoverscreen p{
+    position: relative;
+    top: 50%;
+    width: 100%;
+    color: white;
+    font-size: 12px;
+    line-height: 40px;
+    text-align: center;
+    text-transform: uppercase;
+    transform: translateY(-50%);
+  }
+  #gameoverscreen span{
+    color: lightgrey;
+  }
+  #gameoverscreen .gameover-logo{
+    color: lightgrey;
+    animation: 5s turnred ease-in-out 1s; 
+    animation-fill-mode: forwards;
+    font-size: 80px !important;
+    line-height: 80px !important;
+  }
+  .restartGame{
+    cursor: pointer;
+    font-size: 17px;
+    line-height: 35px !important;
+    animation: 1s glowingText ease-in-out infinite;
+  }
+
+
+
+/* Paus Screen */
+  #pausscreen.active{
+    display: block;
+    pointer-events: auto;
+  }
+    .pausscreen-wrapper p{
+      position: relative;
+      top: 50%;
+      width: 100%;
+      color: white;
+      font-size: 12px;
+      line-height: 40px;
+      text-align: center;
+      text-transform: uppercase;
+      transform: translateY(-50%);
+    }
+    .paused-resume{
+      cursor: pointer;
+      animation: 1s glowingText ease-in-out infinite;
+    }
+
+
+
+
+/* Win Screen */
+  #winscreen p{
+    position: relative;
+    top: 50%;
+    width: 100%;
+    color: white;
+    font-size: 12px;
+    line-height: 40px;
+    text-align: center;
+    text-transform: uppercase;
+    transform: translateY(-50%);
+  }
+  #winscreen span{
+    color: lightgrey;
+  }
+  #winscreen .win-logo{
+    color: lightgrey;
+    font-size: 80px !important;
+    line-height: 80px !important;
+  }
+  .startGame{
+    cursor: pointer;
+    font-size: 17px;
+    line-height: 35px !important;
+    animation: 1s glowingText ease-in-out infinite;
+  }
+
+  #winscreen.active .win-logo{
+    animation: 5s turngreen ease-in-out 1s; 
+    animation-fill-mode: forwards;
+  }
+
+
+
+
+
+
+/* Keyframes */
+@keyframes glowingText{
+  0%, 100%{
+    color: white;
+    opacity: 1;
+  }
+  50%{
+    color: lightgrey;
+    opacity: 0.5;
+  }
+}
+
+@keyframes turnred{
+  0%{ color: lightgrey; }
+  100%{ color: red; }
+}
+@keyframes turngreen{
+  0%{ color: lightgrey; }
+  100%{ color: green; }
+}

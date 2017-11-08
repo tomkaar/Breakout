@@ -2,61 +2,59 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Cnvas Atari</title>
-    <style>
-      *{ margin: 0; padding: 0; }
-      html, body{ overflow: hidden;}
-      #canvas{ background-color: black; }
-      #gamestop{
-      z-index: 3;
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.8);
-      pointer-events: none;
-      }
-      #gamestop p{
-        position: absolute;
-        top: 50%;
-        width: 100%;
-        color: white;
-        font-size: 40px;
-        text-align: center;
-        transform: translateY(-50%);
-      }
-      #gamestop.active{
-      display: block;
-      pointer-events: auto;
-      }
-      #gamestop span{
-        font-size: 20px;
-      }
-
-      #gamebar{
-      z-index: 2;
-      position: fixed;
-      top: 0px;
-      right: 0px;
-      padding: 0 20px;
-      width: 150px;
-      height: 50px;
-      box-sizing: border-box;
-      }
-      #gamebar p{
-        width: 100%;
-        color: white;
-        font-size: 20px;
-        line-height: 50px;
-      }
-    </style>
+    <title>HTML5 Canvas Atari</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
+    
     <canvas id="canvas"></canvas>
-    <div id="gamestop"><p>Game over!<br><span>Your Score: <span id="gamestop-score">0</span></span></p></div>
-    <div id="gamebar"><p>Score: <span id="gamebar-score">0</span></p></div>
-    <script src="canvas.js"></script>
+    <div id="screenRed"></div>
+
+    <!-- Start Screen -->
+    <div id="startscreen" class="active">
+      <div class="startscreen-wrapper">
+        <p class="logo">Breakout!</p>
+        <p class="startGame" onclick="startGame()">Click here to start</p>
+        <p class="start-copyright">copyright © 2017 tomkaar & leolainen.<br>All right Reserved</p>
+      </div>
+    </div>
+
+    <!-- GameOver Screen -->
+    <div id="gameoverscreen">
+      <div class="gameoverscreen-wrapper">
+        <p class="gameover-logo" onclick="restartGame()">Game over!</p>
+        <p>Your Score: <span id="gameover-score">0</span></p>
+        <p class="restartGame" onclick="restartGame()">Play Again</p>
+      </div>
+    </div>
+
+    <!-- Paus Screen -->
+    <div id="pausscreen">
+      <div class="pausscreen-wrapper">
+        <p>Paused!</p>
+        <p onclick="Paus()" class="paused-resume">Continue Playing</p>
+      </div>
+    </div>
+
+    <!-- Win Screen -->
+    <div id="winscreen">
+      <div class="winscreen-wrapper">
+        <p class="win-logo">You win!</p>
+        <p>Your Score: <span id="gamewin-score">0</span></p>
+        <p onclick="restartGame()" class="paused-resume">Play Again</p>
+      </div>
+    </div>
+
+    <!-- Load gameparts-->
+    <script src="game/sound.js"></script>
+    <script src="game/blocks.js"></script>
+    <script src="game/collision.js"></script>
+    <script src="game/graphics.js"></script>
+
+    <!-- Run Game -->
+    <script src="game.js"></script>
+    <script src="engine.js"></script>
+
+    
   </body>
 </html>
