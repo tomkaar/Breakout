@@ -6,12 +6,19 @@
     var canvasHeight = window.innerHeight;
     var canvasWidth = window.innerWidth;
 
-
-
   // Game Basics
-    var t = 1;
-    var life = 3;
+    var t = 1; // Time, the speed
+    var life = 3; // Life, here you can set the start life
     var totalScore = 0;
+    var currentLevel = 0;
+
+  // Tiles Basics
+    var brickRow = 11;
+    var brickCol = 10;
+    var brickPaddingX = 20;
+    var brickPaddingY = 10;
+    var brickWidth = (canvasWidth/brickRow) - brickPaddingX - 20/brickRow;
+    var brickHeight = 25;
 
   // Player
     var player = {

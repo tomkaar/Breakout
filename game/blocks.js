@@ -10,7 +10,7 @@
 	    return (sum * (brickWidth + brickPaddingX)) + 20; 
 	  }
 	  
-	  this.column = function(sum) {
+	  this.col = function(sum) {
 	    if (sum > brickCol || sum < 0) sum = brickCol;
 	    return (sum * (brickHeight + brickPaddingY)) + 20; 
 	  }
@@ -19,8 +19,7 @@
 
 
 // BaseBlock class
-	// Width, height, X, Y, Color
-function BaseBlock(width, height, x, y, color) {
+function BaseBlock(x, y, width, height, color) {
 	this.width = width;
 	this.height = height;
 	this.x = x;
@@ -28,19 +27,29 @@ function BaseBlock(width, height, x, y, color) {
 	this.color = color;
 	this.status = true;
 	this.hitConfirm = false;
+	this.brickKilled = false;
 
 	// Variables related to death animation
 	var grav = 1.1;
   var gravTime = 14;  // higher number = higher bounce when killed
-  var brickKilled = false;
+  
 
 	this.draw = function() {
+		if(this.status) {
       c.beginPath();
       c.rect(this.x, this.y, this.width, this.height);
       c.fillStyle = this.color;
       c.fill();
       c.closePath();
-      this.update();
+
+      if (this.brickKilled) {
+      	console.log("Dieanim should play now!");
+      	this.dieAnim();
+      }
+      else {
+      	this.update();
+      }
+    }  
 	}
 
 	this.update = function() {
@@ -68,26 +77,22 @@ function BaseBlock(width, height, x, y, color) {
 }
 
 
-	// Bricks and Blocks that inherit from the BaseBlock class
-		// Collision
-			// What is going to happen
-			// Draw & Update
 
-function Brick(width, height, x, y, color, lives) {
-	this.prototype = new BaseBlock(width, height, x, y, color);
+
+
+function Brick(x, y, width, height, color, lives) {
+	this.prototype = new BaseBlock(x, y, width, height, color);
 	this.lives = lives;
 
 	let brick = this.prototype;
 
 	this.draw = function() {
-		if(brick.status) {
-			brick.draw();
-			if (lives > 0 && brick.hitConfirm) {
-				lives--;
+		brick.draw();
+		if (brick.hitConfirm) {
+			lives--;
+			if (lives <= 0) {
+				brick.brickKilled = true;
 			}
-			else {
-				brick.dieAnim();
-			}
-		}	
+		}
 	}	
 }			
