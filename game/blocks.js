@@ -1,29 +1,9 @@
-// Tiles
-	// function is supposed to automatically assign a brick to a space in a symmetrical manner. 
-	// One can technically put a brick anywhere and even outside of the game
-
-	var tile = new tiles();
-	function tiles() {
-	  
-	  this.row = function(sum) {
-	    if (sum > brickRow || sum < 0) sum = brickRow;
-	    return (sum * (brickWidth + brickPaddingX)) + 20; 
-	  }
-	  
-	  this.col = function(sum) {
-	    if (sum > brickCol || sum < 0) sum = brickCol;
-	    return (sum * (brickHeight + brickPaddingY)) + 20; 
-	  }
-	   
-	}
-
-
 // BaseBlock class
 function BaseBlock(x, y, width, height, color) {
 	this.width = width;
 	this.height = height;
-	this.x = x;
-	this.y = y;
+	this.x = (x * (brickWidth + brickPaddingX)) + 20;
+	this.y = (y * (brickHeight + brickPaddingX)) + 20;
 	this.color = color;
 	this.status = true;
 	this.hitConfirm = false;
@@ -42,8 +22,8 @@ function BaseBlock(x, y, width, height, color) {
       c.fill();
       c.closePath();
 
+      // Makes sure that collision is turned off during death animation
       if (this.brickKilled) {
-      	console.log("Dieanim should play now!");
       	this.dieAnim();
       }
       else {
@@ -63,6 +43,7 @@ function BaseBlock(x, y, width, height, color) {
     }
 	}
 
+	// small "bounce" animation that plays when brick is destroyed
 	this.dieAnim = function() {
     if (this.y < canvasHeight) {
       gravTime--; // gravity time. 
@@ -71,7 +52,7 @@ function BaseBlock(x, y, width, height, color) {
       this.y = Math.floor(this.y - (gravTime * grav)); // Algorithm that creates the arc
     }
     else {
-      this.status = false;
+      this.status = false; // Stop drawing bricks when 
     }
   }
 }
