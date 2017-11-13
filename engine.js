@@ -11,6 +11,7 @@ function gameloop() {
 
   //brick1.draw();
   //levelsArray[currentLevel][1].draw();
+  moveBrick.draw();
   
   drawLevels();
   
@@ -19,14 +20,11 @@ function gameloop() {
 }
 window.requestAnimationFrame(gameloop);
 
-
-
-
-
-
+// Testing bricks.
+var moveBrick = new BrickMoving(1, 4, 9, 7, brickWidth, brickHeight, "green", 2, 2);
  //var brick1 = new Brick(200, 50, 300, 300, "red", 2);
 
-
+// END of testing bricks
 
 // Mouse (to get mouse x-position, use mouse.x)
 var mouse = {
