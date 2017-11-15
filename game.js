@@ -17,14 +17,14 @@
     var brickCol = 10;
     var brickPaddingX = 20;
     var brickPaddingY = 10;
-    var brickWidth = (canvasWidth/brickRow) - brickPaddingX - 20/brickRow;
+    var brickWidth = (canvasWidth/brickRow) - brickPaddingX - brickPaddingX/brickRow;
     var brickHeight = 25;
 
   // Player
     var player = {
       Height: 20,
       Width: 100,
-      Bottom: 30, // How far from the bottom of the canvas the pad is located 
+      Bottom: 30, // How far from the bottom of the canvas the pad is located
       mouseMovements: 0 // init Mouse Movement
     }
 
@@ -38,6 +38,3 @@
       dy: -4, // Velocity, y-axis
       holdBall: true, // Start game by holding the ball
     }
-
-
-

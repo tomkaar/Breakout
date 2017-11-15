@@ -8,16 +8,61 @@
   <body>
 
     <div id="editor">
+      <h1 class="title"><span onclick="hideEditor()">< </span> Level Editor</h1>
       <div class="s1">
         <table id="table"></table>
       </div>
 
       <div class="s2">
-        <h1 class="title">Level Editor</h1>
+        <p>Levels</p>
         <select id="select" onChange="currentlySelected(this);"></select>
+        <button onclick="ClearLevel()">Clear</button>
+        <button onclick="removeThisLevel()">Remove</button>
+        <button onclick="createBefore()">Create Before</button>
+        <button onclick="createAfter()">Create after</button>
+        <br>
+        <p>Options</p>
+        <select id="inputType">
+          <option>Remove</option>
+          <option selected="selected">Brick</option>
+        </select>
+        <input type="text" placeholder="Color" value="lightblue" id="inputColor">
+        <input type="text" placeholder="Lives" value="1" id="inputLives">
+        <p>Output</p>
+        <form id="formform" onsubmit="return !! (download(this['name'].value, this['text'].value))">
+          <textarea id="output" name="text" readonly placeholder="Level Code Output (Read Only)"></textarea>
+          <input type="submit" value="Download">
+        </form>
+        <ul id="instructions">
+          <h1>Instructions</h1>
+          <li>Under levels you can choose which level you want to edit.
+            <ul>
+              <li>Dropdown: Choose which level you want to edit</li>
+              <li>Clear: Clear the level, remove all bricks and blocks</li>
+              <li>Remove: Remove currently selected level</li>
+              <li>Create Before: Create new level before currently selected level</li>
+            <li>Create After: Create new level after currently selected level</li>
+            </ul>
+          </li>
+          <li>Under options you can choose what will happend when you click on a cell in the table.
+            <ul>
+              <li>Brick: Place Brick, will use input from color and lives</li>
+              <li>Remove: Remove/ clear already placed blocks</li>
+              <li>Color: Change the color</li>
+              <li>Lives: How many lives the block will have, how many time the ball has to hit it before breaking</li>
+            </ul>
+          </li>
+          <li>Output: Here you can see your finished level
+            <ul>
+              <li>Click on Download to download the level as a .js file, replace the 'levels.js' file in the /game/ folder<br>
+                Make sure you use the same name<br>
+                After replacing the file, update the page to see the changes in game</li>
+            </ul>
+          </li>
+        </ul>
       </div>
     </div>
-    
+
     <canvas id="canvas"></canvas>
     <div id="screenRed"></div>
 
@@ -26,6 +71,7 @@
       <div class="startscreen-wrapper">
         <p class="logo">Breakout!</p>
         <p class="startGame" onclick="startGame()">Click here to start</p>
+        <p class="levelEditor" onclick="showEditor()">Level Editor</p>
         <p class="start-copyright">copyright © 2017 tomkaar & leolainen.<br>All right Reserved</p>
       </div>
     </div>
@@ -44,6 +90,7 @@
       <div class="pausscreen-wrapper">
         <p>Paused!</p>
         <p onclick="Paus()" class="paused-resume">Continue Playing</p>
+        <p onclick="restartGame()">Back to Menu</p>
       </div>
     </div>
 
@@ -71,8 +118,7 @@
     <script src="engine.js"></script>
 
     <!-- Level Editor -->
-    <script src="game/editor/levelEditor.js"></script>
+    <script src="game/levelEditor.js"></script>
 
-    
   </body>
 </html>

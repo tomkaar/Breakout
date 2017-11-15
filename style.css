@@ -1,25 +1,25 @@
 @import url('https://fonts.googleapis.com/css?family=Press+Start+2P');
 
 *{ 
-  font-family: 'Press Start 2P', cursive;
   margin: 0; 
   padding: 0; 
 }
 
 html, body{
-  font-family: 'Press Start 2P', cursive;
   overflow: hidden; 
     position: relative;
     background: black;
 }
 
 #canvas{ 
-    position: relative;
-    transition: 0.01s all linear;
-    background-color: rgba(255, 0, 0, 0); 
+  font-family: 'Press Start 2P', cursive;
+  position: relative;
+  transition: 0.01s all linear;
+  background-color: rgba(255, 0, 0, 0); 
 }
 
 #screenRed {
+  font-family: 'Press Start 2P', cursive;
   z-index: 5;
   display: block;
   position: fixed;
@@ -36,6 +36,7 @@ html, body{
 #winscreen,
 #gameoverscreen,
 #pausscreen{
+  font-family: 'Press Start 2P', cursive;
   z-index: 99;
   display: none;
   position: fixed;
@@ -92,6 +93,15 @@ html, body{
       font-size: 17px;
       line-height: 45px !important;
       animation: 1s glowingText ease-in-out infinite;
+    }
+    .levelEditor{
+      position: relative;
+      padding-top: 30px;
+      cursor: pointer;
+      text-align: center;
+      font-size: 14px;
+      line-height: 45px !important;
+      color: white;
     }
     .start-copyright{
       position: relative;
@@ -230,6 +240,7 @@ html, body{
 
 /* Level Editor */
 #editor{
+  font-family: sans-serif;
   z-index: 9999;
   display: none;
   position: absolute;
@@ -238,18 +249,68 @@ html, body{
   width: 100%;
   height: 100%;
   background: black;
+  overflow: auto;
 }
-#editor .s1 table{
-  width: 90%;
-  margin-left: 5%;
-  margin-bottom: 20px;
-  color: white;
-  text-align: center;
-  border-collapse: collapse;
-}
-  #editor .s1 table tr td{
-    border: 1px solid white;
-    width: 40px;
-    height: 40px;
-    line-height: 40px;
+  #editor.show{
+    display: block;
   }
+  #editor.hide{
+    display: none;
+  }
+  #editor .s1,
+  #editor .s2{
+    width: 90%;
+    margin-left: 5%;
+  }
+  #editor .s1 table{
+    width: 100%;
+    margin-bottom: 20px;
+    color: white;
+    text-align: center;
+    border-collapse: collapse;
+  }
+    #editor .s1 table tr td{
+      border: 1px solid white;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+    }
+
+#editor p,
+#editor h1{
+  color: white;
+}
+.title{
+
+}
+.title span{
+  cursor: pointer;
+}
+#editor p{
+  margin-top: 20px;
+}
+#editor textarea{
+  width: 100%;
+  min-width: 400px;
+  min-height: 200px;
+}
+
+#instructions{
+  color: white;
+  padding-top: 45px;
+  padding-bottom: 45px;
+}
+#instructions h1{
+  color: white;
+  padding-bottom: 20px;
+}
+#instructions li{
+  padding-top: 5px;
+}
+#instructions li ul{
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+#instructions li ul li{
+  margin-left: 40px;
+}

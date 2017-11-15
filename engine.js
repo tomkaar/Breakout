@@ -1,7 +1,7 @@
 // Basic GameLoop
 function gameloop() {
   c.clearRect(0, 0, canvasWidth, canvasHeight);
-  
+
   Ball();
   Player();
   playerCollision();
@@ -14,7 +14,7 @@ function gameloop() {
   moveBrick.draw();
   
   drawLevels();
-  
+
   // Make gameloop run
   window.requestAnimationFrame(gameloop);
 }
@@ -76,7 +76,7 @@ function Player() {
 
   // Move when arrowkeys are pressed (look in screens.js)
   if(leftKeyPressed == true){
-    mouse.x -= player.Width/10; 
+    mouse.x -= player.Width/10;
   }
   if(rightKeyPressed == true){
     mouse.x += player.Width/10;
@@ -151,7 +151,7 @@ function restartGame(){
 
 
 // Level Builder
-// This function translates the data from inside the 'levels' array (game/levels.js) into 
+// This function translates the data from inside the 'levels' array (game/levels.js) into
 // Bricks and Blocks that will build each level
 
 var levelsArray = [];
