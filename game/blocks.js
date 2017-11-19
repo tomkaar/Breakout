@@ -79,55 +79,21 @@ function Brick(x, y, width, height, color, lives) {
 	}	
 }			
 
-// Create a moving block by making a new object = new BrickMoving(starting X, starting Y, end X, end Y, etc..., speed of movement)
-// Because of how it currently works the starting X and Y need to be a lower value than ending X or Y.
-/*
-function BrickMoving(x, y, endX, endY, width, height, color, lives, speed) {
-	this.prototype = new BaseBlock(x, y, width, height, color, lives);
+
+
+
+function Block(x, y, width, height, color) {
+	this.prototype = new BaseBlock(x, y, width, height, color, 1);
+
 	let brick = this.prototype;
-
-	// Startposition of move
-	this.startX = (x * (brickWidth + brickPaddingX)) + 20;
-	this.startY = (y * (brickHeight + brickPaddingX)) + 20;
-	// End position of move.
-	this.endX = (endX * (brickWidth + brickPaddingX)) + 20;
-	this.endY = (endY * (brickHeight + brickPaddingX)) + 20;
-
-
-	this.speedX = speed;
-	this.speedY = speed;
 
 	this.draw = function() {
 		brick.draw();
-		this.update();
-		if (brick.hitConfirm) {
-			brick.lives--;
-			if (brick.lives == 0) {
-				brick.brickKilled = true;
-			}
-		}
 	}	
+}			
 
-	this.update = function() {
-		if (this.startX != this.endX) {
-  	 	brick.x += (t * this.speedX);
-  	 }
-  	
-  	if (this.startY != this.endY) {
-  	 	brick.y += (t * this.speedY);
-  	}
 
-  	if(brick.x < this.startX || brick.x > this.endX){
-  	 	this.speedX = -this.speedX;
-  	}
-    
-  	if(brick.y < this.startY || brick.y > this.endY){
-  			this.speedY = -this.speedY;
-  	}	
-	}
-}
 
-*/
 
 function BrickMoving(pathX, pathY, color, lives, speed) {
 	this.prototype = new BaseBlock(pathX[0], pathY[0], brickWidth, brickHeight, color, lives);
@@ -135,8 +101,7 @@ function BrickMoving(pathX, pathY, color, lives, speed) {
 
 	this.pathX = [];
 	this.pathY = [];
-	this.speedX = speed;
-	this.speedY = speed;
+	this.speed = speed;
 
 	var updateLoop = 0;
 	var updateReverse = false;
@@ -165,20 +130,20 @@ function BrickMoving(pathX, pathY, color, lives, speed) {
 		if (!updateReverse) { //Initial movement. If updateReverse isn't false.
 			if(brick.x != this.pathX[updateLoop+1]) {  // if the x position isn't already at the next x position in the array
 				if (brick.x < this.pathX[updateLoop+1]) { // if the next position is a higher value than the current: add to x.
-					brick.x += this.speedX;
+					brick.x += this.speed;
 				}
 				if (brick.x > this.pathX[updateLoop+1]) { // if the next position is a lower value than current: subtract from x
-					brick.x -= this.speedX;
+					brick.x -= this.speed;
 				}
 			}
 
 			// Below code applies the same calculations to the y-axis
 			if(brick.y != this.pathY[updateLoop+1]) {
 				if (brick.y < this.pathY[updateLoop+1]) {
-					brick.y += this.speedY;
+					brick.y += this.speed;
 				}
 				if (brick.y > this.pathY[updateLoop+1]) {
-					brick.y -= this.speedY;
+					brick.y -= this.speed;
 				}
 			}
 
@@ -204,20 +169,20 @@ function BrickMoving(pathX, pathY, color, lives, speed) {
 		if (updateReverse) { //Initial movement. If updateReverse isn't false.
 			if(brick.x != this.pathX[updateLoop-1]) {  // if the x position isn't already at the next x position in the array
 				if (brick.x < this.pathX[updateLoop-1]) { // if the next position is a higher value than the current: add to x.
-					brick.x += this.speedX;
+					brick.x += this.speed;
 				}
 				if (brick.x > this.pathX[updateLoop-1]) { // if the next position is a lower value than current: subtract from x
-					brick.x -= this.speedX;
+					brick.x -= this.speed;
 				}
 			}
 
 			// Below code applies the same calculations to the y-axis
 			if(brick.y != this.pathY[updateLoop-1]) {
 				if (brick.y < this.pathY[updateLoop-1]) {
-					brick.y += this.speedY;
+					brick.y += this.speed;
 				}
 				if (brick.y > this.pathY[updateLoop-1]) {
-					brick.y -= this.speedY;
+					brick.y -= this.speed;
 				}
 			}
 

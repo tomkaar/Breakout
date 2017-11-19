@@ -9,8 +9,6 @@ function gameloop() {
   drawLife();
   drawScore();
 
-  //brick1.draw();
-  //levelsArray[currentLevel][1].draw();
   moveBrick.draw();
   moveBrick2.draw();
   moveBrick3.draw();

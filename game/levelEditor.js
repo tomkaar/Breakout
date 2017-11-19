@@ -3,12 +3,13 @@
   var tableCol = 11;
   var select = document.getElementById("select");
   var levelSelected = 0;
-
   var newLevels = levels;
+
+  var instructions = document.getElementById("howTo");
 
   // Inputs
   var inputType = document.getElementById("inputType");
-  var inputTypeSelect = document.getElementById("inputType");
+  // Input Types
   var inputColor = document.getElementById("inputColor");
   var inputLives = document.getElementById("inputLives");
 
@@ -24,8 +25,15 @@ ChangeWandH();
 function ChangeWandH(){
   for(var i = 0; i < newLevels.length; i++){
     for(var j = 0; j < newLevels[i].length; j++){
-      newLevels[i][j][3] = "brickWidth";
-      newLevels[i][j][4] = "brickHeight";
+      // if "Brick"
+      if(newLevels[i][j][0] == "Brick"){
+        newLevels[i][j][3] = "brickWidth";
+        newLevels[i][j][4] = "brickHeight";
+      }
+      if(newLevels[i][j][0] == "BrickMoving"){
+        newLevels[i][j][4] = "brickWidth";
+        newLevels[i][j][5] = "brickHeight";
+      }
     }
   }
 }
@@ -76,7 +84,20 @@ function LoadLevels(){
 
 
 
+function currentBlockType(){
+  // hide all inputs
+  inputColor.style.display = "none";
+  inputLives.style.display = "none";
 
+  // get inputType
+  let current = inputType.options[inputType.selectedIndex].innerHTML;
+
+  // if type == "this" -> show these inputs
+  if(current == "Brick"){
+    inputColor.style.display = "block";
+    inputLives.style.display = "block";
+  }
+}
 
 
 
@@ -91,7 +112,7 @@ function currentlySelected(){
 function drawThisLevel(){
   // Reset Table (to stop level from being draw on to of a other level)
   ResetTable();
-  
+
   // Find the selected level in the 'levels' array
   var selected = newLevels[levelSelected];
 
@@ -100,9 +121,16 @@ function drawThisLevel(){
     let currentBrick = newLevels[levelSelected][i];
     // find type ( call different functions depending on what type it is ) W.I.P
     // Use the data found in each item and call the draw function
-    drawBrick(currentBrick[0], currentBrick[1], currentBrick[2], currentBrick[3], currentBrick[4], currentBrick[5], currentBrick[6], currentBrick[7]);
+    if(currentBrick[0] == "Brick"){
+      drawBrick(currentBrick[0], currentBrick[1], currentBrick[2], currentBrick[3], currentBrick[4], currentBrick[5], currentBrick[6], currentBrick[7]);
+    }
   }
 }
+
+
+// Put his function directly in drawThisLevel function OR
+// OR
+// connect other functions to this function??
 
 // This is the function that changes/ draws the attribues on screen
 function drawBrick(type, x, y, width, height, color, life){
@@ -114,8 +142,12 @@ function drawBrick(type, x, y, width, height, color, life){
 
   // Style and set attributes
   cell.style.backgroundColor = color;
+  cell.innerHTML = type;
   cell.setAttribute("data-type", type);
   cell.setAttribute("data-lives", life);
+
+  // create tooltip
+  Tooltip(cell, type, color, life);
 
 }
 
@@ -141,11 +173,11 @@ function drawBrick(type, x, y, width, height, color, life){
 
 
 
-// Everytime you click this will happen (used to change bricks in editor)
+// Everytime you click on a cell in the table this will run
 function dataAttributeChange() {
-  // Get info from inputs
-  //let currentType = inputType.value;
-  let currentType = inputTypeSelect.options[inputTypeSelect.selectedIndex].value;
+
+  // Get info from all inputs
+  let currentType = inputType.options[inputType.selectedIndex].value;
   let currentColor = inputColor.value;
   let currentLives = inputLives.value;
 
@@ -153,19 +185,25 @@ function dataAttributeChange() {
 
   // Set attributes to new info
   let target = event.target;
-  
+
   target.setAttribute("data-type", currentType)
   target.setAttribute("data-lives", currentLives);
 
   if(currentType == "Remove"){
     target.style.backgroundColor = "transparent";
+    // removes text & Tooltip
+    target.innerHTML = "";
   } else{
     target.style.backgroundColor = currentColor;
+    target.innerHTML = currentType;
+    // Create tooltip
+    Tooltip(target, currentType, currentColor, currentLives);
   }
 
 
+
   // Redraw newLevels (Update newLevels Array)
-  
+
   // Find current level
   let current = select.options[select.selectedIndex].getAttribute("data-num");
   let c = newLevels[current];
@@ -174,7 +212,7 @@ function dataAttributeChange() {
 
   // Build new level
   let table = document.getElementById("table");
-  
+
   // Loop table + every cell
   for (let i = 0, row; row = table.rows[i]; i++) {
     for (let j = 0, col; col = row.cells[j]; j++) {
@@ -205,16 +243,14 @@ function dataAttributeChange() {
   // Set rebuilt level (c) to newLevels
   newLevels[current] = c;
 
-  // Print Attributes (data from Get Attributes above) (This is used to print the level editor in the text box)
-
+  // Update Print
   Print();
-
 }
 
 
 
 
-// Update and print to text box
+// Update and print to text box, based on newLevels array
 function Print(){
   // Reset box
   outputBox.innerHTML = "";
@@ -255,29 +291,30 @@ function Print(){
 
 
 // Reset table
-// To write a brick we check the data-type, if the data-type is not " " we know there's a brick there. 
-// So to reset all we have to do is to remove the color and change the data-type to " "
+// To write a brick we check the data-type, if the data-type is not " " we know there's a brick there.
+// So to reset everything we have to do is to remove the color and change the data-type to " "
 // The other information (lives, score etc.) can stay as it is, when we add a new brick on that location
-// That information will be updated and used
+// said information will be updated and used
 
 function ResetTable(){
   let table = document.getElementById("table");
-  
+
   // Loop every cell
   for (let i = 0, row; row = table.rows[i]; i++) {
     for (let j = 0, col; col = row.cells[j]; j++) {
       // reset each cell
       table.rows[i].cells[j].style.background = "transparent";
       table.rows[i].cells[j].setAttribute("data-type", " ");
+      table.rows[i].cells[j].innerHTML = "";
     }
   }
 }
 
-// Clear level
+// Clear level, remove all bricks on that level without removing teh level itself
 function ClearLevel(){
-  // Clear Table
+  // Clear Table (colors and data-type
   ResetTable();
-  // reset current Level array
+  // reset current Level in array
   let current = select.options[select.selectedIndex].getAttribute("data-num");
   newLevels[current] = [];
   // Print new to update text area
@@ -308,14 +345,36 @@ function download(filename, text) {
   document.body.removeChild(element);
 }
 
+// Set local storage for Instructions
+localStorage.setItem("instructions", "false");
+function setInstructionsLS() {
+  let LSbtn = document.getElementById("dns-btn");
+  let checked = LSbtn.checked;
+  if(checked){
+    localStorage.setItem("instructions", "true");
+  } else{
+    localStorage.setItem("instructions", "false");
+  }
+}
 
 // hide/ show editor
 function showEditor(){
   document.getElementById("editor").className = "show";
+
+  // Show popup with instructions
+  let checked = localStorage.getItem("instructions")
+  if(checked == "false"){
+    instructions.style.display = "block";
+  }
 }
 
-function hideEditor(){
-  document.getElementById("editor").className = "hide";
+function hideEditor(){ document.getElementById("editor").className = "hide"; }
+
+function hideInstructions() {
+  instructions.style.display = "none";
+}
+function showInstructions(){
+  instructions.style.display = "block";
 }
 
 
@@ -332,9 +391,7 @@ function removeThisLevel(){
     newLevels.splice(current, 1);
   }
 
-  
-
-  updateBase();
+  createUpdate();
 }
 
 
@@ -346,7 +403,7 @@ function createAfter(){
   // Create new empty array before in 'newLevels'
   newLevels.splice(c, 0, []);
 
-  updateBase();
+  createUpdate();
 }
 
 function createBefore(){
@@ -355,17 +412,32 @@ function createBefore(){
   // Create new empty array before in 'newLevels'
   newLevels.splice(c, 0, []);
 
-  updateBase();
+  createUpdate();
 }
 
 
-function updateBase(){
-
+function createUpdate(){
   // Clear Options from select to avoid duplicates
   while (select.hasChildNodes()) {
     select.removeChild(select.lastChild);
   }
-
   // Run LoadLevels to update dropdown
   LoadLevels();
+}
+
+
+function removeTooltip(pos){
+  //pos.removeChild();
+}
+
+// Tooltip
+function Tooltip(pos, type, color, life){
+
+  var div = document.createElement("div");
+  div.innerHTML = "Type: " + type + "<br>Color: " + color + "<br>Lives: " + life;
+  pos.appendChild(div);
+
+
+
+  //
 }

@@ -1,21 +1,21 @@
 @import url('https://fonts.googleapis.com/css?family=Press+Start+2P');
 
-*{ 
-  margin: 0; 
-  padding: 0; 
+*{
+  margin: 0;
+  padding: 0;
 }
 
 html, body{
-  overflow: hidden; 
+  overflow: hidden;
     position: relative;
     background: black;
 }
 
-#canvas{ 
+#canvas{
   font-family: 'Press Start 2P', cursive;
   position: relative;
   transition: 0.01s all linear;
-  background-color: rgba(255, 0, 0, 0); 
+  background-color: rgba(255, 0, 0, 0);
 }
 
 #screenRed {
@@ -60,7 +60,7 @@ html, body{
   #pausscreen.active{
     background: rgba(0, 0, 0, 1);
   }
-  
+
   .startscreen-wrapper,
   .gameoverscreen-wrapper,
   .pausscreen-wrapper,
@@ -79,7 +79,7 @@ html, body{
       position: absolute;
       left: 50%;
       color: white;
-      animation: 5s bigshake ease-in-out 1s; 
+      animation: 5s bigshake ease-in-out 1s;
       animation-fill-mode: forwards;
       transform: translate(-50%, -140px) rotate(-5deg);
       font-size: 80px !important;
@@ -132,7 +132,7 @@ html, body{
   }
   #gameoverscreen .gameover-logo{
     color: lightgrey;
-    animation: 5s turnred ease-in-out 1s; 
+    animation: 5s turnred ease-in-out 1s;
     animation-fill-mode: forwards;
     font-size: 80px !important;
     line-height: 80px !important;
@@ -198,7 +198,7 @@ html, body{
   }
 
   #winscreen.active .win-logo{
-    animation: 5s turngreen ease-in-out 1s; 
+    animation: 5s turngreen ease-in-out 1s;
     animation-fill-mode: forwards;
   }
 
@@ -251,6 +251,17 @@ html, body{
   background: black;
   overflow: auto;
 }
+  #editor #back{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5%;
+    height: 40px;
+    color: white;
+    font-size: 30px;
+    text-align: center;
+    cursor: pointer;
+  }
   #editor.show{
     display: block;
   }
@@ -270,10 +281,34 @@ html, body{
     border-collapse: collapse;
   }
     #editor .s1 table tr td{
+      position: relative;
       border: 1px solid white;
       width: 40px;
       height: 40px;
       line-height: 40px;
+      cursor: pointer;
+      transition-delay: 0s;
+    }
+    #editor .s1 table tr td:hover div{
+      visibility: visible;
+      transition-delay: 0.5s;
+    }
+
+    #editor .s1 table tr td div{
+      pointer-events: none;
+      z-index: 99999;
+      visibility: hidden;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 100px;
+      background: rgba(0, 0, 0, 0.8);
+      border: 1px solid white;
+      color: white;
+      line-height: 20px;
+      font-size: 14px;
+      padding: 10px;
+      transform: translateX(-50%);
     }
 
 #editor p,
@@ -281,7 +316,8 @@ html, body{
   color: white;
 }
 .title{
-
+  max-width: 90%;
+  margin-left: 5%;
 }
 .title span{
   cursor: pointer;
@@ -293,6 +329,16 @@ html, body{
   width: 100%;
   min-width: 400px;
   min-height: 200px;
+}
+
+
+#editor #style-options{
+  padding-bottom: 20px;
+}
+#editor #style-options input,
+#editor #style-options select{
+  float: left;
+  margin-right: 10px;
 }
 
 #instructions{
@@ -314,3 +360,88 @@ html, body{
 #instructions li ul li{
   margin-left: 40px;
 }
+
+
+#howTo{
+  display: none;
+  z-index: 99999;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  font-family: arial;
+}
+#howTo .bg{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  cursor: pointer;
+}
+  #howTo .wrap{
+    position: absolute;
+    top: 120px;
+    left: 50%;
+    width: 70%;
+    max-width: 800px;
+    height: auto;
+    padding: 25px;
+    background: white;
+    transform: translateX(-50%);
+    box-sizing: border-box;
+    border-radius: 5px;
+  }
+  #howTo .wrap .close{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 45px;
+    height: 45px;
+    padding-top: 7px;
+    text-align: center;
+    font-size: 25px;
+    box-sizing: border-box;
+    cursor: pointer;
+  }
+  #howTo .wrap .dns{
+    position: absolute;
+    top: 12px;
+    right: 50px;
+  }
+    #howTo .wrap .dns input,
+    #howTo .wrap .dns p{
+      float: right;
+    }
+    #howTo .wrap .dns input{
+      position: relative;
+      top: 3px;
+    }
+    #howTo .wrap .dns p{
+      padding-right: 10px;
+    }
+  #howTo .wrap ul{
+    margin-left: 25px;
+    list-style-type: decimal;
+  }
+  #howTo .wrap ul li{ margin-top: 13px; }
+  #howTo .wrap ul li ul{
+    margin-left: 25px;
+    list-style-type: square;
+    margin-top: 0px;
+  }
+  #howTo .wrap ul li ul li{ margin-top: 3px; }
+  #howTo .wrap ul li ul li ul{
+    margin-left: 25px;
+    list-style-type: circle;
+    margin-top: 0px;
+  }
+  #howTo .wrap ul li ul li ul li{ margin-top: 3px; }
+
+  .open-inst{
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    color: white;
+    cursor: pointer;
+  }
