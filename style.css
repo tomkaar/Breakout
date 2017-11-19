@@ -301,7 +301,7 @@ html, body{
       position: absolute;
       top: 0;
       left: 50%;
-      width: 100px;
+      min-width: 100%;
       background: rgba(0, 0, 0, 0.8);
       border: 1px solid white;
       color: white;
@@ -309,6 +309,8 @@ html, body{
       font-size: 14px;
       padding: 10px;
       transform: translateX(-50%);
+      box-sizing: border-box;
+      white-space: nowrap;
     }
 
 #editor p,
@@ -445,3 +447,5 @@ html, body{
     color: white;
     cursor: pointer;
   }
+
+.pointer{ cursor: pointer;}

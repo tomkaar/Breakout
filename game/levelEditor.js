@@ -25,8 +25,7 @@ ChangeWandH();
 function ChangeWandH(){
   for(var i = 0; i < newLevels.length; i++){
     for(var j = 0; j < newLevels[i].length; j++){
-      // if "Brick"
-      if(newLevels[i][j][0] == "Brick"){
+      if(newLevels[i][j][0] == "Brick" || newLevels[i][j][0] == "Block"){
         newLevels[i][j][3] = "brickWidth";
         newLevels[i][j][4] = "brickHeight";
       }
@@ -83,7 +82,7 @@ function LoadLevels(){
 }
 
 
-
+// Currently selected -> Inputs show
 function currentBlockType(){
   // hide all inputs
   inputColor.style.display = "none";
@@ -93,6 +92,9 @@ function currentBlockType(){
   let current = inputType.options[inputType.selectedIndex].innerHTML;
 
   // if type == "this" -> show these inputs
+  if(current == "Block"){
+    inputColor.style.display = "block";
+  }
   if(current == "Brick"){
     inputColor.style.display = "block";
     inputLives.style.display = "block";
@@ -121,6 +123,9 @@ function drawThisLevel(){
     let currentBrick = newLevels[levelSelected][i];
     // find type ( call different functions depending on what type it is ) W.I.P
     // Use the data found in each item and call the draw function
+    if(currentBrick[0] == "Block"){
+      drawBlock(currentBrick[0], currentBrick[1], currentBrick[2], currentBrick[3], currentBrick[4], currentBrick[5], currentBrick[6]);
+    }
     if(currentBrick[0] == "Brick"){
       drawBrick(currentBrick[0], currentBrick[1], currentBrick[2], currentBrick[3], currentBrick[4], currentBrick[5], currentBrick[6], currentBrick[7]);
     }
@@ -134,7 +139,6 @@ function drawThisLevel(){
 
 // This is the function that changes/ draws the attribues on screen
 function drawBrick(type, x, y, width, height, color, life){
-
   // Find the right location in the table
   let table = document.getElementById("table");
   let col = table.querySelector("tr:nth-child(" + (Number(y)+1) + ")");
@@ -147,8 +151,21 @@ function drawBrick(type, x, y, width, height, color, life){
   cell.setAttribute("data-lives", life);
 
   // create tooltip
-  Tooltip(cell, type, color, life);
+  BrickTooltip(cell, type, color, life);
+}
+function drawBlock(type, x, y, width, height, color){
+  // Find the right location in the table
+  let table = document.getElementById("table");
+  let col = table.querySelector("tr:nth-child(" + (Number(y)+1) + ")");
+  let cell = col.querySelector("td:nth-child(" + (Number(x)+1) + ")")
 
+  // Style and set attributes
+  cell.style.backgroundColor = color;
+  cell.innerHTML = type;
+  cell.setAttribute("data-type", type);
+
+  // create tooltip
+  BlockTooltip(cell, type, color);
 }
 
 
@@ -181,8 +198,6 @@ function dataAttributeChange() {
   let currentColor = inputColor.value;
   let currentLives = inputLives.value;
 
-
-
   // Set attributes to new info
   let target = event.target;
 
@@ -193,11 +208,18 @@ function dataAttributeChange() {
     target.style.backgroundColor = "transparent";
     // removes text & Tooltip
     target.innerHTML = "";
-  } else{
+  }
+  else if(currentType == "Brick"){
     target.style.backgroundColor = currentColor;
     target.innerHTML = currentType;
     // Create tooltip
-    Tooltip(target, currentType, currentColor, currentLives);
+    BrickTooltip(target, currentType, currentColor, currentLives);
+  }
+  else if(currentType == "Block"){
+    target.style.backgroundColor = currentColor;
+    target.innerHTML = currentType;
+    // Create tooltip
+    BlockTooltip(target, currentType, currentColor, currentLives);
   }
 
 
@@ -238,6 +260,23 @@ function dataAttributeChange() {
 
         c.push(newBrick);
       }
+      if(thisType == "Block"){
+        // Create new array (item) and push is the c
+        let newBrick = [];
+          let newType = thisType;
+          let newRow = thisBrick.getAttribute("data-row");
+          let newCol = thisBrick.getAttribute("data-col");
+          let newColor = thisBrick.style.backgroundColor;
+
+          newBrick.push(newType);
+          newBrick.push(parseInt(newCol));
+          newBrick.push(parseInt(newRow));
+          newBrick.push("brickWidth");
+          newBrick.push("brickHeight");
+          newBrick.push(newColor);
+
+        c.push(newBrick);
+      }
     }
   }
   // Set rebuilt level (c) to newLevels
@@ -266,6 +305,9 @@ function Print(){
 
       if(newLevels[i][j][0] == "Brick"){
         outputBox.innerHTML += "\"" + newLevels[i][j][0] + "\", " + newLevels[i][j][1] + ", " + newLevels[i][j][2] + ", " + newLevels[i][j][3] + ", " + newLevels[i][j][4] + ", \"" + newLevels[i][j][5] + "\", " + newLevels[i][j][6];
+      }
+      if(newLevels[i][j][0] == "Block"){
+        outputBox.innerHTML += "\"" + newLevels[i][j][0] + "\", " + newLevels[i][j][1] + ", " + newLevels[i][j][2] + ", " + newLevels[i][j][3] + ", " + newLevels[i][j][4] + ", \"" + newLevels[i][j][5] + "\"";
       }
 
       outputBox.innerHTML += "],\n";
@@ -345,8 +387,11 @@ function download(filename, text) {
   document.body.removeChild(element);
 }
 
+
+
+
+
 // Set local storage for Instructions
-localStorage.setItem("instructions", "false");
 function setInstructionsLS() {
   let LSbtn = document.getElementById("dns-btn");
   let checked = LSbtn.checked;
@@ -360,22 +405,36 @@ function setInstructionsLS() {
 // hide/ show editor
 function showEditor(){
   document.getElementById("editor").className = "show";
-
-  // Show popup with instructions
-  let checked = localStorage.getItem("instructions")
-  if(checked == "false"){
-    instructions.style.display = "block";
+  let checked = localStorage.getItem("instructions");
+  if(checked == "true"){
+    hideInstructions();
+  } else {
+    showInstructions();
   }
 }
 
-function hideEditor(){ document.getElementById("editor").className = "hide"; }
-
-function hideInstructions() {
-  instructions.style.display = "none";
+function hideEditor(){
+  document.getElementById("editor").className = "hide";
+  location.reload();
 }
+
+function hideInstructions() { instructions.style.display = "none"; }
 function showInstructions(){
+  // Get LS
+  let checked = localStorage.getItem("instructions");
+  let LSbtn = document.getElementById("dns-btn");
+
+  // Set button
+  if(checked == "true"){
+    LSbtn.checked = true;
+  } else{
+    LSbtn.checked = false;
+  }
   instructions.style.display = "block";
 }
+
+
+
 
 
 // Remove this level
@@ -405,7 +464,6 @@ function createAfter(){
 
   createUpdate();
 }
-
 function createBefore(){
   // Find current level in newLevel Array
   let current = select.options[select.selectedIndex].getAttribute("data-num");
@@ -414,8 +472,6 @@ function createBefore(){
 
   createUpdate();
 }
-
-
 function createUpdate(){
   // Clear Options from select to avoid duplicates
   while (select.hasChildNodes()) {
@@ -426,18 +482,18 @@ function createUpdate(){
 }
 
 
-function removeTooltip(pos){
-  //pos.removeChild();
-}
+
+
 
 // Tooltip
-function Tooltip(pos, type, color, life){
-
+function BrickTooltip(pos, type, color, life){
   var div = document.createElement("div");
   div.innerHTML = "Type: " + type + "<br>Color: " + color + "<br>Lives: " + life;
   pos.appendChild(div);
+}
 
-
-
-  //
+function BlockTooltip(pos, type, color){
+  var div = document.createElement("div");
+  div.innerHTML = "Type: " + type + "<br>Color: " + color;
+  pos.appendChild(div);
 }

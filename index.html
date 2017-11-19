@@ -28,6 +28,7 @@
           <select id="inputType" onChange="currentBlockType()">
             <option>Remove</option>
             <option selected="selected">Brick</option>
+            <option>Block</option>
           </select>
           <input type="text" placeholder="Color" value="lightblue" id="inputColor">
           <input type="text" placeholder="Lives" value="1" id="inputLives">
@@ -111,7 +112,7 @@
       <div class="pausscreen-wrapper">
         <p>Paused!</p>
         <p onclick="Paus()" class="paused-resume">Continue Playing</p>
-        <p onclick="restartGame()">Back to Menu</p>
+        <p onclick="restartGame()" class="pointer">Back to Menu</p>
       </div>
     </div>
 
