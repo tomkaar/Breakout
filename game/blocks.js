@@ -81,6 +81,7 @@ function Brick(x, y, width, height, color, lives) {
 
 // Create a moving block by making a new object = new BrickMoving(starting X, starting Y, end X, end Y, etc..., speed of movement)
 // Because of how it currently works the starting X and Y need to be a lower value than ending X or Y.
+/*
 function BrickMoving(x, y, endX, endY, width, height, color, lives, speed) {
 	this.prototype = new BaseBlock(x, y, width, height, color, lives);
 	let brick = this.prototype;
@@ -121,7 +122,117 @@ function BrickMoving(x, y, endX, endY, width, height, color, lives, speed) {
   	}
     
   	if(brick.y < this.startY || brick.y > this.endY){
-  		this.speedY = -this.speedY;
+  			this.speedY = -this.speedY;
   	}	
+	}
+}
+
+*/
+
+function BrickMoving(pathX, pathY, color, lives, speed) {
+	this.prototype = new BaseBlock(pathX[0], pathY[0], brickWidth, brickHeight, color, lives);
+	let brick = this.prototype;
+
+	this.pathX = [];
+	this.pathY = [];
+	this.speedX = speed;
+	this.speedY = speed;
+
+	var updateLoop = 0;
+	var updateReverse = false;
+
+	// Startposition of move. Calculates the actual coordinates from the tile-based numbers from the inparameters.
+	for (let i = 0; i < pathX.length; i++) {
+		this.pathX[i] = (pathX[i] * (brickWidth + brickPaddingX)) + 20;
+	}
+	for (let i = 0; i < pathY.length; i++) {
+		this.pathY[i] = (pathY[i] * (brickHeight + brickPaddingX)) + 20;
+	}
+
+	this.draw = function() {
+		brick.draw();
+		this.update();
+		if (brick.hitConfirm) {
+			brick.lives--;
+			if (brick.lives == 0) {
+				brick.brickKilled = true;
+			}
+		}
+	}
+
+	this.update = function() {
+
+		if (!updateReverse) { //Initial movement. If updateReverse isn't false.
+			if(brick.x != this.pathX[updateLoop+1]) {  // if the x position isn't already at the next x position in the array
+				if (brick.x < this.pathX[updateLoop+1]) { // if the next position is a higher value than the current: add to x.
+					brick.x += this.speedX;
+				}
+				if (brick.x > this.pathX[updateLoop+1]) { // if the next position is a lower value than current: subtract from x
+					brick.x -= this.speedX;
+				}
+			}
+
+			// Below code applies the same calculations to the y-axis
+			if(brick.y != this.pathY[updateLoop+1]) {
+				if (brick.y < this.pathY[updateLoop+1]) {
+					brick.y += this.speedY;
+				}
+				if (brick.y > this.pathY[updateLoop+1]) {
+					brick.y -= this.speedY;
+				}
+			}
+
+			// if bricks x-position and y-position both equal their next positions: update to the next position in the array.
+			if ((brick.x < this.pathX[updateLoop+1]+3 && brick.x > this.pathX[updateLoop+1]-3) 
+				&& (brick.y < this.pathY[updateLoop+1]+3 && brick.y > this.pathY[updateLoop+1]-3)) {				
+				updateLoop++;
+
+				// if the current update loop reaches the same position as the last value in both arrays
+				if ((updateLoop == this.pathX.length-1) && (updateLoop == this.pathY.length-1)){
+					// If neither x or y arrays end with the same position they start in: Reverse the animation. Otherwise it will loop.
+					if ((this.pathX[0] == this.pathX[updateLoop]) && (this.pathY[0] == this.pathY[updateLoop])) {
+						updateLoop = 0;
+					}
+					else {
+						updateReverse = true;
+					}
+				}
+			}
+		}
+
+		// All of the above but in reverse.
+		if (updateReverse) { //Initial movement. If updateReverse isn't false.
+			if(brick.x != this.pathX[updateLoop-1]) {  // if the x position isn't already at the next x position in the array
+				if (brick.x < this.pathX[updateLoop-1]) { // if the next position is a higher value than the current: add to x.
+					brick.x += this.speedX;
+				}
+				if (brick.x > this.pathX[updateLoop-1]) { // if the next position is a lower value than current: subtract from x
+					brick.x -= this.speedX;
+				}
+			}
+
+			// Below code applies the same calculations to the y-axis
+			if(brick.y != this.pathY[updateLoop-1]) {
+				if (brick.y < this.pathY[updateLoop-1]) {
+					brick.y += this.speedY;
+				}
+				if (brick.y > this.pathY[updateLoop-1]) {
+					brick.y -= this.speedY;
+				}
+			}
+
+			// if bricks x-position and y-position both equal their next positions: update to the next position in the array.
+			if ((brick.x < this.pathX[updateLoop-1]+3 && brick.x > this.pathX[updateLoop-1]-3) 
+				&& (brick.y < this.pathY[updateLoop-1]+3 && brick.y > this.pathY[updateLoop-1]-3)) {				
+				updateLoop--;
+
+				// Since updateReverse will only be true if there isn't a "loop" it will always spin updateReverse back to false.
+				if (updateLoop == 0){
+					updateReverse = false;				
+				}
+			}
+		}
+
+
 	}
 }

@@ -12,7 +12,9 @@ function gameloop() {
   //brick1.draw();
   //levelsArray[currentLevel][1].draw();
   moveBrick.draw();
-  
+  moveBrick2.draw();
+  moveBrick3.draw();
+
   drawLevels();
 
   // Make gameloop run
@@ -21,7 +23,9 @@ function gameloop() {
 window.requestAnimationFrame(gameloop);
 
 // Testing bricks.
-var moveBrick = new BrickMoving(1, 4, 9, 7, brickWidth, brickHeight, "green", 2, 2);
+var moveBrick = new BrickMoving([1, 7, 7, 1, 1], [6, 6, 8, 8, 6], "green", 2, 2);
+var moveBrick2 = new BrickMoving([3, 5], [7, 7], "blue", 2, 2);
+var moveBrick3 = new BrickMoving([8, 8, 10, 10], [4, 7, 7, 4], "brown", 2, 2);
  //var brick1 = new Brick(200, 50, 300, 300, "red", 2);
 
 // END of testing bricks
