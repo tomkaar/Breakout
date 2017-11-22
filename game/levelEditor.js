@@ -9,9 +9,14 @@
 
   // Inputs
   var inputType = document.getElementById("inputType");
+
   // Input Types
   var inputColor = document.getElementById("inputColor");
   var inputLives = document.getElementById("inputLives");
+
+  // Input Types wrap
+  var inputColorWrap = document.getElementById("inputColorWrap");
+  var inputLivesWrap = document.getElementById("inputLivesWrap");
 
   // Output
   var outputBox = document.getElementById("output");
@@ -68,8 +73,8 @@ function createTable(){
 
 
 // load levels from array and create Options that allows you to choose and switch between levels
-LoadLevels();
-function LoadLevels(){
+LoadLevels(0);
+function LoadLevels(c){
   // Create options
   for(var i = 0; i < newLevels.length; i++){
     var option = document.createElement("option");
@@ -77,6 +82,9 @@ function LoadLevels(){
     option.setAttribute("data-num", i);
     select.add(option);
   }
+  // Set levels
+  select.selectedIndex = c;
+  // Set selected + Update print in textbpx
   currentlySelected();
   Print();
 }
@@ -85,19 +93,19 @@ function LoadLevels(){
 // Currently selected -> Inputs show
 function currentBlockType(){
   // hide all inputs
-  inputColor.style.display = "none";
-  inputLives.style.display = "none";
+  inputColorWrap.style.display = "none";
+  inputLivesWrap.style.display = "none";
 
   // get inputType
   let current = inputType.options[inputType.selectedIndex].innerHTML;
 
   // if type == "this" -> show these inputs
   if(current == "Block"){
-    inputColor.style.display = "block";
+    inputColorWrap.style.display = "block";
   }
   if(current == "Brick"){
-    inputColor.style.display = "block";
-    inputLives.style.display = "block";
+    inputColorWrap.style.display = "block";
+    inputLivesWrap.style.display = "block";
   }
 }
 
@@ -193,97 +201,117 @@ function drawBlock(type, x, y, width, height, color){
 // Everytime you click on a cell in the table this will run
 function dataAttributeChange() {
 
+  // You can not place a block if "ok" is not true
+  let ok = true;
+
   // Get info from all inputs
   let currentType = inputType.options[inputType.selectedIndex].value;
   let currentColor = inputColor.value;
   let currentLives = inputLives.value;
 
-  // Set attributes to new info
-  let target = event.target;
-
-  target.setAttribute("data-type", currentType)
-  target.setAttribute("data-lives", currentLives);
-
-  if(currentType == "Remove"){
-    target.style.backgroundColor = "transparent";
-    // removes text & Tooltip
-    target.innerHTML = "";
-  }
-  else if(currentType == "Brick"){
-    target.style.backgroundColor = currentColor;
-    target.innerHTML = currentType;
-    // Create tooltip
-    BrickTooltip(target, currentType, currentColor, currentLives);
-  }
-  else if(currentType == "Block"){
-    target.style.backgroundColor = currentColor;
-    target.innerHTML = currentType;
-    // Create tooltip
-    BlockTooltip(target, currentType, currentColor, currentLives);
-  }
-
-
-
-  // Redraw newLevels (Update newLevels Array)
-
-  // Find current level
-  let current = select.options[select.selectedIndex].getAttribute("data-num");
-  let c = newLevels[current];
-  // Reset this level (remove all items)
-  c = [];
-
-  // Build new level
-  let table = document.getElementById("table");
-
-  // Loop table + every cell
-  for (let i = 0, row; row = table.rows[i]; i++) {
-    for (let j = 0, col; col = row.cells[j]; j++) {
-      // if data-type is Brick -> This is a block we can draw
-      let thisBrick = table.rows[i].cells[j];
-      let thisType = thisBrick.getAttribute("data-type");
-      if(thisType == "Brick"){
-        // Create new array (item) and push is the c
-        let newBrick = [];
-          let newType = thisType;
-          let newRow = thisBrick.getAttribute("data-row");
-          let newCol = thisBrick.getAttribute("data-col");
-          let newColor = thisBrick.style.backgroundColor;
-          let newLives = thisBrick.getAttribute("data-lives");
-
-          newBrick.push(newType);
-          newBrick.push(parseInt(newCol));
-          newBrick.push(parseInt(newRow));
-          newBrick.push("brickWidth");
-          newBrick.push("brickHeight");
-          newBrick.push(newColor);
-          newBrick.push(parseInt(newLives));
-
-        c.push(newBrick);
-      }
-      if(thisType == "Block"){
-        // Create new array (item) and push is the c
-        let newBrick = [];
-          let newType = thisType;
-          let newRow = thisBrick.getAttribute("data-row");
-          let newCol = thisBrick.getAttribute("data-col");
-          let newColor = thisBrick.style.backgroundColor;
-
-          newBrick.push(newType);
-          newBrick.push(parseInt(newCol));
-          newBrick.push(parseInt(newRow));
-          newBrick.push("brickWidth");
-          newBrick.push("brickHeight");
-          newBrick.push(newColor);
-
-        c.push(newBrick);
+    // if one or more inputs are empty or only contains a space
+    if(currentType == "Brick"){
+      if(currentColor == "" || currentColor == " " || currentLives == "" || currentLives == " "){
+        alert("One or more fields are empty.");
+        ok = false;
       }
     }
-  }
-  // Set rebuilt level (c) to newLevels
-  newLevels[current] = c;
+    if(currentType == "Block"){
+      if(currentColor == "" || currentColor == " "){
+        alert("One or more fields are empty.");
+        ok = false;
+      }
+    }
+    if(isNaN(currentLives) != false){
+      alert("Lives is NotaNumber");
+      ok = false;
+    }
 
-  // Update Print
-  Print();
+  if(ok){
+    // Set attributes to new info
+    let target = event.target;
+
+    target.setAttribute("data-type", currentType)
+    target.setAttribute("data-lives", currentLives);
+
+    if(currentType == "Remove"){
+      target.style.backgroundColor = "transparent";
+      // removes text & Tooltip
+      target.innerHTML = "";
+    }
+    else if(currentType == "Brick"){
+      target.style.backgroundColor = currentColor;
+      target.innerHTML = currentType;
+      // Create tooltip
+      BrickTooltip(target, currentType, currentColor, currentLives);
+    }
+    else if(currentType == "Block"){
+      target.style.backgroundColor = currentColor;
+      target.innerHTML = currentType;
+      // Create tooltip
+      BlockTooltip(target, currentType, currentColor, currentLives);
+    }
+
+    // Redraw newLevels (Update newLevels Array)
+      // Find current level
+      let current = select.options[select.selectedIndex].getAttribute("data-num");
+      let c = newLevels[current];
+      // Reset this level (remove all items)
+      c = [];
+
+      // Build new level
+      let table = document.getElementById("table");
+
+      // Loop table + every cell
+      for (let i = 0, row; row = table.rows[i]; i++) {
+        for (let j = 0, col; col = row.cells[j]; j++) {
+          // if data-type is Brick -> This is a block we can draw
+          let thisBrick = table.rows[i].cells[j];
+          let thisType = thisBrick.getAttribute("data-type");
+          if(thisType == "Brick"){
+            // Create new array (item) and push is the c
+            let newBrick = [];
+              let newType = thisType;
+              let newRow = thisBrick.getAttribute("data-row");
+              let newCol = thisBrick.getAttribute("data-col");
+              let newColor = thisBrick.style.backgroundColor;
+              let newLives = thisBrick.getAttribute("data-lives");
+
+              newBrick.push(newType);
+              newBrick.push(parseInt(newCol));
+              newBrick.push(parseInt(newRow));
+              newBrick.push("brickWidth");
+              newBrick.push("brickHeight");
+              newBrick.push(newColor);
+              newBrick.push(parseInt(newLives));
+
+            c.push(newBrick);
+          }
+          if(thisType == "Block"){
+            // Create new array (item) and push is the c
+            let newBrick = [];
+              let newType = thisType;
+              let newRow = thisBrick.getAttribute("data-row");
+              let newCol = thisBrick.getAttribute("data-col");
+              let newColor = thisBrick.style.backgroundColor;
+
+              newBrick.push(newType);
+              newBrick.push(parseInt(newCol));
+              newBrick.push(parseInt(newRow));
+              newBrick.push("brickWidth");
+              newBrick.push("brickHeight");
+              newBrick.push(newColor);
+
+            c.push(newBrick);
+          }
+        }
+      }
+      // Set rebuilt level (c) to newLevels
+      newLevels[current] = c;
+
+    // Update Print
+    Print();
+  }
 }
 
 
@@ -441,7 +469,6 @@ function showInstructions(){
 function removeThisLevel(){
   // Find current level in newLevel Array
   let current = select.options[select.selectedIndex].getAttribute("data-num");
-
   // If there is more then or equal to 1 level left
   if(select.length <= 1){
     alert("You need atleast one level, try 'Clear' instead.");
@@ -449,10 +476,8 @@ function removeThisLevel(){
     // remove 1 item at current position (this item)
     newLevels.splice(current, 1);
   }
-
   createUpdate();
 }
-
 
 // Create new levels
 function createAfter(){
@@ -462,24 +487,29 @@ function createAfter(){
   // Create new empty array before in 'newLevels'
   newLevels.splice(c, 0, []);
 
-  createUpdate();
+  createUpdate(c);
 }
+
 function createBefore(){
   // Find current level in newLevel Array
   let current = select.options[select.selectedIndex].getAttribute("data-num");
   // Create new empty array before in 'newLevels'
-  newLevels.splice(c, 0, []);
+  newLevels.splice(current, 0, []);
 
-  createUpdate();
+  createUpdate(current);
 }
-function createUpdate(){
+
+function createUpdate(c){
   // Clear Options from select to avoid duplicates
   while (select.hasChildNodes()) {
     select.removeChild(select.lastChild);
   }
   // Run LoadLevels to update dropdown
-  LoadLevels();
+  LoadLevels(c);
 }
+
+
+
 
 
 
@@ -496,4 +526,11 @@ function BlockTooltip(pos, type, color){
   var div = document.createElement("div");
   div.innerHTML = "Type: " + type + "<br>Color: " + color;
   pos.appendChild(div);
+}
+
+
+
+
+function toggleTextbox(){
+  outputBox.classList.toggle('visible');
 }

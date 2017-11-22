@@ -16,7 +16,7 @@
       </div>
 
       <div class="s2">
-        <p>Levels</p>
+        <p class="label">Levels</p>
         <select id="select" onChange="currentlySelected(this)"></select>
         <button onclick="ClearLevel()">Clear</button>
         <button onclick="removeThisLevel()">Remove</button>
@@ -24,17 +24,17 @@
         <button onclick="createAfter()">Create after</button>
         <br>
         <div id="style-options">
-          <p>Options</p>
+          <p class="label">Options</p>
           <select id="inputType" onChange="currentBlockType()">
             <option>Remove</option>
             <option selected="selected">Brick</option>
             <option>Block</option>
           </select>
-          <input type="text" placeholder="Color" value="lightblue" id="inputColor">
-          <input type="text" placeholder="Lives" value="1" id="inputLives">
+          <div id="inputColorWrap"><label>Color</label><input type="text" placeholder="Color (Color, Hex, Rgb ..)" value="lightblue" id="inputColor"></div>
+          <div id=inputLivesWrap><label>Lives</label><input type="text" placeholder="Lives" value="1" id="inputLives" maxlength="10"></div>
         </div>
 
-        <p>Output</p>
+        <p class="label">Output <span onclick="toggleTextbox()">Toogle Code</span></p>
         <form id="formform" onsubmit="return !! (download(this['name'].value, this['text'].value))">
           <textarea id="output" name="text" readonly placeholder="Level Code Output (Read Only)"></textarea>
           <input type="submit" value="Download">

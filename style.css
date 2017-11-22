@@ -330,18 +330,51 @@ html, body{
 #editor textarea{
   width: 100%;
   min-width: 400px;
-  min-height: 200px;
+  min-height: 0px;
+  height: 0px;
+  border: 0px solid transparent;
+  transition: 0.2s all ease;
 }
+  #output.visible{
+    min-height: 200px;
+    height: auto;
+  }
 
 
 #editor #style-options{
   padding-bottom: 20px;
 }
-#editor #style-options input,
+#editor #style-options input{
+  float: left;
+  margin-right: 10px;
+  padding: 1px 5px;
+  box-sizing: border-box;
+  border: 1px solid white;
+}
 #editor #style-options select{
   float: left;
   margin-right: 10px;
 }
+#editor #style-options label{
+  padding-left: 7px;
+  padding-right: 7px;
+  color: white;
+  float: left;
+}
+#editor .s2 .label{
+  padding-bottom: 3px;
+}
+  #editor .s2 .label span{
+    padding-bottom: 3px;
+    font-size: 10px;
+    cursor: pointer;
+  }
+  #inputType{
+    padding-top: 3px;
+  }
+  #inputLives{
+    width: 45px;
+  }
 
 #instructions{
   color: white;
@@ -371,9 +404,10 @@ html, body{
   width: 100%;
   height: 100%;
   font-family: arial;
+  overflow: auto;
 }
 #howTo .bg{
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -383,7 +417,7 @@ html, body{
 }
   #howTo .wrap{
     position: absolute;
-    top: 120px;
+    top: 35px;
     left: 50%;
     width: 70%;
     max-width: 800px;
